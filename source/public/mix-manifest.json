@@ -1,4 +1,9 @@
 {
     "/js/app.js": "/js/app.js",
-    "/css/app.css": "/css/app.css"
+    "/css/app.css": "/css/app.css",
+    "/images/default-avatar.png": "/images/default-avatar.png",
+    "/images/devit-logo-horizontal.svg": "/images/devit-logo-horizontal.svg",
+    "/images/devit-logo.svg": "/images/devit-logo.svg",
+    "/images/logo-white.png": "/images/logo-white.png",
+    "/images/logo.svg": "/images/logo.svg"
 }

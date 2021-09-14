@@ -1,0 +1,10 @@
+{
+    "Sidebar": {
+        "Dashboard": {
+            "MenuTitle": "Главная"
+        },
+        "Settings": {
+            "MenuTitle": "Настройки"
+        }
+    }
+}

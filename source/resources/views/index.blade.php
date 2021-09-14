@@ -14,6 +14,9 @@
 <body>
 <div id="root"></div>
 
-<script type="text/javascript" src="{{ asset('js/app.js') }}"></script>
+<script>
+    window.language=navigator.language || navigator.userLanguage
+</script>
+<script type="text/javascript" src="{{ mix('js/app.js') }}"></script>
 </body>
 </html>
