@@ -1,0 +1,18 @@
+version: "3"
+
+networks:
+  www2:
+    external: true
+
+services:
+  &node-service node:
+    user: "1000:1000"
+    container_name: *node-service
+    hostname: *node-service
+    restart: on-failure
+    image: "node:12.18.2"
+    working_dir: /var/www/resume
+    volumes:
+      - ../source:/var/www/resume:rw
+    networks:
+      www2:

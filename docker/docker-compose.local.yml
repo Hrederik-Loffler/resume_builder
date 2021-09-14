@@ -1,0 +1,73 @@
+version: "3"
+
+networks:
+  www2:
+    external: true
+  internal2:
+    external: false
+
+volumes:
+  db-data:
+
+services:
+  &db-service db_resume:
+    image: mysql:8
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_DATABASE}
+    volumes:
+      - db-data:/var/lib/mysql
+    networks:
+      internal2:
+  &fpm-service php_fpm_resume:
+    container_name: *fpm-service
+    hostname: *fpm-service
+    restart: unless-stopped
+    build:
+      ./php
+    environment:
+      CURRENT_USER: "${CURRENT_USER}"
+      FPM_USER: "${CURRENT_USER_ID}"
+      FPM_GROUP: "${CURRENT_USER_ID}"
+    volumes:
+      - ../source:/var/www/resume:rw
+    depends_on:
+      - *db-service
+    networks:
+      internal2:
+      www2:
+  &nginx-service nginx_resume:
+    container_name: *nginx-service
+    hostname: *nginx-service
+    restart: always
+    build:
+      ./nginx
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ../source:/var/www/resume:rw
+    ports:
+      - ${NGINX_CONTAINER_PORT}:80
+    networks:
+      www2:
+      internal2:
+    depends_on:
+      - *fpm-service
+  phpmyadmin:
+    restart: always
+    image: phpmyadmin
+    ports:
+      - ${PHP_MY_ADMIN_PORT}:80
+    environment:
+      PMA_HOST: db_resume
+      PMA_USER: ${DB_USERNAME}
+      PMA_PASSWORD: ${DB_PASSWORD}
+      UPLOAD_LIMIT: 1G
+    depends_on:
+      - *db-service
+    networks:
+      internal2:
+      www2:
