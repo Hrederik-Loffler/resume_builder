@@ -7,16 +7,18 @@
         content="minimum-scale=1, initial-scale=1, width=device-width"
     />
     <title>{{ config('app.name') }} | DevIt</title>
-    {{--    <link rel="icon" type="image/png" href="{{ mix('favicon.png') }}"/>--}}
-    {{--    <link rel="stylesheet" type="text/css" href="{{ mix('css/app.css') }}">--}}
-    {{--    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"/>--}}
+    <style>
+        body {
+            font-family: 'Nunito', sans-serif;
+        }
+    </style>
 </head>
-<body>
+<body class="antialiased">
 <div id="root"></div>
 
 <script>
     window.language=navigator.language || navigator.userLanguage
 </script>
-<script type="text/javascript" src="{{ mix('js/app.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/index.js') }}"></script>
 </body>
 </html>
