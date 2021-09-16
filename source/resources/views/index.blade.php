@@ -7,6 +7,7 @@
         content="minimum-scale=1, initial-scale=1, width=device-width"
     />
     <title>{{ config('app.name') }} | DevIt</title>
+    <link rel="icon" type="image/png" href="{{ mix('favicon.png') }}"/>
     <style>
         body {
             font-family: 'Nunito', sans-serif;

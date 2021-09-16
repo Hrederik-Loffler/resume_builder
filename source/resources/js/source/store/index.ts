@@ -4,7 +4,11 @@ import thunkMiddleware from 'redux-thunk';
 import axiosMiddleware from 'redux-axios-middleware';
 import axios from 'axios';
 import {createLogger} from "redux-logger";
+
+
+// @NOTE: Import misc.
 import rootReducer from "@reducers/root";
+import { IResumesReducerState } from "@reducers/resumes";
 
 const client = axios.create({
     baseURL: '/api',
@@ -20,5 +24,9 @@ const configureStore = (preloadedState: {} | undefined) => createStore(
     preloadedState,
     applyMiddleware(...middleware)
 )
+
+export interface IRootStore {
+    resumes: IResumesReducerState;
+}
 
 export default configureStore({});

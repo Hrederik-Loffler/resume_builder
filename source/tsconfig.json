@@ -30,6 +30,7 @@
         "baseUrl": "./" /* Specify the base directory to resolve non-relative module names. */,
         "paths": {
             /* Specify a set of entries that re-map imports to additional lookup locations. */
+            "@js/*": ["resources/js/source/*"],
             "@actions/*": ["resources/js/source/actions/*"],
             "@reducers/*": ["resources/js/source/reducers/*"],
             "@store/*": ["resources/js/source/store/*"],
@@ -38,6 +39,8 @@
             "@interfaces/*": ["resources/js/source/interfaces/*"],
             "@pages/*": ["resources/js/source/pages/*"],
             "@components/*": ["resources/js/source/components/*"],
+            "@common/*": ["resources/js/source/common/*"],
+            "@theme/*": ["resources/js/source/theme/*"],
 
             "@styles/*": ["resources/sass/*"],
             "@public/*": ["public/*"]
