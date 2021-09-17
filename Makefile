@@ -5,8 +5,8 @@ include .env
 #----------- Make Environment ----------------------
 .DEFAULT_GOAL := help
 SHELL= /bin/sh
-docker_bin= $(shell command -v docker 2> /dev/null)
-docker_compose_bin= $(shell command -v docker-compose 2> /dev/null)
+docker_bin= docker
+docker_compose_bin= docker-compose
 IMAGES_PREFIX= $(shell basename $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST)))))
 COMPOSE_CONFIG=--env-file .env -p $(PROJECT_NAME) -f docker/docker-compose.$(ENVIRONMENT).yml
 COMPOSE_NODE_CONFIG=--env-file .env -p $(PROJECT_NAME) -f docker/docker-compose.node.yml
@@ -24,6 +24,8 @@ up: ## Start all containers (in background)
 	$(docker_compose_bin) $(COMPOSE_CONFIG) up --no-recreate -d
 down: ## Stop all started containers
 	$(docker_compose_bin) $(COMPOSE_CONFIG) down
+ps: ## List all containers
+	$(docker_compose_bin) $(COMPOSE_CONFIG) ps
 restart: ## Restart all started containers
 	$(docker_compose_bin) $(COMPOSE_CONFIG) restart
 install: ## Install dependencies
@@ -33,6 +35,7 @@ install: ## Install dependencies
 	$(docker_compose_bin) $(COMPOSE_CONFIG) exec -T --user="$(CURRENT_USER_ID)" php_fpm_resume php artisan migrate:fresh
 	$(docker_compose_bin) $(COMPOSE_CONFIG) exec -T --user="$(CURRENT_USER_ID)" php_fpm_resume php artisan migrate --force
 	$(docker_compose_bin) $(COMPOSE_NODE_CONFIG) run --rm --user="$(CURRENT_USER_ID)" node npm i
+
 sh-php: ## Connect shell to container php
 	$(docker_compose_bin) $(COMPOSE_CONFIG) exec --user="$(CURRENT_USER_ID)" php_fpm_resume bash
 sh-nginx: ## Connect shell to container nginx
@@ -42,8 +45,11 @@ sh-node: ## Connect shell to container php
 build-dev: ## Build packages
 	$(docker_compose_bin) $(COMPOSE_NODE_CONFIG) run --rm node npm i
 	$(docker_compose_bin) $(COMPOSE_NODE_CONFIG) run --rm node npm run $(ENVIRONMENT)
-npm-watch:
+npm-watch: ## Run watcher
 	$(docker_compose_bin) $(COMPOSE_NODE_CONFIG) run --rm node npm run watch
-npm-build:
+npm-build: ## Build project
 	$(docker_compose_bin) $(COMPOSE_NODE_CONFIG) run --rm node npm i
 	$(docker_compose_bin) $(COMPOSE_NODE_CONFIG) run --rm node npm run dev
+
+## Display "help" command when running "make" command with no arguments
+.DEFAULT_GOAL = help
