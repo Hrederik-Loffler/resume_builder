@@ -24,8 +24,12 @@ class ResumesGenerateRequest extends FormRequest
     public function rules()
     {
         return [
-            'first_name' => 'string|required|max:255',
-            'second_name' => 'string|required|max:255',
+            'first_name' => 'string|max:255',
+            'second_name' => 'string|max:255',
+            'email' => 'email|max:255',
+            'phone' => 'string',
+            'job_title' => 'string|max:255',
+            'summary' => 'string|max:1024'
         ];
     }
 }

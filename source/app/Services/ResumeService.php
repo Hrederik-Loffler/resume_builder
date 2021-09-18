@@ -37,6 +37,16 @@ class ResumeService extends DatabaseService
     }
 
     /**
+     * Deletes template by the given $templatePath.
+     *
+     * @param string $templatePath
+     */
+    public function deleteTemplate(string $templatePath)
+    {
+        Storage::disk("templates")->delete($this->templateFullname($templatePath));
+    }
+
+    /**
      * Generates name for new template.
      *
      * @return string
