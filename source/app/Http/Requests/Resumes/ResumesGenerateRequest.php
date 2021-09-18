@@ -27,6 +27,12 @@ class ResumesGenerateRequest extends FormRequest
         return [
             'first_name' => 'string|max:255',
             'second_name' => 'string|max:255',
+
+            'location' => 'array',
+            'location.country' => 'string|max:255',
+            'location.city' => 'string|max:255',
+            'location.street' => 'string|max:255',
+
             'email' => 'email|max:255',
             'phone' => new PhoneRule,
             'job_title' => 'string|max:255',
