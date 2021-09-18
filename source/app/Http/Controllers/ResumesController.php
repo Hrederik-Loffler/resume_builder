@@ -2,10 +2,24 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Resumes\ResumesGenerateRequest;
+use App\Http\Requests\Resumes\ResumesStoreRequest;
+use App\Http\Responses\CreatedResponse;
+use App\Services\ResumeService;
 use Illuminate\Http\Request;
 
 class ResumesController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct(ResumeService $resumeService)
+    {
+        $this->resumeService = $resumeService;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -17,68 +31,26 @@ class ResumesController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param  \Illuminate\Http\ResumesStoreRequest  $request
+     * @return \Illuminate\Http\CreatedResponse
      */
-    public function store(Request $request)
+    public function store(ResumesStoreRequest $request)
     {
-        //
+        $this->resumeService->create($request->validated());
+        return new CreatedResponse();
     }
 
     /**
-     * Display the specified resource.
+     * Generate resume from the given template id and data.
      *
-     * @param  int  $id
+     * @param  \Illuminate\Http\ResumesGenerateRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function generate(ResumesGenerateRequest $request)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        $resume = $this->resumeService->find($request->id);
+        return $this->resumeService->generate($resume->template_path, $request->validated());
     }
 }
