@@ -95,7 +95,7 @@ class ResumeService extends DatabaseService
         } catch (ViewException $e) {
             // @NOTE: ViewException indicates that arguments that were passed are incorrect. It could be
             // invalid types (expected string, got array) or missing fields.
-            throw new InvalidDataException("You have passed invalid data. Make sure you've filled all necessary fields correctly.");
+            throw new InvalidDataException("You have passed invalid data. Make sure you've filled all necessary fields correctly.", [$e->getMessage()]);
         }
     }
 }

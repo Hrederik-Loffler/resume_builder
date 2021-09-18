@@ -11,8 +11,8 @@ class NotFoundException extends RequestException
     /**
      * NotFoundException constructor.
      */
-    public function __construct(string $message = "Not found")
+    public function __construct(string $message = "Not found", array $errors = [])
     {
-        parent::__construct($message, Response::HTTP_NOT_FOUND);
+        parent::__construct($message, Response::HTTP_NOT_FOUND, $errors);
     }
 }

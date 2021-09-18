@@ -4,6 +4,11 @@ return [
     'resume' => [
         'first_name' => 'first_name',
         'second_name' => 'second_name',
+        'location' => [
+            'country' => 'country',
+            'city' => 'city',
+            'street' => 'street',
+        ],
         'email' => 'test@email.com',
         'phone' => '+99999999999',
         'job_title' => 'job_title',

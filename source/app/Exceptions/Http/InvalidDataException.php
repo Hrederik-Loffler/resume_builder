@@ -11,8 +11,8 @@ class InvalidDataException extends RequestException
     /**
      * InvalidDataException constructor.
      */
-    public function __construct(string $message = "Invalid data")
+    public function __construct(string $message = "Invalid data", array $errors = [])
     {
-        parent::__construct($message, Response::HTTP_UNPROCESSABLE_ENTITY);
+        parent::__construct($message, Response::HTTP_UNPROCESSABLE_ENTITY, $errors);
     }
 }

@@ -11,10 +11,11 @@ class ExceptionResponse implements Responsable
      * @param string $message
      * @param int $code
      */
-    public function __construct(string $message, int $code)
+    public function __construct(string $message, int $code, array $errors)
     {
         $this->message = $message;
         $this->code = $code;
+        $this->errors = $errors;
     }
 
     /**
@@ -32,6 +33,6 @@ class ExceptionResponse implements Responsable
      */
     public function toResponse($request)
     {
-        return response(['message' => $this->message], $this->code);
+        return response(['message' => $this->message, "errors" => $this->errors], $this->code);
     }
 }
