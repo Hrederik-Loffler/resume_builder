@@ -9,4 +9,4 @@ Make sure you complete all the following steps to before trying to use it:
 - Copy Laravel environment file with command `cp www/.env.example www/.env`;
 - Fill all blank variables in both environment files;
 - Run all containers with `make up`.
-- Install all dependencies with `make up`.
+- Install all dependencies with `make install`.
