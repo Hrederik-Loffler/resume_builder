@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Resumes;
 
+use App\Rules\PhoneRule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ResumesGenerateRequest extends FormRequest
@@ -27,9 +28,32 @@ class ResumesGenerateRequest extends FormRequest
             'first_name' => 'string|max:255',
             'second_name' => 'string|max:255',
             'email' => 'email|max:255',
-            'phone' => 'string',
+            'phone' => new PhoneRule,
             'job_title' => 'string|max:255',
-            'summary' => 'string|max:1024'
+            'summary' => 'string|max:1024',
+
+            'employment' => 'array',
+            'employment.title' => 'string|max:255',
+            'employment.employer' => 'string|max:255',
+            'employment.since' => 'date',
+            'employment.until' => 'date',
+            'employment.city' => 'string|max:255',
+            'employment.description' => 'string|max:1024',
+
+            'education' => 'array',
+            'education.school' => 'string|max:255',
+            'education.degree' => 'string|max:255',
+            'education.since' => 'date',
+            'education.until' => 'date',
+            'education.city' => 'string|max:255',
+            'education.description' => 'string|max:1024',
+
+            'socials' => 'array',
+            'socials.label' => 'string|max:255',
+            'socials.link' => 'url|max:255',
+
+            'skills' => 'array',
+            'skills.*' => 'string|max:255',
         ];
     }
 }
