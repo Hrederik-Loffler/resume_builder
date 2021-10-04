@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Resumes;
 
 use App\Rules\PhoneRule;
+use Illuminate\Contracts\Session\Session;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ResumesGenerateRequest extends FormRequest
@@ -28,7 +29,6 @@ class ResumesGenerateRequest extends FormRequest
             'first_name' => 'string|max:255',
             'second_name' => 'string|max:255',
 
-            'location' => 'array',
             'location.country' => 'string|max:255',
             'location.city' => 'string|max:255',
             'location.street' => 'string|max:255',
@@ -38,7 +38,7 @@ class ResumesGenerateRequest extends FormRequest
             'job_title' => 'string|max:255',
             'summary' => 'string|max:1024',
 
-            'employment' => 'array',
+            'employment' => 'array|max:4',
             'employment.title' => 'string|max:255',
             'employment.employer' => 'string|max:255',
             'employment.since' => 'date',
@@ -46,7 +46,7 @@ class ResumesGenerateRequest extends FormRequest
             'employment.city' => 'string|max:255',
             'employment.description' => 'string|max:1024',
 
-            'education' => 'array',
+            'education' => 'array|max:4',
             'education.school' => 'string|max:255',
             'education.degree' => 'string|max:255',
             'education.since' => 'date',
@@ -54,11 +54,11 @@ class ResumesGenerateRequest extends FormRequest
             'education.city' => 'string|max:255',
             'education.description' => 'string|max:1024',
 
-            'socials' => 'array',
+            'socials' => 'array|max:8',
             'socials.label' => 'string|max:255',
             'socials.link' => 'url|max:255',
 
-            'skills' => 'array',
+            'skills' => 'array|max:16',
             'skills.*' => 'string|max:255',
         ];
     }

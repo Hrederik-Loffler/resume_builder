@@ -12,7 +12,9 @@
         "laravel/framework": "^8.54",
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
-        "laravel/ui": "^3.3"
+        "laravel/ui": "^3.3",
+        "rcrowe/twigbridge": "^0.12.3",
+        "twig/twig": "^3.3"
     },
     "require-dev": {
         "facade/ignition": "^2.5",

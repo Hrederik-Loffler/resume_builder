@@ -15,12 +15,12 @@ COMPOSE_NODE_CONFIG=--env-file .env -p $(PROJECT_NAME) -f docker/docker-compose.
 check: ## Check your configuration
 	$(docker_compose_bin) $(COMPOSE_CONFIG) config
 up: ## Start all containers (in background)
-	$(docker_bin) network create www2 || true
-	$(docker_bin) network create internal2 || true
+#	$(docker_bin) network create www2
+#	$(docker_bin) network create internal2
 	$(docker_compose_bin) $(COMPOSE_CONFIG) up --no-recreate -d
 down: ## Stop all started containers
 	$(docker_compose_bin) $(COMPOSE_CONFIG) down
-ps: ## List all containers
+list: ## List all containers
 	$(docker_compose_bin) $(COMPOSE_CONFIG) ps
 restart: ## Restart all started containers
 	$(docker_compose_bin) $(COMPOSE_CONFIG) restart
