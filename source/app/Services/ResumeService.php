@@ -4,7 +4,6 @@ namespace App\Services;
 
 use App\Exceptions\Http\InvalidDataException;
 use App\Exceptions\Http\NotFoundException;
-use App\Models\Resume;
 use Barryvdh\DomPDF\PDF;
 use Facade\Ignition\Exceptions\ViewException;
 use Illuminate\Support\Facades\Storage;
@@ -16,9 +15,8 @@ class ResumeService extends DatabaseService
     /**
      * ResumeService contructor
      */
-    public function __construct(Resume $model, PDF $pdf)
+    public function __construct(PDF $pdf)
     {
-        $this->model = $model;
         $this->pdf = $pdf;
     }
 
