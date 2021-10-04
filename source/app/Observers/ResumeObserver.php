@@ -42,7 +42,7 @@ class ResumeObserver
         } catch (InvalidDataException | NotFoundException $e) {
             // @NOTE: Don't forget to delete template in templates folder, because it's invalid.
             $this->resumeService->deleteTemplate($resume->template_path);
-            throw new InvalidDataException($e->message);
+            throw new InvalidDataException($e->getMessage(), $e->errors);
         }
     }
 }
