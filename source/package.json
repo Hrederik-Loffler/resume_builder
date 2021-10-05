@@ -3,7 +3,7 @@
     "scripts": {
         "dev": "npm run development",
         "development": "mix",
-        "watch": "mix watch",
+        "watch": "npm run watch-poll",
         "watch-poll": "mix watch -- --watch-options-poll=1000",
         "hot": "mix watch --hot",
         "prod": "npm run production",
@@ -43,6 +43,7 @@
         "@shopify/react-i18n": "^5.3.5",
         "@types/lodash": "^4.14.172",
         "@types/redux-logger": "^3.0.9",
+        "grapesjs": "^0.17.27",
         "laravel-mix-alias": "^1.0.3",
         "laravel-mix-eslint-config": "^0.1.7",
         "laravel-mix-react-css-modules": "^2.0.0",

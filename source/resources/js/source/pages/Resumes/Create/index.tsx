@@ -1,7 +1,6 @@
 // @NOTE: Import library functions.
-import { Card, FormLayout, Layout, Page, TextField } from '@shopify/polaris';
-import { useCallback } from 'react';
-
+import { Card, FormLayout, Layout, Page, TextField } from "@shopify/polaris";
+import { useCallback } from "react";
 
 // @NOTE: Import custom functions.
 // {...}
@@ -16,7 +15,6 @@ import { useCallback } from 'react';
  * @returns JSX.Element
  */
 export default function ResumesCreate() {
-
     // @NOTE: Closures.
     const handleCreateResume = useCallback(() => {}, []);
 
@@ -24,7 +22,7 @@ export default function ResumesCreate() {
         <Page
             title="Create resume"
             primaryAction={{
-                content: 'Create',
+                content: "Create",
                 onAction: handleCreateResume,
             }}
             divider
@@ -37,15 +35,32 @@ export default function ResumesCreate() {
                     <Card sectioned>
                         <FormLayout>
                             <FormLayout.Group>
-                                <TextField label="First name" onChange={() => {}} />
-                                <TextField label="Second name" onChange={() => {}} />
+                                <TextField
+                                    label="First name"
+                                    onChange={() => {}}
+                                />
+                                <TextField
+                                    label="Second name"
+                                    onChange={() => {}}
+                                />
                             </FormLayout.Group>
 
-                            <TextField label="Email" type="email" onChange={() => {}} />
-                            <TextField label="Phone" type="tel" onChange={() => {}} />
+                            <TextField
+                                label="Email"
+                                type="email"
+                                onChange={() => {}}
+                            />
+                            <TextField
+                                label="Phone"
+                                type="tel"
+                                onChange={() => {}}
+                            />
 
                             <FormLayout.Group>
-                                <TextField label="Country" onChange={() => {}} />
+                                <TextField
+                                    label="Country"
+                                    onChange={() => {}}
+                                />
                                 <TextField label="City" onChange={() => {}} />
                             </FormLayout.Group>
                         </FormLayout>
@@ -61,11 +76,23 @@ export default function ResumesCreate() {
                             <TextField label="Job title" onChange={() => {}} />
 
                             <FormLayout.Group>
-                                <TextField type="date" label="Start date" onChange={() => {}} />
-                                <TextField type="date" label="End date" onChange={() => {}} />
+                                <TextField
+                                    type="date"
+                                    label="Start date"
+                                    onChange={() => {}}
+                                />
+                                <TextField
+                                    type="date"
+                                    label="End date"
+                                    onChange={() => {}}
+                                />
                             </FormLayout.Group>
 
-                            <TextField label="Responsibilites" onChange={() => {}} multiline={8} />
+                            <TextField
+                                label="Responsibilites"
+                                onChange={() => {}}
+                                multiline={8}
+                            />
                         </FormLayout>
                     </Card>
                 </Layout.AnnotatedSection>
@@ -73,12 +100,23 @@ export default function ResumesCreate() {
                 <Layout.AnnotatedSection title="Education">
                     <Card sectioned>
                         <FormLayout>
-                            <TextField label="School name" onChange={() => {}} />
+                            <TextField
+                                label="School name"
+                                onChange={() => {}}
+                            />
                             <TextField label="Degree" onChange={() => {}} />
 
                             <FormLayout.Group>
-                                <TextField type="date" label="Start date" onChange={() => {}} />
-                                <TextField type="date" label="End date" onChange={() => {}} />
+                                <TextField
+                                    type="date"
+                                    label="Start date"
+                                    onChange={() => {}}
+                                />
+                                <TextField
+                                    type="date"
+                                    label="End date"
+                                    onChange={() => {}}
+                                />
                             </FormLayout.Group>
                         </FormLayout>
                     </Card>
@@ -86,11 +124,14 @@ export default function ResumesCreate() {
 
                 <Layout.AnnotatedSection title="Professional Accomplishments">
                     <Card sectioned>
-                        <TextField label="Accomplishments" onChange={() => {}} multiline={8} />
+                        <TextField
+                            label="Accomplishments"
+                            onChange={() => {}}
+                            multiline={8}
+                        />
                     </Card>
                 </Layout.AnnotatedSection>
-
             </Layout>
         </Page>
-    )
+    );
 }
