@@ -1,6 +1,11 @@
 // @NOTE: Import library functions.
-import { IconSource } from '@shopify/polaris';
-import { HomeMajor, SearchMajor, PlusMinor } from '@shopify/polaris-icons';
+import { IconSource } from "@shopify/polaris";
+import {
+    HomeMajor,
+    SearchMajor,
+    PlusMinor,
+    TemplateMajor,
+} from "@shopify/polaris-icons";
 
 // @NOTE: Import custom functions.
 // {...}
@@ -23,9 +28,22 @@ export interface IRouteItem {
  * routes - Variable that holds all routes in the application.
  */
 const routes = {
-    home: { url: '/', label: 'Home', icon: HomeMajor } as IRouteItem,
-    resumesBrowse: { url: '/browse', label: 'Browse', icon: SearchMajor } as IRouteItem,
-    resumesCreate: { url: '/create', label: 'Create', icon: PlusMinor } as IRouteItem,
+    home: { url: "/", label: "Home", icon: HomeMajor } as IRouteItem,
+    resumesBrowse: {
+        url: "/browse",
+        label: "Browse",
+        icon: SearchMajor,
+    } as IRouteItem,
+    resumesCreate: {
+        url: "/create",
+        label: "Create",
+        icon: PlusMinor,
+    } as IRouteItem,
+    resumesEditor: {
+        url: "/editor",
+        label: "Editor",
+        icon: TemplateMajor,
+    } as IRouteItem,
 };
 
 /**

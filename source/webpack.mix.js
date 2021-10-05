@@ -1,10 +1,9 @@
-const mix = require('laravel-mix');
-const path = require('path');
+const mix = require("laravel-mix");
+const path = require("path");
 
-
-require('laravel-mix-alias');
-require('laravel-mix-react-css-modules');
-require('laravel-mix-eslint-config');
+require("laravel-mix-alias");
+require("laravel-mix-react-css-modules");
+require("laravel-mix-eslint-config");
 /*
  |--------------------------------------------------------------------------
  | Mix Asset Management
@@ -20,12 +19,11 @@ require('laravel-mix-eslint-config');
 //     .postCss('resources/css/app.css', 'public/css', [
 //         //
 //     ]);
-const config = require('./webpack.config');
-mix.webpackConfig(config)
+const config = require("./webpack.config");
+mix.webpackConfig(config);
 
-mix.copy('resources/images/**', 'public/images');
-mix.copy('resources/favicon.png', 'public/favicon.png');
-
+mix.copy("resources/images/**", "public/images");
+mix.copy("resources/favicon.png", "public/favicon.png");
 
 // mix.webpackConfig({
 //     resolve: {
@@ -43,13 +41,15 @@ mix.copy('resources/favicon.png', 'public/favicon.png');
 //         }
 //     }
 // })
-mix.ts('resources/js/index.tsx', 'public/js')
+
+mix.ts("resources/js/index.tsx", "public/js")
     .eslint({
-        enforce: 'pre',
+        enforce: "pre",
         test: /\.(js|jsx|ts|tsx)$/,
         exclude: /node_modules/,
-        loader: 'eslint-loader',
+        loader: "eslint-loader",
         options: {},
     })
-    .sass('resources/sass/app.scss', 'public/css')
-    .react().reactCSSModules('[path]__[name]___[hash:base64]');
+    .sass("resources/sass/app.scss", "public/css");
+// .react()
+// .reactCSSModules("[path]__[name]___[hash:base64]");
