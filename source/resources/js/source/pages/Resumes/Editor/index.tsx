@@ -2,9 +2,10 @@
 // @ts-nocheck
 
 // @NOTE: Import library functions.
+import { useEffect, useState } from "react";
 import grapesjs from "grapesjs";
 import gjsPresetWebpack from "grapesjs-preset-webpage";
-import { useEffect, useState } from "react";
+import { jsPDF } from "jspdf";
 
 // @NOTE: Import custom functions.
 // {...}
@@ -46,6 +47,27 @@ export default function ResumesEditor() {
         // @NOTE: Set fixed canvas sizes.
         const deviceManager = editor.Devices;
         deviceManager.select("A4");
+
+        editor.Panels.addButton("options", [
+            {
+                id: "save",
+                className: "fa fa-floppy-o icon-blank",
+                command: function (editor1, sender) {
+                    const pdf = new jsPDF("p", "pt", "a4");
+
+                    pdf.html(
+                        document.querySelector(".gjs-frame").contentDocument
+                            .body,
+                        {
+                            callback: function (doc) {
+                                doc.save();
+                            },
+                        }
+                    );
+                },
+                attributes: { title: "Save Template" },
+            },
+        ]);
 
         setEditor(editor);
     }, []);

@@ -18,6 +18,8 @@ require("laravel-mix-eslint-config");
 const config = require("./webpack.config");
 mix.webpackConfig(config);
 
+mix.options({ legacyNodePolyfills: false });
+
 mix.copy("resources/images/**", "public/images");
 mix.copy("resources/favicon.png", "public/favicon.png");
 
