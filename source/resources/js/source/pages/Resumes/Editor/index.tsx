@@ -1,12 +1,14 @@
 // @NOTE: grapesjs doesn't support Typescript declarations.
-// @ts-ignore
+// @ts-nocheck
 
 // @NOTE: Import library functions.
-import grapesjs from "grapesjs";
 import { useEffect, useState } from "react";
+import grapesjs from "grapesjs";
+import gjsPresetWebpack from "grapesjs-preset-webpage";
+import { jsPDF } from "jspdf";
 
 // @NOTE: Import custom functions.
-import Text from "@js/components/templates/text/Text";
+// {...}
 
 // @NOTE: Import misc.
 // {...}
@@ -36,6 +38,7 @@ export default function ResumesEditor() {
                 type: "",
             },
             fromElement: true,
+            plugins: [gjsPresetWebpack],
         });
 
         // @NOTE: Hide devices dropdown.
@@ -44,6 +47,27 @@ export default function ResumesEditor() {
         // @NOTE: Set fixed canvas sizes.
         const deviceManager = editor.Devices;
         deviceManager.select("A4");
+
+        editor.Panels.addButton("options", [
+            {
+                id: "save",
+                className: "fa fa-floppy-o icon-blank",
+                command: function (editor1, sender) {
+                    const pdf = new jsPDF("p", "pt", "a4");
+
+                    pdf.html(
+                        document.querySelector(".gjs-frame").contentDocument
+                            .body,
+                        {
+                            callback: function (doc) {
+                                doc.save();
+                            },
+                        }
+                    );
+                },
+                attributes: { title: "Save Template" },
+            },
+        ]);
 
         setEditor(editor);
     }, []);
