@@ -1,16 +1,15 @@
 // @NOTE: Import library functions.
-import { AppProvider } from '@shopify/polaris';
-import { Provider } from 'react-redux';
-
+import { AppProvider } from "@shopify/polaris";
+import { Provider } from "react-redux";
 
 // @NOTE: Import custom functions.
 import Router from "@router/Router";
 import RouterLink from "@components/Links/RouterLink";
 
 // @NOTE: Import misc.
-import store from '@store/index';
+import store from "@store/index";
 import defaultTheme from "@theme/default";
-
+import "/css/app.css";
 
 /**
  * App - Create App component that will create project's theme, redux
@@ -19,12 +18,15 @@ import defaultTheme from "@theme/default";
  * @returns {JSX.Element}
  */
 export default function App() {
-
     return (
         <Provider store={store}>
-            <AppProvider i18n={{}} linkComponent={RouterLink} theme={defaultTheme}>
+            <AppProvider
+                i18n={{}}
+                linkComponent={RouterLink}
+                theme={defaultTheme}
+            >
                 <Router />
             </AppProvider>
         </Provider>
-    )
+    );
 }

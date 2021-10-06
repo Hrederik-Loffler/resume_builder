@@ -1,12 +1,13 @@
 // @NOTE: grapesjs doesn't support Typescript declarations.
-// @ts-ignore
+// @ts-nocheck
 
 // @NOTE: Import library functions.
 import grapesjs from "grapesjs";
+import gjsPresetWebpack from "grapesjs-preset-webpage";
 import { useEffect, useState } from "react";
 
 // @NOTE: Import custom functions.
-import Text from "@js/components/templates/text/Text";
+// {...}
 
 // @NOTE: Import misc.
 // {...}
@@ -36,6 +37,7 @@ export default function ResumesEditor() {
                 type: "",
             },
             fromElement: true,
+            plugins: [gjsPresetWebpack],
         });
 
         // @NOTE: Hide devices dropdown.
