@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import grapesjs from "grapesjs";
 import gjsPresetWebpack from "grapesjs-preset-webpage";
 import { jsPDF } from "jspdf";
+import html2canvas from "html2canvas";
 
 // @NOTE: Import custom functions.
 // {...}
@@ -52,18 +53,16 @@ export default function ResumesEditor() {
             {
                 id: "save",
                 className: "fa fa-floppy-o icon-blank",
-                command: function (editor1, sender) {
-                    const pdf = new jsPDF("p", "pt", "a4");
-
-                    pdf.html(
+                command: async () => {
+                    const canvas = await html2canvas(
                         document.querySelector(".gjs-frame").contentDocument
-                            .body,
-                        {
-                            callback: function (doc) {
-                                doc.save();
-                            },
-                        }
+                            .body
                     );
+                    const image = canvas.toDataURL("image/png");
+
+                    const pdf = new jsPDF("p", "pt", "a4");
+                    pdf.addImage(image, "JPEG", 20, 20);
+                    pdf.save();
                 },
                 attributes: { title: "Save Template" },
             },
