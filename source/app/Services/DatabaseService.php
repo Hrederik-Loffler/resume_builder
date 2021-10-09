@@ -27,6 +27,8 @@ abstract class DatabaseService
     }
 
     /**
+     * Find entry by id.
+     *
      * @param int $id
      *
      * @return \Illuminate\Database\Eloquent\Model
@@ -37,6 +39,6 @@ abstract class DatabaseService
         if ($data == null) {
             throw new NotFoundException();
         }
-        return $data;
+        return $data->toArray();
     }
 }

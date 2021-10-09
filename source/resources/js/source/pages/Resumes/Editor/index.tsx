@@ -3,10 +3,13 @@
 
 // @NOTE: Import library functions.
 import { useEffect, useState } from "react";
-import grapesjs from "grapesjs";
-import gjsPresetWebpack from "grapesjs-preset-webpage";
+import { useParams } from "react-router-dom";
+
 import { jsPDF } from "jspdf";
 import html2canvas from "html2canvas";
+
+import grapesjs from "grapesjs";
+import gjsPresetWebpack from "grapesjs-preset-webpage";
 
 // @NOTE: Import custom functions.
 // {...}
@@ -21,6 +24,7 @@ import html2canvas from "html2canvas";
  */
 export default function ResumesEditor() {
     const [editor, setEditor] = useState(null);
+    let { id } = useParams();
 
     useEffect(() => {
         const editor = grapesjs.init({
@@ -36,7 +40,21 @@ export default function ResumesEditor() {
                 ],
             },
             storageManager: {
-                type: "",
+                type: "remote",
+
+                contentTypeJson: true,
+                storeComponents: true,
+                storeStyles: true,
+                storeHtml: true,
+                storeCss: true,
+                id: "editor",
+
+                urlLoad: `/api/resumes/${id}`,
+                urlStore: `/api/resumes/${id}`,
+                autosave: false,
+                headers: {
+                    "Content-Type": "application/json",
+                },
             },
             fromElement: true,
             plugins: [gjsPresetWebpack],
@@ -49,6 +67,7 @@ export default function ResumesEditor() {
         const deviceManager = editor.Devices;
         deviceManager.select("A4");
 
+        // @NOTE: Add save as PDF button.
         editor.Panels.addButton("options", [
             {
                 id: "save",
@@ -72,6 +91,18 @@ export default function ResumesEditor() {
                     pdf.save();
                 },
                 attributes: { title: "Save Template" },
+            },
+        ]);
+
+        // @NOTE: Upload to server button.
+        editor.Panels.addButton("options", [
+            {
+                id: "save",
+                className: "fa fa-upload",
+                command: async () => {
+                    await editor.store();
+                },
+                attributes: { title: "Upload Template" },
             },
         ]);
 

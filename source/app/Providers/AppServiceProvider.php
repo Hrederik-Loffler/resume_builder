@@ -25,16 +25,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->observers();
-    }
-
-    /**
-     * Register models observers
-     *
-     * @return void
-     */
-    private function observers()
-    {
-        Resume::observe(ResumeObserver::class);
+        //
     }
 }
