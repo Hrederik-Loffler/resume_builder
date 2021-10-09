@@ -6,6 +6,7 @@ import ReactDOM from "react-dom";
 import "@shopify/polaris/dist/styles.css";
 import "bootstrap";
 import "grapesjs/dist/css/grapes.min.css";
+import "@styles/app.scss";
 
 // @NOTE: Import custom components.
 import App from "./source";

@@ -9,7 +9,6 @@ import RouterLink from "@components/Links/RouterLink";
 // @NOTE: Import misc.
 import store from "@store/index";
 import defaultTheme from "@theme/default";
-import "/css/app.css";
 
 /**
  * App - Create App component that will create project's theme, redux
