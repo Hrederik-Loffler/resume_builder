@@ -40,7 +40,7 @@ const routes = {
         icon: PlusMinor,
     } as IRouteItem,
     resumesEditor: {
-        url: "/editor",
+        url: "/editor/:id",
         label: "Editor",
         icon: TemplateMajor,
     } as IRouteItem,

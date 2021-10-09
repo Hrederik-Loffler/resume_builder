@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Resumes\ResumesGenerateRequest;
-use App\Http\Requests\Resumes\ResumesStoreRequest;
-use App\Http\Responses\CreatedResponse;
+use App\Http\Requests\Resumes\ResumesUpdateRequest;
+use App\Http\Responses\AcceptedResponse;
+use App\Http\Responses\RetrieveDataResponse;
+use App\Jobs\Resumes\SaveResumeJob;
 use App\Services\ResumeService;
-use Illuminate\Http\Request;
 
 class ResumesController extends Controller
 {
@@ -21,36 +21,25 @@ class ResumesController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
+     * Retrieve an existing resume template.
      *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\ResumesStoreRequest  $request
+     * @param  \Illuminate\Http\ResumesUpdateRequest  $request
      * @return \Illuminate\Http\CreatedResponse
      */
-    public function store(ResumesStoreRequest $request)
+    public function show(int $id)
     {
-        $this->resumeService->create($request->validated());
-        return new CreatedResponse();
+        return new RetrieveDataResponse($this->resumeService->find($id));
     }
 
     /**
-     * Generate resume from the given template id and data.
+     * Update an existing resume template.
      *
-     * @param  \Illuminate\Http\ResumesGenerateRequest  $request
-     * @return \Illuminate\Http\Response
+     * @param  \Illuminate\Http\ResumesUpdateRequest  $request
+     * @return \Illuminate\Http\CreatedResponse
      */
-    public function generate(ResumesGenerateRequest $request)
+    public function update(int $id, ResumesUpdateRequest $request)
     {
-        $resume = $this->resumeService->find($request->id);
-        return $this->resumeService->generate($resume->template_path, $request->validated());
+        dispatch(new SaveResumeJob($id, $request->validated()))->afterResponse();
+        return new AcceptedResponse;
     }
 }

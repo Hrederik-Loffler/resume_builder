@@ -4,7 +4,7 @@ namespace App\Http\Requests\Resumes;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ResumesStoreRequest extends FormRequest
+class ResumesUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,9 +24,11 @@ class ResumesStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            "template" => "required|string|max:16384",
-            "title" => "required|string|max:255",
-            "description" => "required|string|max:255"
+            'editorassets' => 'string',
+            'editorcomponents' => 'string',
+            'editorcss' => 'string',
+            'editorhtml' => 'string|nullable', // @NOTE: Editor may send an empty template.
+            'editorstyles' => 'string',
         ];
     }
 }

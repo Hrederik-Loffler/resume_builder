@@ -13,4 +13,4 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/{path?}', \App\Http\Controllers\HomeController::class)->where('path', '.*');
+Route::get('/{path?}', \App\Http\Controllers\HomeController::class)->where('path', '^(?!api).*$');
