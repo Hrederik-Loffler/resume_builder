@@ -8,7 +8,7 @@ import "grapesjs/dist/css/grapes.min.css";
 import "@styles/app.scss";
 
 // @NOTE: Import custom components.
-import App from "./source";
+import App from "@js/index";
 
 const root = document.getElementById("root");
 if (root) {
