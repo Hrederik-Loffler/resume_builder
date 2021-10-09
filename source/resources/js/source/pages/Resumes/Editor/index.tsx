@@ -3,7 +3,7 @@
 
 // @NOTE: Import library functions.
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 
 import { jsPDF } from "jspdf";
 import html2canvas from "html2canvas";
@@ -12,10 +12,10 @@ import grapesjs from "grapesjs";
 import gjsPresetWebpack from "grapesjs-preset-webpage";
 
 // @NOTE: Import custom functions.
-// {...}
+import ScreenLoading from "@components/layouts/Loading/ScreenLoading";
 
 // @NOTE: Import misc.
-// {...}
+import routes from "@constants/routes";
 
 /**
  * Editor - page where admin can create new resume.
@@ -23,9 +23,15 @@ import gjsPresetWebpack from "grapesjs-preset-webpage";
  * @return {JSX.Element}
  */
 export default function ResumesEditor() {
+    // @NOTE: State hooks.
     const [editor, setEditor] = useState(null);
-    let { id } = useParams();
+    const [loading, setLoading] = useState(true);
 
+    // @NOTE: Router hooks.
+    let { id } = useParams();
+    let history = useHistory();
+
+    // @NOTE: On component mounted.
     useEffect(() => {
         const editor = grapesjs.init({
             container: "#editor",
@@ -106,8 +112,23 @@ export default function ResumesEditor() {
             },
         ]);
 
+        // @NOTE: Attach event listeners.
+        editor.on("load", () => {
+            setLoading(false);
+        });
+
+        // @NOTE: If template wasn't found, throw an error.
+        editor.on("storage:error:load", () => {
+            history.push(routes.home.url);
+        });
+
+        // @NOTE: Store editor.
         setEditor(editor);
     }, []);
 
-    return <div id="editor"></div>;
+    return (
+        <ScreenLoading loading={loading}>
+            <div id="editor"></div>
+        </ScreenLoading>
+    );
 }
