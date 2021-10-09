@@ -24,11 +24,11 @@ class ResumesUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'editorassets' => 'string',
-            'editorcomponents' => 'string',
-            'editorcss' => 'string',
-            'editorhtml' => 'string|nullable', // @NOTE: Editor may send an empty template.
-            'editorstyles' => 'string',
+            'editorassets' => 'string|max:98304',
+            'editorcomponents' => 'string|max:65536',
+            'editorcss' => 'string|max:4096',
+            'editorhtml' => 'string|nullable|max:98304', // @NOTE: Editor may send an empty template.
+            'editorstyles' => 'string|max:4096',
         ];
     }
 }
