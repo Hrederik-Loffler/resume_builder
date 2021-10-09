@@ -1,5 +1,6 @@
 .gjs-editor-cont {
-    min-height: 100vh;
+    min-height: 100vh; // @NOTE: `min-height` should stay `100vh` to fit editor in the whole page.
+    height: 29.7cm !important;
 }
 
 .gjs-pn-devices-c {
