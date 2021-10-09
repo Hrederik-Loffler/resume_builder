@@ -1,5 +1,4 @@
 // @NOTE: NOTE: Import library components.
-// @ts-ignore
 import ReactDOM from "react-dom";
 
 // @NOTE: Import misc.
