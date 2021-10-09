@@ -30,8 +30,8 @@ export default function ResumesEditor() {
                     {
                         id: "A4",
                         name: "A4",
-                        width: "595pt",
-                        height: "842pt",
+                        width: "21cm",
+                        height: "29.7cm",
                     },
                 ],
             },
@@ -61,7 +61,14 @@ export default function ResumesEditor() {
                     const image = canvas.toDataURL("image/png");
 
                     const pdf = new jsPDF("p", "pt", "a4");
-                    pdf.addImage(image, "JPEG", 20, 20);
+                    pdf.addImage(
+                        image,
+                        "JPEG",
+                        0,
+                        0,
+                        canvas.width,
+                        canvas.height
+                    );
                     pdf.save();
                 },
                 attributes: { title: "Save Template" },

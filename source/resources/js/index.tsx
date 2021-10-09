@@ -1,5 +1,4 @@
 // @NOTE: NOTE: Import library components.
-// @ts-ignore
 import ReactDOM from "react-dom";
 
 // @NOTE: Import misc.
@@ -9,7 +8,7 @@ import "grapesjs/dist/css/grapes.min.css";
 import "@styles/app.scss";
 
 // @NOTE: Import custom components.
-import App from "./source";
+import App from "@js/index";
 
 const root = document.getElementById("root");
 if (root) {
