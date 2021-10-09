@@ -40,6 +40,7 @@
             "@components/*": ["resources/js/source/components/*"],
             "@common/*": ["resources/js/source/common/*"],
             "@theme/*": ["resources/js/source/theme/*"],
+            "@services/*": ["resources/js/source/services/*"],
             "@js/*": ["resources/js/source/*"],
 
             "@styles/*": ["resources/sass/*"],

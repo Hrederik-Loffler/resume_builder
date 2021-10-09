@@ -27,6 +27,11 @@ module.exports = {
             ),
             "@common": path.resolve(__dirname, "resources/js/source/common"),
             "@theme": path.resolve(__dirname, "resources/js/source/theme"),
+            "@services": path.resolve(
+                __dirname,
+                "resources/js/source/services"
+            ),
+
             "@styles": path.resolve(__dirname, "resources/sass"),
         },
     },
