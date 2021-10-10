@@ -17,4 +17,5 @@ use Illuminate\Support\Facades\Route;
 Route::group(["prefix" => "/resumes"], function () {
     Route::get("/{id}", [ResumesController::class, "show"]);
     Route::post("/{id}", [ResumesController::class, "update"]);
+    Route::put("/{id}/details", [ResumesController::class, "updateDetails"]);
 });

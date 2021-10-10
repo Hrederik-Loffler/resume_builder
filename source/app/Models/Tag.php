@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Resume extends Model
+class Tag extends Model
 {
     use HasFactory;
 
@@ -14,15 +14,17 @@ class Resume extends Model
      *
      * @var array
      */
-    protected $fillable = ['title', 'description', 'image', 'template_path'];
+    protected $fillable = ['name'];
 
-    protected $table = "resumes";
+    protected $table = "tags";
+
+    public $timestamps = false;
 
     /**
-     * The tags that belong to the resume.
+     * The resumes that belong to the tag.
      */
-    public function tags()
+    public function resumes()
     {
-        return $this->belongsToMany(Tag::class);
+        return $this->belongsToMany(Resume::class);
     }
 }

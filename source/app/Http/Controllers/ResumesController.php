@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Resumes\ResumesUpdateDetailsRequest;
 use App\Http\Requests\Resumes\ResumesUpdateRequest;
 use App\Http\Responses\AcceptedResponse;
 use App\Http\Responses\RetrieveDataResponse;
@@ -40,6 +41,18 @@ class ResumesController extends Controller
     public function update(int $id, ResumesUpdateRequest $request)
     {
         dispatch(new SaveResumeJob($id, $request->validated()))->afterResponse();
+        return new AcceptedResponse;
+    }
+
+    /**
+     * Update an existing resume template details.
+     *
+     * @param  \Illuminate\Http\ResumesUpdateRequest  $request
+     * @return \Illuminate\Http\CreatedResponse
+     */
+    public function updateDetails(int $id, ResumesUpdateDetailsRequest $request)
+    {
+        $this->resumeService->updateDetails($id, $request->validated());
         return new AcceptedResponse;
     }
 }
