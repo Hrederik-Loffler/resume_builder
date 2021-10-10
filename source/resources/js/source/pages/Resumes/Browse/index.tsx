@@ -1,7 +1,17 @@
 // @NOTE: Import library functions.
-import { useCallback, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Layout, MediaCard, Page, ResourceList } from '@shopify/polaris';
+import { Fragment, useCallback, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+    Button,
+    Icon,
+    Layout,
+    MediaCard,
+    Page,
+    Stack,
+    Tag,
+    TextField,
+} from "@shopify/polaris";
+import { SearchMinor } from "@shopify/polaris-icons";
 
 // @NOTE: Import custom functions.
 import ResumePreviews from "@components/Paginations/ResumePreviews";
@@ -24,10 +34,34 @@ export default function ResumesBrowse() {
         dispatch(loadResumes());
     }, []);
 
-    // @NOTE: Render component.
     return (
-        <Page title="All templates" divider>
-            <ResumePreviews resumes={resumes} />
+        <Page title="Browse templates" divider>
+            <Layout>
+                <Layout.Section>
+                    <TextField
+                        label="Tags"
+                        onChange={() => {}}
+                        autoComplete="off"
+                        connectedRight={
+                            <Button onClick={() => {}} loading={false}>
+                                Search
+                            </Button>
+                        }
+                    />
+                </Layout.Section>
+
+                <Layout.Section>
+                    <Stack>
+                        <Tag onRemove={() => {}}>Tag1</Tag>
+                        <Tag onRemove={() => {}}>Tag2</Tag>
+                        <Tag onRemove={() => {}}>Tag3</Tag>
+                    </Stack>
+                </Layout.Section>
+
+                <Layout.Section>
+                    <ResumePreviews resumes={resumes} />
+                </Layout.Section>
+            </Layout>
         </Page>
     );
 }

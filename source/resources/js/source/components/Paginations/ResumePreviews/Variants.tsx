@@ -1,10 +1,9 @@
 // @NOTE: Import library functions.
-import { useCallback } from 'react';
-import { Layout } from '@shopify/polaris';
+import { useCallback } from "react";
+import { Layout } from "@shopify/polaris";
 
 // @NOTE: Import custom functions.
-// import PreviewItem from '@components/Images/PreviewItem';
-// import PreviewItemVariants from '@components/Images/PreviewItem/Variants';
+import PreviewItemVariants from "@components/PreviewItem/Variants";
 
 // @NOTE: Import misc.
 
@@ -18,10 +17,9 @@ export default function ResumePreviewsVariants() {
     const renderPreviewItems = useCallback((items: number) => {
         return Array.from(Array(items).keys()).map((n: number, key: number) => {
             return (
-                'asd'
-                // <Layout.Section oneThird key={key}>
-                //     <PreviewItemVariants />
-                // </Layout.Section>
+                <Layout.Section oneThird key={key}>
+                    <PreviewItemVariants />
+                </Layout.Section>
             );
         });
     }, []);

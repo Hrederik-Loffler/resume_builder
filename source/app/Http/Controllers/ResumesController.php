@@ -23,6 +23,17 @@ class ResumesController extends Controller
     }
 
     /**
+     * Retrieve a list of resume templates.
+     *
+     * @param  \Illuminate\Http\ResumesUpdateRequest  $request
+     * @return \Illuminate\Http\CreatedResponse
+     */
+    public function index()
+    {
+        return new SucceededResponse($this->resumeService->paginated(['id', 'title', 'description', 'image']));
+    }
+
+    /**
      * Retrieve an existing resume template.
      *
      * @param  \Illuminate\Http\ResumesUpdateRequest  $request

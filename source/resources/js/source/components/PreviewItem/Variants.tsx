@@ -1,6 +1,11 @@
 // @NOTE: Import library functions.
-import { Card, MediaCard, SkeletonBodyText, SkeletonThumbnail } from '@shopify/polaris';
-import { useCallback } from 'react';
+import {
+    Card,
+    MediaCard,
+    SkeletonBodyText,
+    SkeletonThumbnail,
+} from "@shopify/polaris";
+import { useCallback } from "react";
 
 // @NOTE: Import custom functions.
 // {...}
@@ -22,15 +27,14 @@ export default function PreviewItemVariants() {
     // @NOTE: Render component.
     return (
         <MediaCard description="" title={renderTitleSkeleton()} portrait>
-            <img
-                width="100%"
-                height="100%"
+            <div
                 style={{
-                    objectFit: 'cover',
-                    objectPosition: 'center',
+                    objectFit: "cover",
+                    objectPosition: "center",
+                    width: "100%",
+                    height: "200px",
                 }}
-                src="/images/previews/resume-preview-image.jpeg"
-            />
+            ></div>
         </MediaCard>
     );
 }

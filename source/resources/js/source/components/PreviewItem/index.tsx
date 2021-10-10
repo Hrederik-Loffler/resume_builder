@@ -1,7 +1,7 @@
 // @NOTE: Import library functions.
-import { MediaCard } from '@shopify/polaris';
-import { useCallback } from 'react';
-import { useHistory } from 'react-router';
+import { MediaCard } from "@shopify/polaris";
+import { useCallback } from "react";
+import { useHistory } from "react-router";
 
 // @NOTE: Import custom functions.
 // {...}
@@ -26,7 +26,12 @@ export interface IPreviewItemProps {
  *
  * @returns JSX.Element
  */
-export default function PreviewItem({ title, description, img, url }: IPreviewItemProps) {
+export default function PreviewItem({
+    title,
+    description,
+    img,
+    url,
+}: IPreviewItemProps) {
     // @NOTE: Misc hooks.
     const history = useHistory();
 
@@ -41,15 +46,15 @@ export default function PreviewItem({ title, description, img, url }: IPreviewIt
             title={title}
             description={description}
             portrait
-            primaryAction={{ content: 'Try this', onAction: handleItemClick }}
+            primaryAction={{ content: "Try this", onAction: handleItemClick }}
         >
             <img
                 alt={title}
                 width="100%"
-                height="100%"
+                height="200px"
                 style={{
-                    objectFit: 'cover',
-                    objectPosition: 'center',
+                    objectFit: "cover",
+                    objectPosition: "center",
                 }}
                 src={img}
             />

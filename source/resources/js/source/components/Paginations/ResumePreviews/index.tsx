@@ -1,14 +1,14 @@
 // @NOTE: Import library functions.
-import { Fragment, useCallback } from 'react';
-import { Layout } from '@shopify/polaris';
+import { Fragment, useCallback } from "react";
+import { Layout } from "@shopify/polaris";
 import PreviewItem from "@components/PreviewItem";
 
 // @NOTE: Import custom functions.
-import ResumePreviewsVariants from './Variants';
+import ResumePreviewsVariants from "@components/Paginations/ResumePreviews/Variants";
 
 // @NOTE: Import misc.
-import { IResumesReducerState } from '@reducers/resumes';
-import Resume from '@js/types/Resume';
+import { IResumesReducerState } from "@reducers/resumes";
+import Resume from "@js/types/Resume";
 
 export interface IResumePreviewsProps {
     resumes: IResumesReducerState;
@@ -22,7 +22,7 @@ export interface IResumePreviewsProps {
 export default function ResumePreviews({ resumes }: IResumePreviewsProps) {
     // @NOTE: Closures.
     const renderResumes = useCallback(() => {
-        return resumes.data.data.map((resume: Resume, key: number) => {
+        return resumes.data.data.data.map((resume: Resume, key: number) => {
             return (
                 <Layout.Section oneThird key={key}>
                     <PreviewItem
@@ -42,8 +42,8 @@ export default function ResumePreviews({ resumes }: IResumePreviewsProps) {
     }
 
     return (
-        <Fragment>
+        <div className="force-oneThird">
             <Layout>{renderResumes()}</Layout>
-        </Fragment>
+        </div>
     );
 }

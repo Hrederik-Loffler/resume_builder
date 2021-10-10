@@ -7,20 +7,22 @@
 // @NOTE: Import misc.
 import IReducerInitialState from "@interfaces/IReducerInitialState";
 import IAction from "@interfaces/IAction";
-import IPagination from "@interfaces/IPagination";
+import IPaginatedResponse from "@interfaces/IPaginatedResponse";
 import Resume from "@js/types/Resume";
 
 import {
     RESUMES_LIST_REQUEST,
     RESUMES_LIST_REQUEST_SUCCESS,
-    RESUMES_LIST_REQUEST_FAIL
+    RESUMES_LIST_REQUEST_FAIL,
 } from "@constants/types/resumes/list";
 
 /**
  * IResumesPaginated - represents paginated list of resumes.
  */
-type IResumesPaginated = IPagination & {
-    data: Resume[];
+type IResumesPaginated = IPaginatedResponse & {
+    data: {
+        data: Resume[];
+    };
 };
 
 /**
@@ -44,11 +46,14 @@ const resumesReducerInitialState: IResumesReducerState = {
     loading: false,
     updating: false,
     data: {
-        current_page: 0,
-        links: [],
-        per_page: 0,
-        total: 0,
-        data: [],
+        message: "",
+        data: {
+            current_page: 0,
+            links: [],
+            per_page: 0,
+            total: 0,
+            data: [],
+        },
     },
 };
 
@@ -62,7 +67,7 @@ const resumesReducerInitialState: IResumesReducerState = {
  */
 export default function resumesReducer(
     state = resumesReducerInitialState,
-    action: ResumesAction,
+    action: ResumesAction
 ): IResumesReducerState {
     switch (action.type) {
         case RESUMES_LIST_REQUEST:

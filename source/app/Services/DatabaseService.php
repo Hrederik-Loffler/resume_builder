@@ -17,6 +17,16 @@ abstract class DatabaseService
     }
 
     /**
+     * Get paginated list of entries.
+     *
+     * @return array
+     */
+    public function paginated(array $fields)
+    {
+        return $this->model->select($fields)->simplePaginate(15)->toArray();
+    }
+
+    /**
      * Create new entry for the model.
      *
      * @param array $data
