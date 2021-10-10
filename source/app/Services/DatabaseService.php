@@ -27,6 +27,34 @@ abstract class DatabaseService
     }
 
     /**
+     * First or create multiple tnries for the model.
+     *
+     * @param array $data
+     */
+    public function firstOrCreateMultiple(array $data)
+    {
+        return array_map(function ($entry) {
+            return $this->model->firstOrCreate($entry)->id;
+        }, $data);
+    }
+
+    /**
+     * Find entry by id without converting to array.
+     *
+     * @param int $id
+     *
+     * @return \Illuminate\Database\Eloquent\Model
+     */
+    public function findRelation(int $id)
+    {
+        $entry = $this->model->find($id);
+        if ($entry == null) {
+            throw new NotFoundException();
+        }
+        return $entry;
+    }
+
+    /**
      * Find entry by id.
      *
      * @param int $id
@@ -35,10 +63,21 @@ abstract class DatabaseService
      */
     public function find(int $id)
     {
-        $data = $this->model->find($id);
-        if ($data == null) {
+        return $this->findRelation($id)->toArray();
+    }
+
+    /**
+     * Update entry.
+     *
+     * @param int $id
+     * @param array $data
+     */
+    public function update(int $id, array $data)
+    {
+        $entry = $this->model->find($id);
+        if ($entry == null) {
             throw new NotFoundException();
         }
-        return $data->toArray();
+        $entry->update($data);
     }
 }

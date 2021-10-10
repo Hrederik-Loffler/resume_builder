@@ -20,6 +20,11 @@ interface IEditorServiceInitOptions {
     urlStore: string;
 }
 
+export type UserInputField = {
+    selector: string;
+    value: ?string;
+};
+
 export class EditorService {
     /**
      * Initialize EditorService state.
@@ -123,6 +128,15 @@ export class EditorService {
      */
     public attachEvent(name: string, handler: () => void) {
         this.editor.on(name, handler);
+    }
+
+    /**
+     * Substitite a fields in the resume template with the given fields.
+     *
+     * @param {UserInputField[]} fields
+     */
+    public substitute(fields: UserInputField[]) {
+        fields.forEach((field) => {});
     }
 }
 

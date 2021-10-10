@@ -5,6 +5,7 @@ import {
     SearchMajor,
     PlusMinor,
     TemplateMajor,
+    InfoMinor,
 } from "@shopify/polaris-icons";
 
 // @NOTE: Import custom functions.
@@ -20,6 +21,7 @@ import {
  */
 export interface IRouteItem {
     url: string;
+    base?: string;
     label: string;
     icon: IconSource;
 }
@@ -28,22 +30,28 @@ export interface IRouteItem {
  * routes - Variable that holds all routes in the application.
  */
 const routes = {
-    home: { url: "/", label: "Home", icon: HomeMajor } as IRouteItem,
+    home: { url: "/", label: "Home", icon: HomeMajor },
     resumesBrowse: {
         url: "/browse",
         label: "Browse",
         icon: SearchMajor,
-    } as IRouteItem,
+    },
     resumesCreate: {
         url: "/create",
         label: "Create",
         icon: PlusMinor,
-    } as IRouteItem,
+    },
     resumesEditor: {
-        url: "/editor/:id",
+        url: "/resumes/editor/:id",
+        base: "/resumes/editor",
         label: "Editor",
         icon: TemplateMajor,
-    } as IRouteItem,
+    },
+    resumesDetails: {
+        url: "/resumes/details/:id",
+        label: "Details",
+        icon: InfoMinor,
+    },
 };
 
 /**

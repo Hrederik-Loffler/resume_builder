@@ -15,7 +15,7 @@ class SucceededResponse implements Responsable
     {
         $this->message = $message;
         $this->data = $data;
-        $this->code = Response::HTTP_ACCEPTED;
+        $this->code = Response::HTTP_OK;
     }
 
     /**
