@@ -19,8 +19,9 @@ import {
 /**
  * IResumesPaginated - represents paginated list of resumes.
  */
-type IResumesPaginated = IPaginatedResponse & {
-    data: {
+type IResumesPaginated = {
+    message: string;
+    data: IPaginatedResponse & {
         data: Resume[];
     };
 };
@@ -48,11 +49,12 @@ const resumesReducerInitialState: IResumesReducerState = {
     data: {
         message: "",
         data: {
-            current_page: 0,
-            links: [],
-            per_page: 0,
-            total: 0,
+            from: 1,
+            current_page: 1,
             data: [],
+            path: "http://localhost:8090/api/resumes",
+            per_page: 15,
+            to: 1,
         },
     },
 };

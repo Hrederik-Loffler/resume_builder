@@ -5,15 +5,14 @@
 // {...}
 
 // @NOTE: Import misc.
-import IResponse from "@interfaces/IResponse";
 
-export default interface IPaginatedResponse extends IResponse {
-    data: {
-        current_page: number;
-        per_page: number;
-        total: number;
-        links: {
-            url?: string;
-        }[];
-    };
+export default interface IPaginatedResponse {
+    first_page_url?: string;
+    from: number;
+    next_page_url?: string;
+    path: string;
+    per_page: number;
+    prev_page_url?: string;
+    to: number;
+    current_page: number;
 }

@@ -9,6 +9,7 @@ import ResumePreviewsVariants from "@components/Paginations/ResumePreviews/Varia
 // @NOTE: Import misc.
 import { IResumesReducerState } from "@reducers/resumes";
 import Resume from "@js/types/Resume";
+import routes from "@constants/routes";
 
 export interface IResumePreviewsProps {
     resumes: IResumesReducerState;
@@ -29,7 +30,7 @@ export default function ResumePreviews({ resumes }: IResumePreviewsProps) {
                         title={resume.title}
                         description={resume.description}
                         img={resume.image}
-                        url={resume.url}
+                        url={`${routes.resumesDetails.base}/${resume.id}`}
                     />
                 </Layout.Section>
             );
