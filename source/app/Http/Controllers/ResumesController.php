@@ -9,6 +9,7 @@ use App\Http\Responses\RetrieveDataResponse;
 use App\Http\Responses\SucceededResponse;
 use App\Jobs\Resumes\SaveResumeJob;
 use App\Services\ResumeService;
+use Illuminate\Http\Request;
 
 class ResumesController extends Controller
 {
@@ -28,9 +29,9 @@ class ResumesController extends Controller
      * @param  \Illuminate\Http\ResumesUpdateRequest  $request
      * @return \Illuminate\Http\CreatedResponse
      */
-    public function index()
+    public function index(Request $request)
     {
-        return new SucceededResponse($this->resumeService->paginated(['id', 'title', 'description', 'image']));
+        return new SucceededResponse($this->resumeService->paginatedTags($request->query('tags', [])));
     }
 
     /**
