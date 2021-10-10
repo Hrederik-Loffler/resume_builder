@@ -8,7 +8,7 @@
 // {...}
 
 type Resume = {
-    url: string;
+    id: number;
     image: string;
     title: string;
     description: string;

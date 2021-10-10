@@ -9,6 +9,7 @@ use App\Http\Responses\RetrieveDataResponse;
 use App\Http\Responses\SucceededResponse;
 use App\Jobs\Resumes\SaveResumeJob;
 use App\Services\ResumeService;
+use Illuminate\Http\Request;
 
 class ResumesController extends Controller
 {
@@ -20,6 +21,17 @@ class ResumesController extends Controller
     public function __construct(ResumeService $resumeService)
     {
         $this->resumeService = $resumeService;
+    }
+
+    /**
+     * Retrieve a list of resume templates.
+     *
+     * @param  \Illuminate\Http\ResumesUpdateRequest  $request
+     * @return \Illuminate\Http\CreatedResponse
+     */
+    public function index(Request $request)
+    {
+        return new SucceededResponse($this->resumeService->paginatedTags($request->query('tags', [])));
     }
 
     /**

@@ -33,6 +33,7 @@ const routes = {
     home: { url: "/", label: "Home", icon: HomeMajor },
     resumesBrowse: {
         url: "/browse",
+        base: "/browse",
         label: "Browse",
         icon: SearchMajor,
     },
@@ -49,6 +50,7 @@ const routes = {
     },
     resumesDetails: {
         url: "/resumes/details/:id",
+        base: "/resumes/details",
         label: "Details",
         icon: InfoMinor,
     },

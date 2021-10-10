@@ -1,0 +1,15 @@
+.force-oneThird {
+    .Polaris-Layout {
+        justify-content: flex-start;
+    }
+
+    .Polaris-Layout__Section.Polaris-Layout__Section--oneThird {
+        max-width: calc(33% - 2rem) !important;
+        min-width: calc(33% - 2rem) !important;
+    }
+}
+
+.pagination-wrapper {
+    display: flex;
+    justify-content: center;
+}
