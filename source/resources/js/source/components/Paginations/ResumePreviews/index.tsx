@@ -1,10 +1,11 @@
 // @NOTE: Import library functions.
 import { Fragment, useCallback } from "react";
-import { Layout } from "@shopify/polaris";
+import { Layout, EmptyState } from "@shopify/polaris";
 import PreviewItem from "@components/PreviewItem";
 
 // @NOTE: Import custom functions.
 import ResumePreviewsVariants from "@components/Paginations/ResumePreviews/Variants";
+import NotFound from "@components/errors/NotFound";
 
 // @NOTE: Import misc.
 import { IResumesReducerState } from "@reducers/resumes";
@@ -37,9 +38,13 @@ export default function ResumePreviews({ resumes }: IResumePreviewsProps) {
         });
     }, [resumes]);
 
-    // @NOTE: Render component.
     if (resumes.loading) {
         return <ResumePreviewsVariants />;
+    }
+
+    // @NOTE: If there are no resumes found, display not found error.
+    if (!resumes.data.data.data.length) {
+        return <NotFound />;
     }
 
     return (

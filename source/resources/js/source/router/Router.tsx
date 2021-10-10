@@ -10,6 +10,7 @@ import Home from "@pages/Home";
 import ResumesBrowse from "@pages/Resumes/Browse";
 import ResumesCreate from "@pages/Resumes/Create";
 import ResumesDetails from "@pages/Resumes/Details";
+import NotFound from "@components/errors/NotFound";
 
 // @NOTE: Import misc.
 import routes from "@constants/routes";
@@ -48,12 +49,7 @@ export default function Router() {
                                 exact
                                 component={ResumesDetails}
                             />
-                            <Route>
-                                <EmptyState
-                                    heading="404 not found"
-                                    image="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRl9DN9irguvWfsYs5L3jiXISDvycmclpp1HQ&usqp=CAU"
-                                />
-                            </Route>
+                            <Route component={NotFound} />
                         </Switch>
                     </Fragment>
                 </SiteLayout>
