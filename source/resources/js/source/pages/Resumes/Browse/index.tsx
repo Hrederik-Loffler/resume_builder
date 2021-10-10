@@ -4,6 +4,7 @@ import { useHistory, useLocation, useParams } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import {
     Button,
+    Form,
     Icon,
     Layout,
     MediaCard,
@@ -16,6 +17,7 @@ import {
 import queryString from "query-string";
 
 // @NOTE: Import custom functions.
+import FiltersService from "@services/FiltersService";
 import ResumePreviews from "@components/Paginations/ResumePreviews";
 
 // @NOTE: Import misc.
@@ -34,22 +36,34 @@ export default function ResumesBrowse() {
 
     // @NOTE: State hooks.
     const [filters, setFilters] = useState(() => {
-        const params = queryString.parse(location.search);
-
-        return {
-            page: parseInt(params["page"] as string) || 1,
-        };
+        return FiltersService.browsePageFilters(
+            queryString.parse(location.search, {
+                arrayFormat: "bracket",
+            })
+        );
     });
+    const [search, setSearch] = useState("");
 
     // @NOTE: Misc hooks.
     const history = useHistory();
     const dispatch = useDispatch();
     const resumes = useSelector((state: IRootStore) => state.resumes);
 
+    // @NOTE: Listen page changes.
+    useEffect(() => {
+        return history.listen((loc) => {
+            setFilters(
+                FiltersService.browsePageFilters(
+                    queryString.parse(loc.search, {
+                        arrayFormat: "bracket",
+                    })
+                )
+            );
+        });
+    }, []);
+
     // @NOTE: Load resumes.
     useEffect(() => {
-        console.log(123);
-
         dispatch(loadResumes(location.search));
     }, [filters]);
 
@@ -57,33 +71,77 @@ export default function ResumesBrowse() {
     // This will redirect user to new page, saving previous - in history.
     const updateFilters = useCallback((filters) => {
         history.push(
-            `${routes.resumesBrowse.base}?${queryString.stringify(filters)}`
+            `${routes.resumesBrowse.base}?${queryString.stringify(filters, {
+                arrayFormat: "bracket",
+            })}`
         );
         setFilters(filters);
     }, []);
+
+    // @NOTE: Determine if search button should be disabled.
+    const searchButtonDisabled = useCallback(() => {
+        return !search || resumes.loading;
+    }, [search]);
+
+    // @NOTE: Determine if search input should be disabled.
+    const searchInputDisabled = useCallback(() => {
+        return resumes.loading;
+    }, [resumes.loading]);
 
     // @NOTE: Render component.
     return (
         <Page title="Browse templates" divider>
             <Layout>
                 <Layout.Section>
-                    <TextField
-                        label="Tags"
-                        onChange={() => {}}
-                        autoComplete="off"
-                        connectedRight={
-                            <Button onClick={() => {}} loading={false}>
-                                Search
-                            </Button>
-                        }
-                    />
+                    <Form
+                        onSubmit={() => {
+                            setSearch("");
+                            updateFilters({
+                                ...filters,
+                                page: 1,
+                                tags: [...filters.tags, search],
+                            });
+                        }}
+                    >
+                        <TextField
+                            label="Tags"
+                            type="search"
+                            disabled={searchInputDisabled()}
+                            onChange={setSearch}
+                            value={search}
+                            autoComplete="off"
+                            connectedRight={
+                                <Button
+                                    submit
+                                    primary
+                                    loading={false}
+                                    disabled={searchButtonDisabled()}
+                                >
+                                    Search
+                                </Button>
+                            }
+                        />
+                    </Form>
                 </Layout.Section>
 
                 <Layout.Section>
                     <Stack>
-                        <Tag onRemove={() => {}}>Tag1</Tag>
-                        <Tag onRemove={() => {}}>Tag2</Tag>
-                        <Tag onRemove={() => {}}>Tag3</Tag>
+                        {filters.tags.map((filter, key) => (
+                            <Tag
+                                key={key}
+                                onRemove={() =>
+                                    updateFilters({
+                                        ...filters,
+                                        page: 1,
+                                        tags: filters.tags.filter(
+                                            (tag) => tag !== filter
+                                        ),
+                                    })
+                                }
+                            >
+                                {filter}
+                            </Tag>
+                        ))}
                     </Stack>
                 </Layout.Section>
 
