@@ -6,6 +6,7 @@ use App\Http\Requests\Resumes\ResumesUpdateDetailsRequest;
 use App\Http\Requests\Resumes\ResumesUpdateRequest;
 use App\Http\Responses\AcceptedResponse;
 use App\Http\Responses\RetrieveDataResponse;
+use App\Http\Responses\SucceededResponse;
 use App\Jobs\Resumes\SaveResumeJob;
 use App\Services\ResumeService;
 
@@ -54,5 +55,16 @@ class ResumesController extends Controller
     {
         $this->resumeService->updateDetails($id, $request->validated());
         return new AcceptedResponse;
+    }
+
+    /**
+     * Get an existing resume template details.
+     *
+     * @param  \Illuminate\Http\ResumesUpdateRequest  $request
+     * @return \Illuminate\Http\CreatedResponse
+     */
+    public function getDetails(int $id)
+    {
+        return new SucceededResponse($this->resumeService->getDetails($id));
     }
 }

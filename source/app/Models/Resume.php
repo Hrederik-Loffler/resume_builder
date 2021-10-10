@@ -16,6 +16,13 @@ class Resume extends Model
      */
     protected $fillable = ['title', 'description', 'image', 'template_path'];
 
+    /**
+     * The appended attributes.
+     *
+     * @var array
+     */
+    protected $appends = ['tags'];
+
     protected $table = "resumes";
 
     /**
@@ -24,5 +31,13 @@ class Resume extends Model
     public function tags()
     {
         return $this->belongsToMany(Tag::class);
+    }
+
+    /**
+     * Resume tags.
+     */
+    public function getTagsAttribute()
+    {
+        return $this->tags()->select('name')->get();
     }
 }

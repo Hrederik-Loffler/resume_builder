@@ -39,6 +39,22 @@ abstract class DatabaseService
     }
 
     /**
+     * Find entry by id without converting to array.
+     *
+     * @param int $id
+     *
+     * @return \Illuminate\Database\Eloquent\Model
+     */
+    public function findRelation(int $id)
+    {
+        $entry = $this->model->find($id);
+        if ($entry == null) {
+            throw new NotFoundException();
+        }
+        return $entry;
+    }
+
+    /**
      * Find entry by id.
      *
      * @param int $id
@@ -47,11 +63,7 @@ abstract class DatabaseService
      */
     public function find(int $id)
     {
-        $entry = $this->model->find($id);
-        if ($entry == null) {
-            throw new NotFoundException();
-        }
-        return $entry->toArray();
+        return $this->findRelation($id)->toArray();
     }
 
     /**

@@ -18,6 +18,13 @@ class Tag extends Model
 
     protected $table = "tags";
 
+    /**
+     * The fields that should be hidden.
+     *
+     * @var array
+     */
+    protected $hidden = ['pivot'];
+
     public $timestamps = false;
 
     /**

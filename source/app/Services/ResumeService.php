@@ -29,4 +29,15 @@ class ResumeService extends DatabaseService
         // @NOTE: Update resume tags.
         $this->model->find($id)->tags()->sync($this->tagService->firstOrCreateMultiple($data['tags'] ?? []));
     }
+
+    /**
+     * Get resume details.
+     *
+     * @param int $id
+     * @param array $data
+     */
+    public function getDetails(int $id)
+    {
+        return $this->findRelation($id)->select(['title', 'description', 'id'])->first()->toArray();
+    }
 }
