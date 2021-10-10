@@ -9,6 +9,7 @@ import SiteLayout from "@components/layouts/SiteLayout";
 import Home from "@pages/Home";
 import ResumesBrowse from "@pages/Resumes/Browse";
 import ResumesCreate from "@pages/Resumes/Create";
+import ResumesDetails from "@pages/Resumes/Details";
 
 // @NOTE: Import misc.
 import routes from "@constants/routes";
@@ -23,6 +24,7 @@ export default function Router() {
                     component={ResumesEditor}
                 />
 
+                {/* @NOTE: Pages with navbar */}
                 <SiteLayout>
                     <Fragment>
                         <Switch>
@@ -40,6 +42,11 @@ export default function Router() {
                                 path={routes.resumesBrowse.url}
                                 exact
                                 component={ResumesBrowse}
+                            />
+                            <Route
+                                path={routes.resumesDetails.url}
+                                exact
+                                component={ResumesDetails}
                             />
                             <Route>
                                 <EmptyState
