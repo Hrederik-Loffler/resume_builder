@@ -19,9 +19,9 @@ class PermissionSeeder extends Seeder
         app()[PermissionRegistrar::class]->forgetCachedPermissions();
 
         $permissions = [
-            'create.view', //for all
-            'create.store', // for all
-            'create.edit', //for all
+//            'create.view', //for all
+//            'create.store', // for all
+//            'create.edit', //for all
 
             'resumes.details.view', //for all
             'resumes.details.update', //admin
