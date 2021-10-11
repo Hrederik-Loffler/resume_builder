@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ResumesController;
+use App\Http\Controllers\RoleController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,4 +21,8 @@ Route::group(["prefix" => "/resumes"], function () {
     Route::post("/{id}", [ResumesController::class, "update"]);
     Route::get("/{id}/details", [ResumesController::class, "getDetails"]);
     Route::put("/{id}/details", [ResumesController::class, "updateDetails"]);
+});
+
+Route::group(['prefix' => 'role'], function () {
+   Route::get('list', [RoleController::class, 'list']);
 });
