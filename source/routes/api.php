@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\ResumesController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\ScopesController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,4 +27,13 @@ Route::group(["prefix" => "/resumes"], function () {
 
 Route::group(['prefix' => 'role'], function () {
    Route::get('list', [RoleController::class, 'list']);
+   Route::get('{role}', [RoleController::class, 'role']);
+});
+
+Route::group(['prefix' => 'user'], function () {
+    Route::get('me', UserController::class);
+});
+
+Route::group(['prefix' => 'scope'], function () {
+   Route::get('list', [ScopesController::class, 'list']);
 });

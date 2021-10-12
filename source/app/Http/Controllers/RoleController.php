@@ -16,4 +16,10 @@ class RoleController extends Controller
         );
     }
 
+    public function role(Role $role): JsonResponse
+    {
+//        $this->authorize('viewAny', $role);
+        return response()->json($role);
+    }
+
 }
