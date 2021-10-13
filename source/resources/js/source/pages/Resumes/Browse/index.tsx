@@ -18,7 +18,7 @@ import queryString from "query-string";
 
 // @NOTE: Import custom functions.
 import FiltersService from "@services/FiltersService";
-import ResumePreviews from "@components/Paginations/ResumePreviews";
+import ResumePreviews from "@components/navigation/Paginations/ResumePreviews";
 
 // @NOTE: Import misc.
 import loadResumes from "@actions/resumes/list";
@@ -64,7 +64,7 @@ export default function ResumesBrowse() {
 
     // @NOTE: Load resumes.
     useEffect(() => {
-        dispatch(loadResumes(location.search));
+        dispatch(loadResumes(filters));
     }, [filters]);
 
     // @NOTE: Call this function, instead of `setFilters` when you need to update filters.
@@ -79,14 +79,9 @@ export default function ResumesBrowse() {
     }, []);
 
     // @NOTE: Determine if search button should be disabled.
-    const searchButtonDisabled = useCallback(() => {
-        return !search || resumes.loading;
-    }, [search]);
-
-    // @NOTE: Determine if search input should be disabled.
-    const searchInputDisabled = useCallback(() => {
-        return resumes.loading;
-    }, [resumes.loading]);
+    const searchButtonDisabled = () => {
+        return !search;
+    };
 
     // @NOTE: Render component.
     return (
@@ -106,7 +101,6 @@ export default function ResumesBrowse() {
                         <TextField
                             label="Tags"
                             type="search"
-                            disabled={searchInputDisabled()}
                             onChange={setSearch}
                             value={search}
                             autoComplete="off"

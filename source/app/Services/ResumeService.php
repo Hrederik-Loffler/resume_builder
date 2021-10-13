@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Exceptions\Http\NotFoundException;
 use App\Models\Resume;
 
 class ResumeService extends DatabaseService
@@ -24,7 +25,7 @@ class ResumeService extends DatabaseService
     public function updateDetails(int $id, array $data)
     {
         // @NOTE: Update resume fields.
-        $this->update($id, array_column($data, 'title', 'description'));
+        $this->update($id, $data);
 
         // @NOTE: Update resume tags.
         $this->model->find($id)->tags()->sync($this->tagService->firstOrCreateMultiple($data['tags'] ?? []));
@@ -38,7 +39,11 @@ class ResumeService extends DatabaseService
      */
     public function getDetails(int $id)
     {
-        return $this->findRelation($id)->select(['title', 'description', 'id'])->first()->toArray();
+        $entry = $this->model->select(['title', 'description', 'id'])->find($id);
+        if ($entry == null) {
+            throw new NotFoundException();
+        }
+        return $entry->toArray();
     }
 
     /**
@@ -52,7 +57,7 @@ class ResumeService extends DatabaseService
 
         // @NOTE: If no tags were given, immediately return paginated results, because it's faster.
         if (count($tags) <= 0) {
-            return $this->paginated($fields);
+            return $this->paginated($fields)->toArray();
         }
 
         $query = $this->tagService->model->select($fields);

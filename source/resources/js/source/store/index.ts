@@ -8,10 +8,14 @@ import { createLogger } from "redux-logger";
 // @NOTE: Import misc.
 import rootReducer from "@reducers/root";
 import { IResumesReducerState } from "@reducers/resumes";
+import { IResumeReducerState } from "@reducers/resumes/single";
 
 const client = axios.create({
     baseURL: "/api",
     responseType: "json",
+    headers: {
+        Accept: "application/json",
+    },
 });
 
 const loggerMiddleware = createLogger();
@@ -23,6 +27,7 @@ const configureStore = (preloadedState: {} | undefined) =>
 
 export interface IRootStore {
     resumes: IResumesReducerState;
+    resume: IResumeReducerState;
 }
 
 export default configureStore({});

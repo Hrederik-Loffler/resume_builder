@@ -3,7 +3,7 @@ import { useCallback } from "react";
 import { Layout } from "@shopify/polaris";
 
 // @NOTE: Import custom functions.
-import PreviewItemVariants from "@components/PreviewItem/Variants";
+import PreviewItemVariants from "@components/structure/PreviewItem/Variants";
 
 // @NOTE: Import misc.
 
