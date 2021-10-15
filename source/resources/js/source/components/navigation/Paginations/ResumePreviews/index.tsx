@@ -11,6 +11,7 @@ import NotFound from "@components/feedback/NotFound";
 import { IResumesReducerState } from "@reducers/resumes";
 import Resume from "@js/types/Resume";
 import routes from "@constants/routes";
+import preview from "@constants/preview";
 
 /**
  * IResumePreviewsProps - props for `ResumePreviews` component.
@@ -33,7 +34,7 @@ export default function ResumePreviews({ resumes }: IResumePreviewsProps) {
                     <PreviewItem
                         title={resume.title}
                         description={resume.description}
-                        img={resume.image}
+                        img={resume.image || preview.resume}
                         url={`${routes.resumesDetails.base}/${resume.id}`}
                     />
                 </Layout.Section>
@@ -50,9 +51,5 @@ export default function ResumePreviews({ resumes }: IResumePreviewsProps) {
         return <NotFound />;
     }
 
-    return (
-        <div className="force-oneThird">
-            <Layout>{renderResumes()}</Layout>
-        </div>
-    );
+    return <Layout>{renderResumes()}</Layout>;
 }
