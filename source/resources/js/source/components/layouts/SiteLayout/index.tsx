@@ -1,13 +1,14 @@
 // @NOTE: Import library functions.
-import { useCallback, useState } from 'react';
-import { Frame, TopBar as PolarisTopBar } from '@shopify/polaris';
-
+import { useCallback, useState } from "react";
+import { Frame, TopBar as PolarisTopBar } from "@shopify/polaris";
 
 // @NOTE: Import custom functions.
-import Navigation from '@components/layouts/Navigation';
+import Navigation from "@components/layouts/Navigation";
 import TopBarUser from "@components/layouts/TopBarUser";
 
-
+/**
+ * ISiteLayoutProps - props for `SiteLayout` component.
+ */
 export interface ISiteLayoutProps {
     children?: JSX.Element;
 }
@@ -44,7 +45,10 @@ export default function SiteLayout({ children }: ISiteLayoutProps) {
             topBar={
                 <PolarisTopBar
                     userMenu={
-                        <TopBarUser isUserMenuOpen={isUserMenuOpen} toggleIsUserMenuOpen={toggleIsUserMenuOpen} />
+                        <TopBarUser
+                            isUserMenuOpen={isUserMenuOpen}
+                            toggleIsUserMenuOpen={toggleIsUserMenuOpen}
+                        />
                     }
                     showNavigationToggle
                     onNavigationToggle={handleNavigationToggle}
@@ -56,5 +60,5 @@ export default function SiteLayout({ children }: ISiteLayoutProps) {
         >
             {children}
         </Frame>
-    )
+    );
 }

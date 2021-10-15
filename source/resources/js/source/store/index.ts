@@ -25,6 +25,9 @@ let middleware = [thunkMiddleware, loggerMiddleware, axiosMiddleware(client)];
 const configureStore = (preloadedState: {} | undefined) =>
     createStore(rootReducer, preloadedState, applyMiddleware(...middleware));
 
+/**
+ * IRootStore - declares all available entries in Redux store.
+ */
 export interface IRootStore {
     resumes: IResumesReducerState;
     resume: IResumeReducerState;

@@ -10,9 +10,12 @@ import IAction from "@interfaces/IAction";
 import Resume from "@js/types/Resume";
 
 import {
-    RESUME_REQUEST,
-    RESUME_REQUEST_SUCCESS,
-    RESUME_REQUEST_FAIL,
+    RESUME_SINGLE_REQUEST,
+    RESUME_SINGLE_REQUEST_SUCCESS,
+    RESUME_SINGLE_REQUEST_FAIL,
+    RESUME_UPDATE_REQUEST,
+    RESUME_UPDATE_REQUEST_SUCCESS,
+    RESUME_UPDATE_REQUEST_FAIL,
 } from "@constants/types/resumes/single";
 
 /**
@@ -70,23 +73,41 @@ export default function resumeReducer(
     action: ResumesAction
 ): IResumeReducerState {
     switch (action.type) {
-        case RESUME_REQUEST:
+        case RESUME_SINGLE_REQUEST:
             return {
                 ...state,
                 loading: true,
             };
 
-        case RESUME_REQUEST_SUCCESS:
+        case RESUME_UPDATE_REQUEST:
+            return {
+                ...state,
+                updating: true,
+            };
+
+        case RESUME_SINGLE_REQUEST_SUCCESS:
             return {
                 ...state,
                 loading: false,
                 data: action.payload.data,
             };
 
-        case RESUME_REQUEST_FAIL:
+        case RESUME_UPDATE_REQUEST_SUCCESS:
+            return {
+                ...state,
+                updating: false,
+            };
+
+        case RESUME_SINGLE_REQUEST_FAIL:
             return {
                 ...state,
                 loading: false,
+            };
+
+        case RESUME_UPDATE_REQUEST_FAIL:
+            return {
+                ...state,
+                updating: false,
             };
 
         default:

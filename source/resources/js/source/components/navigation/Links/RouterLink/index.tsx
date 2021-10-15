@@ -1,12 +1,6 @@
 // @NOTE: Import library functions.
-import { Link } from 'react-router-dom';
-import { LinkLikeComponentProps } from '@shopify/polaris/dist/types/latest/src/utilities/link';
-
-// @NOTE: Import custom functions.
-// {...}
-
-// @NOTE: Import misc.
-// {...}
+import { Link } from "react-router-dom";
+import { LinkLikeComponentProps } from "@shopify/polaris/dist/types/latest/src/utilities/link";
 
 /**
  * RouterLink - link component that's used as linkComponent in Polaris' AppProvider.
@@ -16,7 +10,13 @@ import { LinkLikeComponentProps } from '@shopify/polaris/dist/types/latest/src/u
  *
  * @returns JSX.Element
  */
-export default function RouterLink({ children, url = '', external, ref, ...rest }: LinkLikeComponentProps) {
+export default function RouterLink({
+    children,
+    url = "",
+    external,
+    ref,
+    ...rest
+}: LinkLikeComponentProps) {
     // @NOTE: Render component.
     return (
         <Link to={url} {...rest}>

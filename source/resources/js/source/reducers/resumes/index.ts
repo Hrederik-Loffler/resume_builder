@@ -52,7 +52,7 @@ const resumesReducerInitialState: IResumesReducerState = {
             from: 1,
             current_page: 1,
             data: [],
-            path: "http://localhost:8090/api/resumes",
+            path: "",
             per_page: 15,
             to: 1,
         },

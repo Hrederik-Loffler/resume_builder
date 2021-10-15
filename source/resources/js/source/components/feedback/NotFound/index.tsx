@@ -1,10 +1,8 @@
 // @NOTE: Import from libraries.
 import { EmptyState } from "@shopify/polaris";
 
-// @NOTE: Import from own files.
-
 /**
- * Display not found error.
+ * NotFound - display not found error.
  *
  * @return {JSX.Element}
  */

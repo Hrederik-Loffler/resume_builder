@@ -5,8 +5,6 @@ import { Layout } from "@shopify/polaris";
 // @NOTE: Import custom functions.
 import PreviewItemVariants from "@components/structure/PreviewItem/Variants";
 
-// @NOTE: Import misc.
-
 /**
  * ResumePreviewsVariants - component that's shown for ResumePreviews while data is loading.
  *

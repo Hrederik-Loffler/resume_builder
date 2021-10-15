@@ -9,6 +9,9 @@ import EditorService from "@services/EditorService";
 // @NOTE: Import misc.
 import routes from "@constants/routes";
 
+/**
+ * IPageParams - path parameters used in editor page.
+ */
 export interface IPageParams {
     id: string;
 }
