@@ -126,7 +126,11 @@ export default function ResumeDetails() {
         resume.updating ||
         resume.loading;
     const addTagButtonDisabled =
-        isSubmitting || !tagInput || resume.updating || resume.loading;
+        getValues("tags").find((tag) => tag.name === tagInput) ||
+        isSubmitting ||
+        !tagInput ||
+        resume.updating ||
+        resume.loading;
     const removeTagButtonDisabled = resume.updating;
     const updateInputDisabled = resume.updating || resume.loading;
     const tagsLoading = resume.loading;
