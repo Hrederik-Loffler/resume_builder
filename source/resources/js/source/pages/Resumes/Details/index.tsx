@@ -31,6 +31,7 @@ import { IRootStore } from "@store/index";
 import resumeDetailsResolver from "@pages/Resumes/Details/rules";
 import ControllerTextField from "@components/forms/TextField";
 import Tags from "@components/forms/Tags";
+import ToastService from "@services/ToastService";
 
 /**
  * IPageParams - path parameters used in details page.
@@ -85,10 +86,11 @@ export default function ResumeDetails() {
     // @NOTE: Save changes function.
     const saveChanges: SubmitHandler<IUpdateResumeProps> = useCallback(
         async (data: IUpdateResumeProps) => {
-            dispatch(updateResume(id, data));
+            const res = await dispatch(updateResume(id, data));
             const values = getValues();
             setDefaultValues(values);
             reset(values);
+            ToastService.success(res.payload.data?.message);
         },
         []
     );
@@ -126,7 +128,7 @@ export default function ResumeDetails() {
         resume.updating ||
         resume.loading;
     const addTagButtonDisabled =
-        getValues("tags").find((tag) => tag.name === tagInput) ||
+        !!getValues("tags").find((tag) => tag.name === tagInput) ||
         isSubmitting ||
         !tagInput ||
         resume.updating ||

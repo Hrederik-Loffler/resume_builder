@@ -1,6 +1,7 @@
 // @NOTE: Import library functions.
 import { AppProvider } from "@shopify/polaris";
 import { Provider } from "react-redux";
+import { Toaster } from "react-hot-toast";
 
 // @NOTE: Import custom functions.
 import Router from "@router/Router";
@@ -24,6 +25,7 @@ export default function App() {
                 linkComponent={RouterLink}
                 theme={defaultTheme}
             >
+                <Toaster position="top-center" />
                 <Router />
             </AppProvider>
         </Provider>
