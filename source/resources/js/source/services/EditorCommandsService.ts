@@ -6,11 +6,11 @@ import html2canvas from "html2canvas";
  * EditorCommandsService - defines a list of commands for editor. These
  * are intended to be used by `EditorService`.
  */
-export class EditorCommandsService {
+export default class EditorCommandsService {
     /**
      * Save GrapesJS document as PDF.
      */
-    public async savePDF() {
+    public static async savePDF() {
         // @NOTE: Get DOM iframe element.
         const element = document.querySelector(
             ".gjs-frame"
@@ -29,5 +29,3 @@ export class EditorCommandsService {
         pdf.save();
     }
 }
-
-export default new EditorCommandsService();

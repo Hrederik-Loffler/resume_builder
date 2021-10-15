@@ -1,5 +1,5 @@
 // @NOTE: Import library functions.
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { Router, Switch, Route } from "react-router-dom";
 import { Fragment } from "react";
 import { EmptyState } from "@shopify/polaris";
 
@@ -14,15 +14,16 @@ import NotFound from "@components/feedback/NotFound";
 
 // @NOTE: Import misc.
 import routes from "@constants/routes";
+import history from "@router/history";
 
 /**
  * Router - defines all routes that are available on the website.
  *
  * @return {JSX.Element}
  */
-export default function Router() {
+export default function AppRouter() {
     return (
-        <BrowserRouter>
+        <Router history={history}>
             <Switch>
                 <Route
                     path={routes.resumesEditor.url}
@@ -59,6 +60,6 @@ export default function Router() {
                     </Fragment>
                 </SiteLayout>
             </Switch>
-        </BrowserRouter>
+        </Router>
     );
 }
