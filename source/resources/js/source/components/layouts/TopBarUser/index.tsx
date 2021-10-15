@@ -1,13 +1,10 @@
 // @NOTE: Import library functions.
-import { TopBar as PolarisTopBar } from '@shopify/polaris';
-import { LogOutMinor, ProfileMajor } from '@shopify/polaris-icons';
+import { TopBar as PolarisTopBar } from "@shopify/polaris";
+import { LogOutMinor, ProfileMajor } from "@shopify/polaris-icons";
 
-// @NOTE: Import custom functions.
-// {...}
-
-// @NOTE: Import misc.
-// {...}
-
+/**
+ * ITopBarUserProps - props for `TopBarUser` component.
+ */
 export interface ITopBarUserProps {
     isUserMenuOpen: boolean;
     toggleIsUserMenuOpen: () => void;
@@ -21,16 +18,18 @@ export interface ITopBarUserProps {
  * @prop {JSX.Element} isUserMenuOpen
  * @returns {JSX.Element}
  */
-export default function TopBarUser({ toggleIsUserMenuOpen, isUserMenuOpen }: ITopBarUserProps) {
-
+export default function TopBarUser({
+    toggleIsUserMenuOpen,
+    isUserMenuOpen,
+}: ITopBarUserProps) {
     return (
         <PolarisTopBar.UserMenu
             actions={[
                 {
-                    items: [{ content: 'Profile', icon: ProfileMajor }],
+                    items: [{ content: "Profile", icon: ProfileMajor }],
                 },
                 {
-                    items: [{ content: 'Log out', icon: LogOutMinor }],
+                    items: [{ content: "Log out", icon: LogOutMinor }],
                 },
             ]}
             name="Scott"
@@ -39,5 +38,5 @@ export default function TopBarUser({ toggleIsUserMenuOpen, isUserMenuOpen }: ITo
             open={isUserMenuOpen}
             onToggle={toggleIsUserMenuOpen}
         />
-    )
+    );
 }

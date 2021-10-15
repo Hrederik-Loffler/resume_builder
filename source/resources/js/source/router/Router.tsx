@@ -15,6 +15,11 @@ import NotFound from "@components/feedback/NotFound";
 // @NOTE: Import misc.
 import routes from "@constants/routes";
 
+/**
+ * Router - defines all routes that are available on the website.
+ *
+ * @return {JSX.Element}
+ */
 export default function Router() {
     return (
         <BrowserRouter>

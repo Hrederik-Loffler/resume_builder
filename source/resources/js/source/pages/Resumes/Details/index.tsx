@@ -15,11 +15,11 @@ import { Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
     Controller,
+    FormProvider,
     SubmitHandler,
     useFieldArray,
     useForm,
 } from "react-hook-form";
-import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 // @NOTE: Import from own files.
@@ -30,16 +30,16 @@ import {
     IUpdateResumeProps,
 } from "@actions/resumes/single";
 import { IRootStore } from "@store/index";
+import resumeDetailsResolver from "@pages/Resumes/Details/rules";
+import ControllerTextField from "@components/forms/TextField";
+import Tags from "@components/forms/Tags";
 
+/**
+ * IPageParams - path parameters used in details page.
+ */
 export interface IPageParams {
     id: string;
 }
-
-export const resumeDetailsResolver = yup.object().shape({
-    title: yup.string().max(64).required("Title is required"),
-    description: yup.string().max(256).required("Description is required"),
-    tag: yup.string().max(32),
-});
 
 /**
  * ResumesDetails - page where admin can change details about a resume.
@@ -50,36 +50,49 @@ export default function ResumeDetails() {
     // @NOTE: Router hooks.
     let { id } = useParams<IPageParams>();
 
-    // @NOTE: Misc. hooks.
-    const dispatch = useDispatch();
+    // @NOTE: Form hooks.
     const resume = useSelector((state: IRootStore) => state.resume);
+    const methods = useForm<IUpdateResumeProps>({
+        resolver: yupResolver(resumeDetailsResolver),
+        mode: "onTouched",
+    });
     const {
         handleSubmit,
         control,
         reset,
+        setValue,
+        getValues,
         formState: { errors, isSubmitting, isValid },
-    } = useForm<IUpdateResumeProps>({
-        resolver: yupResolver(resumeDetailsResolver),
-        mode: "onTouched",
-    });
+    } = methods;
     const tags = useFieldArray<IUpdateResumeProps, "tags", "tagId">({
         control,
         name: "tags",
         keyName: "tagId",
     });
 
-    // @NOTE: Should update button and input be disabled.
-    const updateButtonDisabled = () => isSubmitting || !isValid;
-    const addTagButtonDisabled = () =>
-        isSubmitting || !!errors.tag || resume.updating || resume.loading;
-    const updateInputDisabled = () => resume.updating || resume.loading;
+    // @NOTE: Misc. hooks.
+    const dispatch = useDispatch();
 
     // @NOTE: Save changes function.
-    const saveChanges: SubmitHandler<IUpdateResumeProps> = async (
-        data: IUpdateResumeProps
-    ) => {
-        dispatch(updateResume(id, data));
-    };
+    const saveChanges: SubmitHandler<IUpdateResumeProps> = useCallback(
+        async (data: IUpdateResumeProps) => {
+            dispatch(updateResume(id, data));
+        },
+        []
+    );
+
+    // @NOTE: Add tag to tag list.
+    const addTag = useCallback(() => {
+        tags.append({
+            name: getValues("tag"),
+        });
+        setValue("tag", "");
+    }, []);
+
+    // @NOTE: Remove tag from tag list.
+    const removeTag = useCallback((key: number) => {
+        tags.remove(key);
+    }, []);
 
     // @NOTE: Load resumes.
     useEffect(() => {
@@ -91,141 +104,101 @@ export default function ResumeDetails() {
         fetchData();
     }, []);
 
+    // @NOTE: Should update button and input be disabled.
+    const updateButtonDisabled =
+        isSubmitting || !isValid || resume.updating || resume.loading;
+    const addTagButtonDisabled =
+        isSubmitting || !!errors.tag || resume.updating || resume.loading;
+    const removeTagButtonDisabled = resume.updating;
+    const updateInputDisabled = resume.updating || resume.loading;
+    const tagsLoading = resume.loading;
+
     return (
         <Page
             title="Resume details"
             primaryAction={{
                 content: "Update template",
                 onAction: handleSubmit(saveChanges),
-                disabled: updateButtonDisabled(),
+                disabled: updateButtonDisabled,
             }}
             divider
         >
-            <Form onSubmit={handleSubmit(saveChanges)}>
-                <Layout>
-                    <Layout.AnnotatedSection
-                        title="Resume basic information"
-                        description="Give us essential information about resume template."
-                    >
-                        <Card sectioned>
-                            {/* @TODO: Move Controller to a separate component + use useFormContext hook */}
-                            <Controller
-                                name="title"
-                                control={control}
-                                defaultValue=""
-                                render={({ field }) => {
-                                    return (
-                                        <TextField
-                                            {...field}
-                                            maxLength={64}
-                                            showCharacterCount
-                                            type="text"
-                                            error={
-                                                errors.title?.message || false
-                                            }
-                                            label="Title"
-                                            disabled={updateInputDisabled()}
-                                        />
-                                    );
-                                }}
-                            />
-
-                            <Controller
-                                name="description"
-                                control={control}
-                                defaultValue=""
-                                render={({ field }) => {
-                                    return (
-                                        <TextField
-                                            {...field}
-                                            maxLength={256}
-                                            showCharacterCount
-                                            type="text"
-                                            error={
-                                                errors.description?.message ||
-                                                false
-                                            }
-                                            label="Description"
-                                            disabled={updateInputDisabled()}
-                                        />
-                                    );
-                                }}
-                            />
-                        </Card>
-                    </Layout.AnnotatedSection>
-
-                    <Layout.AnnotatedSection
-                        title="Resume tags"
-                        description="Users search templates by hashtags. You are advised to add a few hashtags so that users can find this template."
-                    >
-                        <Card sectioned>
-                            <FormLayout>
-                                <Controller
-                                    name="tag"
-                                    control={control}
-                                    defaultValue=""
-                                    render={({ field }) => {
-                                        return (
-                                            <TextField
-                                                {...field}
-                                                maxLength={32}
-                                                showCharacterCount
-                                                type="text"
-                                                label="Tags"
-                                                disabled={updateInputDisabled()}
-                                                connectedRight={
-                                                    <Button
-                                                        onClick={() => {
-                                                            tags.append({
-                                                                name: field.value,
-                                                            });
-                                                        }}
-                                                        disabled={addTagButtonDisabled()}
-                                                    >
-                                                        Add
-                                                    </Button>
-                                                }
-                                            />
-                                        );
-                                    }}
+            <FormProvider {...methods}>
+                <Form onSubmit={handleSubmit(saveChanges)}>
+                    <Layout>
+                        <Layout.AnnotatedSection
+                            title="Resume basic information"
+                            description="Give us essential information about resume template."
+                        >
+                            <Card sectioned>
+                                <ControllerTextField
+                                    label="Title"
+                                    name="title"
+                                    maxLength={64}
+                                    showCharacterCount
+                                    disabled={updateInputDisabled}
                                 />
-                                <Stack spacing="tight">
-                                    {tags.fields.map((tag, key) => {
-                                        return (
-                                            <PolarisTag
-                                                key={key}
-                                                onRemove={() =>
-                                                    tags.remove(key)
-                                                }
-                                            >
-                                                {tag.name}
-                                            </PolarisTag>
-                                        );
-                                    })}
-                                </Stack>
-                            </FormLayout>
-                        </Card>
-                    </Layout.AnnotatedSection>
+                                <ControllerTextField
+                                    label="Description"
+                                    name="description"
+                                    maxLength={256}
+                                    showCharacterCount
+                                    disabled={updateInputDisabled}
+                                />
+                            </Card>
+                        </Layout.AnnotatedSection>
 
-                    <Layout.AnnotatedSection
-                        title="Template"
-                        description={
-                            <p>
-                                Templates can be edited in resume editor. Click
-                                the right button to open new window where you
-                                can edit this template. Visit{" "}
-                                <Link
-                                    to={`${routes.resumesEditor.base}/${id}`}
-                                    target="_blank"
-                                >
-                                    editor page
-                                </Link>
-                                .
-                            </p>
-                        }
-                    ></Layout.AnnotatedSection>
-                </Layout>
-            </Form>
+                        <Layout.AnnotatedSection
+                            title="Resume tags"
+                            description="Users search templates by hashtags. You are advised to add a few hashtags so that users can find this template."
+                        >
+                            <Card sectioned>
+                                <FormLayout>
+                                    <ControllerTextField
+                                        label="Tag"
+                                        name="tag"
+                                        maxLength={32}
+                                        showCharacterCount
+                                        disabled={updateInputDisabled}
+                                        connectedRight={
+                                            <Button
+                                                onClick={addTag}
+                                                disabled={addTagButtonDisabled}
+                                            >
+                                                Add
+                                            </Button>
+                                        }
+                                    />
+                                    <Tags
+                                        tags={tags.fields}
+                                        onRemove={removeTag}
+                                        loading={tagsLoading}
+                                        disabled={removeTagButtonDisabled}
+                                    />
+                                </FormLayout>
+                            </Card>
+                        </Layout.AnnotatedSection>
+
+                        <Layout.AnnotatedSection
+                            title="Template"
+                            description={
+                                <p>
+                                    Templates can be edited in resume editor.
+                                    Click the right button to open new window
+                                    where you can edit this template. Visit{" "}
+                                    <Link
+                                        to={`${routes.resumesEditor.base}/${id}`}
+                                        target="_blank"
+                                    >
+                                        editor page
+                                    </Link>
+                                    .
+                                </p>
+                            }
+                        />
+                    </Layout>
+                </Form>
+            </FormProvider>
         </Page>
     );
 }

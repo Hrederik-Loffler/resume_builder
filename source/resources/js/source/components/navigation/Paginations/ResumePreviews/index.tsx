@@ -12,6 +12,9 @@ import { IResumesReducerState } from "@reducers/resumes";
 import Resume from "@js/types/Resume";
 import routes from "@constants/routes";
 
+/**
+ * IResumePreviewsProps - props for `ResumePreviews` component.
+ */
 export interface IResumePreviewsProps {
     resumes: IResumesReducerState;
 }

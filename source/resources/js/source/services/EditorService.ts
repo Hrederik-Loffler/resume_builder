@@ -8,12 +8,18 @@ import gjsPresetWebpack from "grapesjs-preset-webpage";
 // @NOTE: Import from own files.
 import EditorCommandsService from "@services/EditorCommandsService";
 
+/**
+ * IEditorServiceOptions - options for `EditorService`.
+ */
 export interface IEditorServiceOptions {
     selector: string;
     urlLoad: string;
     urlStore: string;
 }
 
+/**
+ * IEditorServiceInitOptions - options for `EditorService` `initEditor` method.
+ */
 interface IEditorServiceInitOptions {
     selector: string;
     urlLoad: string;
@@ -25,6 +31,9 @@ export type UserInputField = {
     value: ?string;
 };
 
+/**
+ * EditorService - service that abstracts GrapesJS editor.
+ */
 export class EditorService {
     /**
      * Initialize EditorService state.

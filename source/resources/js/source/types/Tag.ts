@@ -1,7 +1,6 @@
-// @NOTE: Import from libraries.
-
-// @NOTE: Import from own files.
-
+/**
+ * Tag - defines the structure of tag.
+ */
 type Tag = {
     name: string;
 };

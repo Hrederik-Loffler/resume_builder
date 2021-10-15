@@ -26,7 +26,7 @@ class ResumesUpdateDetailsRequest extends FormRequest
         return [
             'title' => 'string|max:64|required',
             'description' => 'string|max:256|required',
-            'tags' => 'array|max:8',
+            'tags' => 'array|max:8|min:1',
             'tags.*.name' => 'string|max:32|required',
         ];
     }

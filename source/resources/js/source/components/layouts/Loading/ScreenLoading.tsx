@@ -2,8 +2,9 @@
 import { Spinner } from "@shopify/polaris";
 import { Fragment } from "react";
 
-// @NOTE: Import from own files.
-
+/**
+ * IScreenLoadingProps - props for `ScreenLoading` component.
+ */
 export interface IScreenLoadingProps {
     children: JSX.Element;
     loading: boolean;

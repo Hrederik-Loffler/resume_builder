@@ -3,9 +3,6 @@ import { useCallback } from "react";
 import { Navigation as PolarisNavigation } from "@shopify/polaris";
 import { useLocation } from "react-router-dom";
 
-// @NOTE: Import custom functions.
-// {...}
-
 // @NOTE: Import misc.
 import { mainRoutes, IRouteItem } from "@constants/routes";
 
@@ -21,7 +18,6 @@ export default function Navigation() {
     // @NOTE: Misc hooks.
     const location = useLocation();
 
-    // @NOTE: Closures.
     /**
      * Updates selected link in navigational bar. Since Polaris
      * cannot handle these by default, this function is used
@@ -43,7 +39,10 @@ export default function Navigation() {
     // @NOTE: Render component.
     return (
         <PolarisNavigation location={location.pathname}>
-            <PolarisNavigation.Section title="Resume generator app" items={toggleIsUserMenuOpen()} />
+            <PolarisNavigation.Section
+                title="Resume generator app"
+                items={toggleIsUserMenuOpen()}
+            />
         </PolarisNavigation>
     );
 }

@@ -1,5 +1,3 @@
-// @NOTE: Import from libraries.
-
 // @NOTE: Import from own files.
 import IAction from "@interfaces/IAction";
 

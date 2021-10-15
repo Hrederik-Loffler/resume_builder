@@ -2,12 +2,6 @@
 import { Card, FormLayout, Layout, Page, TextField } from "@shopify/polaris";
 import { useCallback } from "react";
 
-// @NOTE: Import custom functions.
-// {...}
-
-// @NOTE: Import misc.
-// {...}
-
 /**
  * ResumesCreate - page where user can fill data to generate
  * resume based on chosen templates.

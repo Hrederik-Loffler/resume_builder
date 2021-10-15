@@ -1,6 +1,9 @@
 // @NOTE: Import from own files.
 import { get, put } from "@actions/requests";
-import { RESUME_REQUEST } from "@constants/types/resumes/single";
+import {
+    RESUME_SINGLE_REQUEST,
+    RESUME_UPDATE_REQUEST,
+} from "@constants/types/resumes/single";
 import IAction from "@interfaces/IAction";
 import Tag from "@js/types/Tag";
 
@@ -13,9 +16,12 @@ import Tag from "@js/types/Tag";
  * @returns {IAction}
  */
 export function loadResume(id: string | number): IAction {
-    return get(`/resumes/${id}/details`, RESUME_REQUEST);
+    return get(`/resumes/${id}/details`, RESUME_SINGLE_REQUEST);
 }
 
+/**
+ * IUpdateResumeProps - data that's used to update resume.
+ */
 export interface IUpdateResumeProps {
     title: string;
     description: string;
@@ -35,5 +41,5 @@ export function updateResume(
     id: string | number,
     data: IUpdateResumeProps
 ): IAction {
-    return put(`/resumes/${id}/details`, RESUME_REQUEST, data);
+    return put(`/resumes/${id}/details`, RESUME_UPDATE_REQUEST, data);
 }
