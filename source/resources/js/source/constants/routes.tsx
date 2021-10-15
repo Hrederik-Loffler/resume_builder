@@ -57,4 +57,10 @@ const routes = {
  */
 export const mainRoutes = [routes.home, routes.resumesBrowse];
 
+/**
+ * adminRoutes - Variable that holds all routes that are supposed to be used
+ * by admin in main section of navigational bar.
+ */
+export const adminRoutes = [routes.resumesCreate];
+
 export default routes;
