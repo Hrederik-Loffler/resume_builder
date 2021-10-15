@@ -1,11 +1,7 @@
-// @NOTE: Import library functions.
-// {...}
-
-// @NOTE: Import custom functions.
-// {...}
-
-// @NOTE: Import misc.
-
+/**
+ * IPaginatedResponse - represents part of response that returns paginated data.
+ * It contains common fields for pagination, such as current page, etc.
+ */
 export default interface IPaginatedResponse {
     first_page_url?: string;
     from: number;

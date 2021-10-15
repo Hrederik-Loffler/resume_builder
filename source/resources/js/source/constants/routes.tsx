@@ -8,12 +8,6 @@ import {
     InfoMinor,
 } from "@shopify/polaris-icons";
 
-// @NOTE: Import custom functions.
-// {...}
-
-// @NOTE: Import misc.
-// {...}
-
 /**
  * IRouteItem - Define a route in the application. It's being used
  * in Router component to define available routes as well

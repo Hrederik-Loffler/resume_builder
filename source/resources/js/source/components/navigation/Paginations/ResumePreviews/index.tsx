@@ -1,17 +1,20 @@
 // @NOTE: Import library functions.
 import { Fragment, useCallback } from "react";
 import { Layout, EmptyState } from "@shopify/polaris";
-import PreviewItem from "@components/PreviewItem";
+import PreviewItem from "@components/structure/PreviewItem";
 
 // @NOTE: Import custom functions.
-import ResumePreviewsVariants from "@components/Paginations/ResumePreviews/Variants";
-import NotFound from "@components/errors/NotFound";
+import ResumePreviewsVariants from "@components/navigation/Paginations/ResumePreviews/Variants";
+import NotFound from "@components/feedback/NotFound";
 
 // @NOTE: Import misc.
 import { IResumesReducerState } from "@reducers/resumes";
 import Resume from "@js/types/Resume";
 import routes from "@constants/routes";
 
+/**
+ * IResumePreviewsProps - props for `ResumePreviews` component.
+ */
 export interface IResumePreviewsProps {
     resumes: IResumesReducerState;
 }

@@ -42,7 +42,7 @@ class ResumesController extends Controller
      */
     public function show(int $id)
     {
-        return new RetrieveDataResponse($this->resumeService->find($id));
+        return new RetrieveDataResponse($this->resumeService->find($id)->toArray());
     }
 
     /**
@@ -66,7 +66,7 @@ class ResumesController extends Controller
     public function updateDetails(int $id, ResumesUpdateDetailsRequest $request)
     {
         $this->resumeService->updateDetails($id, $request->validated());
-        return new AcceptedResponse;
+        return new SucceededResponse;
     }
 
     /**

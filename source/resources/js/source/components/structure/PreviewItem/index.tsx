@@ -3,12 +3,9 @@ import { MediaCard } from "@shopify/polaris";
 import { useCallback } from "react";
 import { useHistory } from "react-router";
 
-// @NOTE: Import custom functions.
-// {...}
-
-// @NOTE: Import misc.
-// {...}
-
+/**
+ * IPreviewItemProps - props for `PreviewItem` component.
+ */
 export interface IPreviewItemProps {
     title: string;
     description: string;
@@ -19,10 +16,7 @@ export interface IPreviewItemProps {
 /**
  * PreviewItem - media card that gives an overview of resume item.
  *
- * @prop {string} title - preview item title
- * @prop {string} description - preview item description
- * @prop {string} img - preview item image url
- * @prop {string} url - preview item destination url
+ * @prop {IPreviewItemProps} props
  *
  * @returns JSX.Element
  */

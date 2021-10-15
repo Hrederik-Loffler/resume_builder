@@ -1,17 +1,6 @@
 // @NOTE: Import library functions.
-import {
-    Card,
-    MediaCard,
-    SkeletonBodyText,
-    SkeletonThumbnail,
-} from "@shopify/polaris";
+import { MediaCard, SkeletonBodyText } from "@shopify/polaris";
 import { useCallback } from "react";
-
-// @NOTE: Import custom functions.
-// {...}
-
-// @NOTE: Import misc.
-// {...}
 
 /**
  * PreviewItemVariants - component that's shown for PreviewItem while data is loading.

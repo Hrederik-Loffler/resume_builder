@@ -1,3 +1,5 @@
+// @NOTE: Import from own files.
+import { get } from "@actions/requests";
 import { RESUMES_LIST_REQUEST } from "@constants/types/resumes/list";
 import IAction from "@interfaces/IAction";
 
@@ -9,13 +11,6 @@ import IAction from "@interfaces/IAction";
  *
  * @returns {IAction}
  */
-export default function loadResumes(params: string = ""): IAction {
-    return {
-        type: RESUMES_LIST_REQUEST,
-        payload: {
-            request: {
-                url: `/resumes${params}`,
-            },
-        },
-    };
+export default function loadResumes(params: object): IAction {
+    return get(`/resumes`, RESUMES_LIST_REQUEST, params);
 }

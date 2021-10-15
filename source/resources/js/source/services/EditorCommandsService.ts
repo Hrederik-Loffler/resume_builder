@@ -2,8 +2,10 @@
 import { jsPDF } from "jspdf";
 import html2canvas from "html2canvas";
 
-// @NOTE: Import from own files.
-
+/**
+ * EditorCommandsService - defines a list of commands for editor. These
+ * are intended to be used by `EditorService`.
+ */
 export class EditorCommandsService {
     /**
      * Save GrapesJS document as PDF.

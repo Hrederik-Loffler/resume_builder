@@ -10,11 +10,16 @@ import Home from "@pages/Home";
 import ResumesBrowse from "@pages/Resumes/Browse";
 import ResumesCreate from "@pages/Resumes/Create";
 import ResumesDetails from "@pages/Resumes/Details";
-import NotFound from "@components/errors/NotFound";
+import NotFound from "@components/feedback/NotFound";
 
 // @NOTE: Import misc.
 import routes from "@constants/routes";
 
+/**
+ * Router - defines all routes that are available on the website.
+ *
+ * @return {JSX.Element}
+ */
 export default function Router() {
     return (
         <BrowserRouter>

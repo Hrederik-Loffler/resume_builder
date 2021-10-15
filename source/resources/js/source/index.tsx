@@ -4,7 +4,7 @@ import { Provider } from "react-redux";
 
 // @NOTE: Import custom functions.
 import Router from "@router/Router";
-import RouterLink from "@components/Links/RouterLink";
+import RouterLink from "@components/navigation/Links/RouterLink";
 
 // @NOTE: Import misc.
 import store from "@store/index";

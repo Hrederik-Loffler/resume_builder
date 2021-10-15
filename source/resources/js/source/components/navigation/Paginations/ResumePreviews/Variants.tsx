@@ -3,9 +3,7 @@ import { useCallback } from "react";
 import { Layout } from "@shopify/polaris";
 
 // @NOTE: Import custom functions.
-import PreviewItemVariants from "@components/PreviewItem/Variants";
-
-// @NOTE: Import misc.
+import PreviewItemVariants from "@components/structure/PreviewItem/Variants";
 
 /**
  * ResumePreviewsVariants - component that's shown for ResumePreviews while data is loading.
