@@ -25,7 +25,6 @@ export function loadResume(id: string | number): IAction {
 export interface IUpdateResumeProps {
     title: string;
     description: string;
-    tag: string;
     tags: Tag[];
 }
 
