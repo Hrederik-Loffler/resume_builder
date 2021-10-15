@@ -1,5 +1,5 @@
 // @NOTE: Import from own files.
-import IAction from "@interfaces/IAction";
+import { IAction } from "@interfaces/action";
 
 /**
  * Get request object for redux-axions-middleware.

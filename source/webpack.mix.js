@@ -23,13 +23,15 @@ mix.options({ legacyNodePolyfills: false });
 mix.copy("resources/images/**", "public/images");
 mix.copy("resources/favicon.png", "public/favicon.png");
 
-mix.ts("resources/js/index.tsx", "public/js").eslint({
-    enforce: "pre",
-    test: /\.(js|jsx|ts|tsx)$/,
-    exclude: /node_modules/,
-    loader: "eslint-loader",
-    options: {},
-});
+mix.ts("resources/js/index.tsx", "public/js")
+    .eslint({
+        enforce: "pre",
+        test: /\.(js|jsx|ts|tsx)$/,
+        exclude: /node_modules/,
+        loader: "eslint-loader",
+        options: {},
+    })
+    .sourceMaps(); // @NOTE: Generate source maps to display JSX in DevTools
 // .sass("resources/sass/app.scss", "public/css");
 // .react()
 // .reactCSSModules("[path]__[name]___[hash:base64]");

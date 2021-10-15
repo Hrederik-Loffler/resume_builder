@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Resumes\ResumesCreateRequest;
 use App\Http\Requests\Resumes\ResumesUpdateDetailsRequest;
 use App\Http\Requests\Resumes\ResumesUpdateRequest;
 use App\Http\Responses\AcceptedResponse;
+use App\Http\Responses\CreatedResponse;
 use App\Http\Responses\RetrieveDataResponse;
 use App\Http\Responses\SucceededResponse;
 use App\Jobs\Resumes\SaveResumeJob;
@@ -27,7 +29,7 @@ class ResumesController extends Controller
      * Retrieve a list of resume templates.
      *
      * @param  \Illuminate\Http\ResumesUpdateRequest  $request
-     * @return \Illuminate\Http\CreatedResponse
+     * @return \Illuminate\Http\SucceededResponse
      */
     public function index(Request $request)
     {
@@ -38,7 +40,7 @@ class ResumesController extends Controller
      * Retrieve an existing resume template.
      *
      * @param  \Illuminate\Http\ResumesUpdateRequest  $request
-     * @return \Illuminate\Http\CreatedResponse
+     * @return \Illuminate\Http\RetrieveDataResponse
      */
     public function show(int $id)
     {
@@ -49,12 +51,26 @@ class ResumesController extends Controller
      * Update an existing resume template.
      *
      * @param  \Illuminate\Http\ResumesUpdateRequest  $request
-     * @return \Illuminate\Http\CreatedResponse
+     * @return \Illuminate\Http\AcceptedResponse
      */
     public function update(int $id, ResumesUpdateRequest $request)
     {
         dispatch(new SaveResumeJob($id, $request->validated()))->afterResponse();
-        return new AcceptedResponse("Successfully the resume for processing");
+        return new AcceptedResponse("Successfully accepted the resume for processing");
+    }
+
+    /**
+     * Create a resume template.
+     *
+     * @param  \Illuminate\Http\ResumesUpdateRequest  $request
+     * @return \Illuminate\Http\CreatedResponse
+     */
+    public function store(ResumesCreateRequest $request)
+    {
+        $resume = $this->resumeService->create($request->validated());
+        return new CreatedResponse([
+            'id' => $resume->id
+        ], "Successfully created the resume");
     }
 
     /**

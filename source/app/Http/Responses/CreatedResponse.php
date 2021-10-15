@@ -11,9 +11,10 @@ class CreatedResponse implements Responsable
      * @param string $message
      * @param int $code
      */
-    public function __construct(string $message = "Successfully created")
+    public function __construct(array $data = [], string $message = "Successfully created")
     {
         $this->message = $message;
+        $this->data = $data;
         $this->code = Response::HTTP_CREATED;
     }
 
@@ -32,6 +33,6 @@ class CreatedResponse implements Responsable
      */
     public function toResponse($request)
     {
-        return response(['message' => $this->message], $this->code);
+        return response(['message' => $this->message, 'data' => $this->data], $this->code);
     }
 }
