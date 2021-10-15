@@ -4,7 +4,7 @@ import { Navigation as PolarisNavigation } from "@shopify/polaris";
 import { useLocation } from "react-router-dom";
 
 // @NOTE: Import misc.
-import { mainRoutes, IRouteItem } from "@constants/routes";
+import { mainRoutes, IRouteItem, adminRoutes } from "@constants/routes";
 
 interface IMenuItem extends IRouteItem {
     selected: boolean;
@@ -27,21 +27,27 @@ export default function Navigation() {
      *
      * @returns {IMenuItem[]}
      */
-    const toggleIsUserMenuOpen = useCallback(() => {
-        return mainRoutes.map((item) => {
-            return {
-                ...item,
-                selected: location.pathname === item.url,
-            } as IMenuItem;
-        });
-    }, [location]);
+    const toggleIsUserMenuOpen = useCallback(
+        (routes: IRouteItem[]) => {
+            return routes.map((item) => {
+                return {
+                    ...item,
+                    selected: location.pathname === item.url,
+                } as IMenuItem;
+            });
+        },
+        [location]
+    );
 
     // @NOTE: Render component.
     return (
         <PolarisNavigation location={location.pathname}>
             <PolarisNavigation.Section
                 title="Resume generator app"
-                items={toggleIsUserMenuOpen()}
+                items={toggleIsUserMenuOpen(mainRoutes)}
+            />
+            <PolarisNavigation.Section
+                items={toggleIsUserMenuOpen(adminRoutes)}
             />
         </PolarisNavigation>
     );
