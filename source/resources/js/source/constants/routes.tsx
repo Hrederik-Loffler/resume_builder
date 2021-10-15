@@ -26,13 +26,14 @@ export interface IRouteItem {
 const routes = {
     home: { url: "/", label: "Home", icon: HomeMajor },
     resumesBrowse: {
-        url: "/browse",
-        base: "/browse",
+        url: "/resumes/browse",
+        base: "/resumes/browse",
         label: "Browse",
         icon: SearchMajor,
     },
     resumesCreate: {
-        url: "/create",
+        url: "/resumes/create",
+        base: "/resumes/create",
         label: "Create",
         icon: PlusMinor,
     },
