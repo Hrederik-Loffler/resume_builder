@@ -31,7 +31,7 @@ class ResumesController extends Controller
      */
     public function index(Request $request)
     {
-        return new SucceededResponse($this->resumeService->paginatedTags($request->query('tags', [])));
+        return new SucceededResponse($this->resumeService->paginatedTags($request->query('tags', [])), "Successfully retrieved the list of resumes");
     }
 
     /**
@@ -54,7 +54,7 @@ class ResumesController extends Controller
     public function update(int $id, ResumesUpdateRequest $request)
     {
         dispatch(new SaveResumeJob($id, $request->validated()))->afterResponse();
-        return new AcceptedResponse;
+        return new AcceptedResponse("Successfully the resume for processing");
     }
 
     /**
@@ -66,7 +66,7 @@ class ResumesController extends Controller
     public function updateDetails(int $id, ResumesUpdateDetailsRequest $request)
     {
         $this->resumeService->updateDetails($id, $request->validated());
-        return new SucceededResponse;
+        return new SucceededResponse([], "Successfully updated the resume");
     }
 
     /**
@@ -77,6 +77,6 @@ class ResumesController extends Controller
      */
     public function getDetails(int $id)
     {
-        return new SucceededResponse($this->resumeService->getDetails($id));
+        return new SucceededResponse($this->resumeService->getDetails($id), "Successfully retrieved details about the resume");
     }
 }

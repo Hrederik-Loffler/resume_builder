@@ -34,13 +34,13 @@ export type UserInputField = {
 /**
  * EditorService - service that abstracts GrapesJS editor.
  */
-export class EditorService {
+export default class EditorService {
     /**
      * Initialize EditorService state.
      *
      * @param {IEditorServiceOptions} params
      */
-    public init(options: IEditorServiceOptions) {
+    public static init(options: IEditorServiceOptions) {
         this.initEditor(options);
         this.extendButtonPanel();
     }
@@ -50,7 +50,7 @@ export class EditorService {
      *
      * @param {IEditorServiceOptions} params
      */
-    private initEditor({
+    private static initEditor({
         selector,
         urlLoad,
         urlStore,
@@ -92,7 +92,7 @@ export class EditorService {
     /**
      * Add more buttons to button panel.
      */
-    private extendButtonPanel() {
+    private static extendButtonPanel() {
         // @NOTE: Add save as PDF button.
         this.editor.Panels.addButton("options", [
             {
@@ -121,7 +121,7 @@ export class EditorService {
      *
      * @param {string} id
      */
-    public setCurrentDevice(id: string) {
+    public static setCurrentDevice(id: string) {
         this.editor.Devices.select(id);
     }
 
@@ -135,7 +135,7 @@ export class EditorService {
      * @param {string} name
      * @param {editorEventHandler} handler
      */
-    public attachEvent(name: string, handler: () => void) {
+    public static attachEvent(name: string, handler: () => void) {
         this.editor.on(name, handler);
     }
 
@@ -144,9 +144,7 @@ export class EditorService {
      *
      * @param {UserInputField[]} fields
      */
-    public substitute(fields: UserInputField[]) {
+    public static substitute(fields: UserInputField[]) {
         fields.forEach((field) => {});
     }
 }
-
-export default new EditorService();

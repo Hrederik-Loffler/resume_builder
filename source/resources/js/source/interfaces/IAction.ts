@@ -13,6 +13,7 @@ export default interface IAction {
         };
         data?: {
             data: object;
+            message: string;
         };
     };
 }
