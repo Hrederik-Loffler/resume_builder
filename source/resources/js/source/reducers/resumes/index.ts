@@ -1,13 +1,9 @@
-// @NOTE: Import library functions.
-// {...}
-
-// @NOTE: Import custom functions.
-// {...}
-
 // @NOTE: Import misc.
-import IReducerInitialState from "@interfaces/IReducerInitialState";
-import IAction from "@interfaces/IAction";
-import IPaginatedResponse from "@interfaces/IPaginatedResponse";
+import {
+    IAction,
+    IPaginatedResponse,
+    IReducerInitialState,
+} from "@interfaces/action";
 import Resume from "@js/types/Resume";
 
 import {

@@ -1,12 +1,5 @@
-// @NOTE: Import library functions.
-// {...}
-
-// @NOTE: Import custom functions.
-// {...}
-
 // @NOTE: Import misc.
-import IReducerInitialState from "@interfaces/IReducerInitialState";
-import IAction from "@interfaces/IAction";
+import { IAction, IReducerInitialState } from "@interfaces/action";
 import Resume from "@js/types/Resume";
 
 import {
@@ -16,6 +9,9 @@ import {
     RESUME_UPDATE_REQUEST,
     RESUME_UPDATE_REQUEST_SUCCESS,
     RESUME_UPDATE_REQUEST_FAIL,
+    RESUME_CREATE_REQUEST,
+    RESUME_CREATE_REQUEST_SUCCESS,
+    RESUME_CREATE_REQUEST_FAIL,
 } from "@constants/types/resumes/single";
 
 /**
@@ -80,6 +76,7 @@ export default function resumeReducer(
             };
 
         case RESUME_UPDATE_REQUEST:
+        case RESUME_CREATE_REQUEST:
             return {
                 ...state,
                 updating: true,
@@ -93,6 +90,7 @@ export default function resumeReducer(
             };
 
         case RESUME_UPDATE_REQUEST_SUCCESS:
+        case RESUME_CREATE_REQUEST_SUCCESS:
             return {
                 ...state,
                 updating: false,
@@ -105,6 +103,7 @@ export default function resumeReducer(
             };
 
         case RESUME_UPDATE_REQUEST_FAIL:
+        case RESUME_CREATE_REQUEST_FAIL:
             return {
                 ...state,
                 updating: false,

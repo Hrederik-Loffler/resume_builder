@@ -25,7 +25,7 @@ import routes from "@constants/routes";
 import {
     loadResume,
     updateResume,
-    IUpdateResumeProps,
+    IResumeDetailsData,
 } from "@actions/resumes/single";
 import { IRootStore } from "@store/index";
 import resumeDetailsResolver from "@pages/Resumes/Details/rules";
@@ -47,7 +47,7 @@ export interface IPageParams {
  */
 export default function ResumeDetails() {
     // @NOTE: State hooks.
-    const [defaultValues, setDefaultValues] = useState<IUpdateResumeProps>({
+    const [defaultValues, setDefaultValues] = useState<IResumeDetailsData>({
         title: "",
         description: "",
         tags: [],
@@ -61,8 +61,7 @@ export default function ResumeDetails() {
     let { id } = useParams<IPageParams>();
 
     // @NOTE: Form hooks.
-    const resume = useSelector((state: IRootStore) => state.resume);
-    const methods = useForm<IUpdateResumeProps>({
+    const methods = useForm<IResumeDetailsData>({
         resolver: yupResolver(resumeDetailsResolver),
         mode: "onTouched",
         defaultValues,
@@ -74,18 +73,19 @@ export default function ResumeDetails() {
         getValues,
         formState: { errors, isSubmitting, isValid, dirtyFields },
     } = methods;
-    const tags = useFieldArray<IUpdateResumeProps, "tags", "tagId">({
+    const tags = useFieldArray<IResumeDetailsData, "tags", "tagId">({
         control,
         name: "tags",
         keyName: "tagId",
     });
 
     // @NOTE: Misc. hooks.
+    const resume = useSelector((state: IRootStore) => state.resume);
     const dispatch = useDispatch();
 
     // @NOTE: Save changes function.
-    const saveChanges: SubmitHandler<IUpdateResumeProps> = useCallback(
-        async (data: IUpdateResumeProps) => {
+    const saveChanges: SubmitHandler<IResumeDetailsData> = useCallback(
+        async (data: IResumeDetailsData) => {
             const res = await dispatch(updateResume(id, data));
             const values = getValues();
             setDefaultValues(values);
@@ -112,7 +112,7 @@ export default function ResumeDetails() {
     useEffect(() => {
         async function fetchData() {
             const res = await dispatch(loadResume(id));
-            const resume = res.payload.data?.data as IUpdateResumeProps;
+            const resume = res.payload.data?.data as IResumeDetailsData;
             reset(resume);
             setDefaultValues(resume);
         }

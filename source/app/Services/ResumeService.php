@@ -32,6 +32,23 @@ class ResumeService extends DatabaseService
     }
 
     /**
+     * Create a resume.
+     *
+     * @param int $id
+     * @param array $data
+     */
+    public function create(array $data)
+    {
+        // @NOTE: Store resume in `resumes` table.
+        $resume = parent::create($data);
+
+        // @NOTE: Create tags in `tags` table.
+        $this->model->find($resume->id)->tags()->sync($this->tagService->firstOrCreateMultiple($data['tags'] ?? []));
+
+        return $resume;
+    }
+
+    /**
      * Get resume details.
      *
      * @param int $id
