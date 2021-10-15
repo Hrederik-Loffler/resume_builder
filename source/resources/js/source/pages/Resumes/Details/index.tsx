@@ -1,26 +1,24 @@
 // @NOTE: Import from libraries.
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import {
     Button,
     Card,
     Form,
     FormLayout,
+    TextField as PolarisTextField,
     Layout,
     Page,
-    Stack,
-    Tag as PolarisTag,
-    TextField,
 } from "@shopify/polaris";
 import { Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
-    Controller,
     FormProvider,
     SubmitHandler,
     useFieldArray,
     useForm,
 } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import _ from "lodash";
 
 // @NOTE: Import from own files.
 import routes from "@constants/routes";
@@ -47,6 +45,17 @@ export interface IPageParams {
  * @return {JSX.Element}
  */
 export default function ResumeDetails() {
+    // @NOTE: State hooks.
+    const [defaultValues, setDefaultValues] = useState<IUpdateResumeProps>({
+        title: "",
+        description: "",
+        tags: [],
+    });
+
+    // @NOTE: Move this to a separate state variable, because `react-hook-form` would
+    // treat it as part of form state which breaks `dirtyFields` field.
+    const [tagInput, setTagInput] = useState("");
+
     // @NOTE: Router hooks.
     let { id } = useParams<IPageParams>();
 
@@ -55,14 +64,14 @@ export default function ResumeDetails() {
     const methods = useForm<IUpdateResumeProps>({
         resolver: yupResolver(resumeDetailsResolver),
         mode: "onTouched",
+        defaultValues,
     });
     const {
         handleSubmit,
         control,
         reset,
-        setValue,
         getValues,
-        formState: { errors, isSubmitting, isValid },
+        formState: { errors, isSubmitting, isValid, dirtyFields },
     } = methods;
     const tags = useFieldArray<IUpdateResumeProps, "tags", "tagId">({
         control,
@@ -77,17 +86,20 @@ export default function ResumeDetails() {
     const saveChanges: SubmitHandler<IUpdateResumeProps> = useCallback(
         async (data: IUpdateResumeProps) => {
             dispatch(updateResume(id, data));
+            const values = getValues();
+            setDefaultValues(values);
+            reset(values);
         },
         []
     );
 
     // @NOTE: Add tag to tag list.
-    const addTag = useCallback(() => {
+    const addTag = () => {
         tags.append({
-            name: getValues("tag"),
+            name: tagInput,
         });
-        setValue("tag", "");
-    }, []);
+        setTagInput("");
+    };
 
     // @NOTE: Remove tag from tag list.
     const removeTag = useCallback((key: number) => {
@@ -97,8 +109,10 @@ export default function ResumeDetails() {
     // @NOTE: Load resumes.
     useEffect(() => {
         async function fetchData() {
-            const resume = await dispatch(loadResume(id));
-            reset(resume.payload.data?.data);
+            const res = await dispatch(loadResume(id));
+            const resume = res.payload.data?.data as IUpdateResumeProps;
+            reset(resume);
+            setDefaultValues(resume);
         }
 
         fetchData();
@@ -106,9 +120,13 @@ export default function ResumeDetails() {
 
     // @NOTE: Should update button and input be disabled.
     const updateButtonDisabled =
-        isSubmitting || !isValid || resume.updating || resume.loading;
+        isSubmitting ||
+        !isValid ||
+        _.isEmpty(dirtyFields) ||
+        resume.updating ||
+        resume.loading;
     const addTagButtonDisabled =
-        isSubmitting || !!errors.tag || resume.updating || resume.loading;
+        isSubmitting || !tagInput || resume.updating || resume.loading;
     const removeTagButtonDisabled = resume.updating;
     const updateInputDisabled = resume.updating || resume.loading;
     const tagsLoading = resume.loading;
@@ -154,12 +172,14 @@ export default function ResumeDetails() {
                         >
                             <Card sectioned>
                                 <FormLayout>
-                                    <ControllerTextField
+                                    <PolarisTextField
                                         label="Tag"
                                         name="tag"
                                         maxLength={32}
                                         showCharacterCount
                                         disabled={updateInputDisabled}
+                                        value={tagInput}
+                                        onChange={setTagInput}
                                         connectedRight={
                                             <Button
                                                 onClick={addTag}
@@ -171,6 +191,7 @@ export default function ResumeDetails() {
                                     />
                                     <Tags
                                         tags={tags.fields}
+                                        // error={errors?.tags}
                                         onRemove={removeTag}
                                         loading={tagsLoading}
                                         disabled={removeTagButtonDisabled}
