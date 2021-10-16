@@ -7,7 +7,7 @@ import { IAction } from "@interfaces/action";
  * loadResumes - returns objects that's used by axios middleware to
  * retrieve paginated list of resumes.
  *
- * @param {string} - query string that was received from useLocation().search
+ * @param {object} params
  *
  * @returns {IAction}
  */

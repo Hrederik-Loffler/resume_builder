@@ -1,59 +1,28 @@
 // @NOTE: Import misc.
-import {
-    IAction,
-    IPaginatedResponse,
-    IReducerInitialState,
-} from "@interfaces/action";
+import { IAction, IPaginatedResponse, IReducerState } from "@interfaces/action";
 import Resume from "@js/types/Resume";
-
 import {
     RESUMES_LIST_REQUEST,
     RESUMES_LIST_REQUEST_SUCCESS,
     RESUMES_LIST_REQUEST_FAIL,
 } from "@constants/types/resumes/list";
 
-/**
- * IResumesPaginated - represents paginated list of resumes.
- */
-type IResumesPaginated = {
-    message: string;
-    data: IPaginatedResponse & {
-        data: Resume[];
-    };
-};
-
-/**
- * ResumesAction - action that contains paginated list of resumes.
- */
-type ResumesAction = IAction & {
-    payload: {
-        data: IResumesPaginated;
-    };
-};
-
-/**
- * IResumesReducerState - interface that represents resumes state.
- * It contains list of resumes.
- */
-export interface IResumesReducerState extends IReducerInitialState {
-    data: IResumesPaginated;
-}
-
-const resumesReducerInitialState: IResumesReducerState = {
-    loading: false,
-    updating: false,
-    data: {
-        message: "",
+const resumesReducerInitialState: IReducerState<IPaginatedResponse<Resume[]>> =
+    {
+        loading: false,
+        updating: false,
         data: {
-            from: 1,
-            current_page: 1,
-            data: [],
-            path: "",
-            per_page: 15,
-            to: 1,
+            message: "",
+            data: {
+                from: 1,
+                current_page: 1,
+                data: [],
+                path: "",
+                per_page: 15,
+                to: 1,
+            },
         },
-    },
-};
+    };
 
 /**
  * resumesReducer - Reducer that handles events that deal with resumes.
@@ -65,8 +34,8 @@ const resumesReducerInitialState: IResumesReducerState = {
  */
 export default function resumesReducer(
     state = resumesReducerInitialState,
-    action: ResumesAction
-): IResumesReducerState {
+    action: IAction<IPaginatedResponse<Resume[]>>
+): IReducerState<IPaginatedResponse<Resume[]>> {
     switch (action.type) {
         case RESUMES_LIST_REQUEST:
             return {
@@ -78,7 +47,7 @@ export default function resumesReducer(
             return {
                 ...state,
                 loading: false,
-                data: action.payload.data,
+                data: action.payload?.data,
             };
 
         case RESUMES_LIST_REQUEST_FAIL:

@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,3 +16,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/{path?}', \App\Http\Controllers\HomeController::class)->where('path', '^(?!api).*$');
+
+// @TODO: Move these routes to `api.php`.
+Route::group(['middleware' => ['web'], 'prefix' => 'api'], function () {
+    Route::post('register', [RegisterController::class, "register"]);
+    Route::post('login', [LoginController::class, "login"]);
+});

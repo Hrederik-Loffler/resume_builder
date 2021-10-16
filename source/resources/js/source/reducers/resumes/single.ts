@@ -1,5 +1,5 @@
 // @NOTE: Import misc.
-import { IAction, IReducerInitialState } from "@interfaces/action";
+import { IAction, IReducerState } from "@interfaces/action";
 import Resume from "@js/types/Resume";
 
 import {
@@ -14,34 +14,7 @@ import {
     RESUME_CREATE_REQUEST_FAIL,
 } from "@constants/types/resumes/single";
 
-/**
- * IResumesPaginated - represents paginated a single resume.
- */
-type IResumeReponse = {
-    message: string;
-    data: Resume;
-};
-
-/**
- * ResumesAction - action that contains paginated a single resume.
- */
-type ResumesAction = IAction & {
-    payload: {
-        data: IResumeReponse;
-    };
-};
-
-/**
- * IResumeReducerState - interface that represents a single resume state.
- */
-export interface IResumeReducerState extends IReducerInitialState {
-    data: {
-        message: string;
-        data: Resume;
-    };
-}
-
-const resumeReducerInitialState: IResumeReducerState = {
+const resumeReducerInitialState: IReducerState<Resume> = {
     loading: false,
     updating: false,
     data: {
@@ -59,15 +32,15 @@ const resumeReducerInitialState: IResumeReducerState = {
 /**
  * resumeReducer - Reducer that handles events that deal with a single resume.
  *
- * @param {IResumeReducerState} state
+ * @param {IReducerState} state
  * @param {IAction} action
  *
- * @returns {IResumeReducerState}
+ * @returns {IReducerState}
  */
 export default function resumeReducer(
     state = resumeReducerInitialState,
-    action: ResumesAction
-): IResumeReducerState {
+    action: IAction<Resume>
+): IReducerState<Resume> {
     switch (action.type) {
         case RESUME_SINGLE_REQUEST:
             return {
@@ -86,7 +59,7 @@ export default function resumeReducer(
             return {
                 ...state,
                 loading: false,
-                data: action.payload.data,
+                data: action.payload?.data,
             };
 
         case RESUME_UPDATE_REQUEST_SUCCESS:

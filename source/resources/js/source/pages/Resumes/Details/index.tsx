@@ -90,7 +90,7 @@ export default function ResumeDetails() {
             const values = getValues();
             setDefaultValues(values);
             reset(values);
-            ToastService.success(res.payload.data?.message);
+            ToastService.success(res.payload?.data?.message);
         },
         []
     );
@@ -112,7 +112,7 @@ export default function ResumeDetails() {
     useEffect(() => {
         async function fetchData() {
             const res = await dispatch(loadResume(id));
-            const resume = res.payload.data?.data as IResumeDetailsData;
+            const resume = res.payload?.data?.data as IResumeDetailsData;
             reset(resume);
             setDefaultValues(resume);
         }

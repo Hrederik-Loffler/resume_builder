@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
+
 class HomeController extends Controller
 {
     /**
@@ -26,6 +28,8 @@ class HomeController extends Controller
 
     public function __invoke()
     {
-        return view('index');
+        return view('index', [
+            'user' => Auth::user()
+        ]);
     }
 }

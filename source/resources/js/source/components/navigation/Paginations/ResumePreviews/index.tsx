@@ -8,16 +8,16 @@ import ResumePreviewsVariants from "@components/navigation/Paginations/ResumePre
 import NotFound from "@components/feedback/NotFound";
 
 // @NOTE: Import misc.
-import { IResumesReducerState } from "@reducers/resumes";
 import Resume from "@js/types/Resume";
 import routes from "@constants/routes";
 import preview from "@constants/preview";
+import { IPaginatedResponse, IReducerState } from "@interfaces/action";
 
 /**
  * IResumePreviewsProps - props for `ResumePreviews` component.
  */
 export interface IResumePreviewsProps {
-    resumes: IResumesReducerState;
+    resumes: IReducerState<IPaginatedResponse<Resume[]>>;
 }
 
 /**
@@ -28,7 +28,7 @@ export interface IResumePreviewsProps {
 export default function ResumePreviews({ resumes }: IResumePreviewsProps) {
     // @NOTE: Closures.
     const renderResumes = useCallback(() => {
-        return resumes.data.data.data.map((resume: Resume, key: number) => {
+        return resumes.data?.data.data.map((resume: Resume, key: number) => {
             return (
                 <Layout.Section oneThird key={key}>
                     <PreviewItem
@@ -47,7 +47,7 @@ export default function ResumePreviews({ resumes }: IResumePreviewsProps) {
     }
 
     // @NOTE: If there are no resumes found, display not found error.
-    if (!resumes.data.data.data.length) {
+    if (!resumes.data?.data.data.length) {
         return <NotFound />;
     }
 
