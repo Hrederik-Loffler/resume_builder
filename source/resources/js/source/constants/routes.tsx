@@ -7,6 +7,7 @@ import {
     TemplateMajor,
     InfoMinor,
     CustomersMajor,
+    ProfileMajor,
 } from "@shopify/polaris-icons";
 
 // @NOTE: Import from own files.
@@ -36,6 +37,12 @@ export interface IRouteItem {
  */
 const routes = {
     home: { url: "/", label: "Home", icon: HomeMajor, component: Home },
+    profile: {
+        url: "/profile",
+        label: "Profile",
+        icon: ProfileMajor,
+        component: Home,
+    },
     resumesBrowse: {
         url: "/resumes/browse",
         base: "/resumes/browse",

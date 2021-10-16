@@ -2,6 +2,7 @@
 import { post } from "@actions/requests";
 import { RESUMES_SIGN_IN_REQUEST } from "@constants/types/auth/sign-in";
 import { IAction } from "@interfaces/action";
+import User from "@js/types/User";
 
 /**
  * ISignInData - data that's used to sign in.
@@ -19,6 +20,6 @@ export interface ISignInData {
  *
  * @returns {IAction}
  */
-export default function signIn(body: ISignInData): IAction {
+export default function signIn(body: ISignInData): IAction<User> {
     return post(`/login`, RESUMES_SIGN_IN_REQUEST, body);
 }

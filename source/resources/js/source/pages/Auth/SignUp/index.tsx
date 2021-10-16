@@ -43,7 +43,8 @@ export default function SignUp() {
             const res = await dispatch(signUp(data));
 
             // @NOTE: Successfully authenticated.
-            if (res.payload) {
+            if (res.payload?.data) {
+                window.user = res.payload.data.data;
                 ToastService.success(res.payload?.data?.message);
                 history.push(routes.home.url);
             }
