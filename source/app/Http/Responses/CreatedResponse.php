@@ -11,7 +11,7 @@ class CreatedResponse implements Responsable
      * @param string $message
      * @param int $code
      */
-    public function __construct(array $data = [], string $message = "Successfully created")
+    public function __construct($data = [], string $message = "Successfully created")
     {
         $this->message = $message;
         $this->data = $data;

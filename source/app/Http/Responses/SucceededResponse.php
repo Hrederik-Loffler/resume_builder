@@ -11,7 +11,7 @@ class SucceededResponse implements Responsable
      * @param string $message
      * @param int $code
      */
-    public function __construct(array $data = [], string $message = "Successful")
+    public function __construct($data = [], string $message = "Successful")
     {
         $this->message = $message;
         $this->data = $data;

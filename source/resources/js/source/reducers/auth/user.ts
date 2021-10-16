@@ -12,13 +12,25 @@ import {
     RESUMES_SIGN_UP_REQUEST_FAIL,
 } from "@constants/types/auth/sign-up";
 
-const resumesReducerInitialState: IReducerState<User> = {
+export interface IUserState {
+    email: string;
+    first_name?: string;
+    second_name?: string;
+    password: string;
+    password_confirmation?: string;
+}
+
+const resumesReducerInitialState: IReducerState<IUserState> = {
     loading: false,
     updating: false,
     data: {
         message: "",
         data: {
             email: "",
+            first_name: "",
+            second_name: "",
+            password: "",
+            password_confirmation: "",
         },
     },
 };
@@ -33,8 +45,8 @@ const resumesReducerInitialState: IReducerState<User> = {
  */
 export default function authReducer(
     state = resumesReducerInitialState,
-    action: IAction<User>
-): IReducerState<User> {
+    action: IAction<IUserState>
+): IReducerState<IUserState> {
     switch (action.type) {
         case RESUMES_SIGN_IN_REQUEST:
         case RESUMES_SIGN_UP_REQUEST:

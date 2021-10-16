@@ -19,6 +19,7 @@ Route::get('/{path?}', \App\Http\Controllers\HomeController::class)->where('path
 
 // @TODO: Move these routes to `api.php`.
 Route::group(['middleware' => ['web'], 'prefix' => 'api'], function () {
-    Route::post('register', [RegisterController::class, "register"]);
-    Route::post('login', [LoginController::class, "login"]);
+    Route::post('register', [RegisterController::class, "registerUser"]);
+    Route::post('login', [LoginController::class, "loginUser"]);
+    Route::post('logout', [LoginController::class, "logout"]);
 });

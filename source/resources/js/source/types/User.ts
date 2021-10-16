@@ -3,7 +3,8 @@
  */
 type User = {
     email: string;
-    password?: string;
+    first_name: string;
+    second_name: string;
 };
 
 export default User;
