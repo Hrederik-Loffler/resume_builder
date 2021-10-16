@@ -19,6 +19,7 @@ import {
 import Resume from "@js/types/Resume";
 import User from "@js/types/User";
 
+// @NOTE: Create axios instance that will be used to make requests by `redux-axios-middleware`.
 const client = axios.create({
     baseURL: "/api",
     responseType: "json",
@@ -27,6 +28,7 @@ const client = axios.create({
     },
 });
 
+// @NOTE: Define axios interceptors.
 const axiosMiddlewareConfig = {
     interceptors: {
         returnRejectedPromiseOnError: true,
@@ -65,11 +67,9 @@ const axiosMiddlewareConfig = {
     },
 };
 
-const loggerMiddleware = createLogger();
-
 let middleware = [
     thunkMiddleware,
-    loggerMiddleware,
+    createLogger(),
     axiosMiddleware(client, axiosMiddlewareConfig),
 ];
 

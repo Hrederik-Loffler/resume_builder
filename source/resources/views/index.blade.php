@@ -17,7 +17,8 @@
     <div id="root"></div>
 
     <script>
-        window.language=navigator.language || navigator.userLanguage
+        window.language = navigator.language || navigator.userLanguage;
+        window.user = @json($user);
     </script>
     <script type="text/javascript" src="{{ asset('js/index.js') }}"></script>
 </body>

@@ -19,6 +19,6 @@ export interface ISignInData {
  *
  * @returns {IAction}
  */
-export default function signIn(body: object): IAction {
+export default function signIn(body: ISignInData): IAction {
     return post(`/login`, RESUMES_SIGN_IN_REQUEST, body);
 }

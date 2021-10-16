@@ -1,13 +1,14 @@
 // @NOTE: Import from libraries.
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Button, Card, Form, Layout, Page } from "@shopify/polaris";
-import { useCallback } from "react";
+import { Button, Card, Form, FormLayout, Layout, Page } from "@shopify/polaris";
+import { Fragment, useCallback } from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
+import { Link } from "react-router-dom";
 
 // @NOTE: Import from own files.
-import { ISignInData } from "@actions/auth/sign-in";
+import { ISignUpData } from "@actions/auth/sign-up";
 import signUpResolver from "@pages/Auth/SignUp/rules";
 import signUp from "@actions/auth/sign-up";
 import ToastService from "@services/ToastService";
@@ -22,9 +23,9 @@ import { IRootStore } from "@store/index";
  */
 export default function SignUp() {
     // @NOTE: Form hooks.
-    const methods = useForm<ISignInData>({
+    const methods = useForm<ISignUpData>({
         resolver: yupResolver(signUpResolver),
-        mode: "onTouched",
+        mode: "onChange",
     });
     const {
         handleSubmit,
@@ -37,52 +38,97 @@ export default function SignUp() {
     const history = useHistory();
 
     // @NOTE: Save changes function.
-    const saveChanges: SubmitHandler<ISignInData> = useCallback(
-        async (data: ISignInData) => {
+    const saveChanges: SubmitHandler<ISignUpData> = useCallback(
+        async (data: ISignUpData) => {
             const res = await dispatch(signUp(data));
-            ToastService.success(res.payload?.data?.message);
-            history.push(routes.home.url);
+
+            // @NOTE: Successfully authenticated.
+            if (res.payload) {
+                ToastService.success(res.payload?.data?.message);
+                history.push(routes.home.url);
+            }
         },
         []
     );
 
     // @NOTE: Should update button and input be disabled.
-    const signInButtonDisabled = isSubmitting || !isValid || user.loading;
-    const signInInputDisabled = user.loading;
+    const signUpButtonDisabled = isSubmitting || !isValid || user.loading;
+    const signUpInputDisabled = user.loading;
 
     return (
         <Page title="Sign up" divider>
             <FormProvider {...methods}>
-                <Form onSubmit={handleSubmit(saveChanges)}>
-                    <Layout>
-                        <Layout.AnnotatedSection
-                            title="Your information"
-                            description="Provide us with your email and password to log in."
-                        >
-                            <Card sectioned>
-                                <ControllerTextField
-                                    label="Email"
-                                    name="email"
-                                    type="email"
-                                    maxLength={256}
-                                    showCharacterCount
-                                    disabled={signInInputDisabled}
-                                />
-                                <ControllerTextField
-                                    label="Password"
-                                    name="password"
-                                    type="password"
-                                    maxLength={256}
-                                    showCharacterCount
-                                    disabled={signInInputDisabled}
-                                />
-                                <Button primary submit>
-                                    Sign in
-                                </Button>
-                            </Card>
-                        </Layout.AnnotatedSection>
-                    </Layout>
-                </Form>
+                <Layout>
+                    <Layout.AnnotatedSection
+                        title="Your information"
+                        description={
+                            <Fragment>
+                                <p>
+                                    Provide us with your email and password to
+                                    log in. Already have an account? Go to{" "}
+                                    <Link to={routes.authSignIn.url}>
+                                        sign in
+                                    </Link>{" "}
+                                    page.
+                                </p>
+                            </Fragment>
+                        }
+                    >
+                        <Card sectioned>
+                            <Form onSubmit={handleSubmit(saveChanges)}>
+                                <FormLayout>
+                                    <FormLayout.Group>
+                                        <ControllerTextField
+                                            label="First name"
+                                            name="first_name"
+                                            maxLength={32}
+                                            showCharacterCount
+                                            disabled={signUpInputDisabled}
+                                        />
+                                        <ControllerTextField
+                                            label="Second name"
+                                            name="second_name"
+                                            maxLength={32}
+                                            showCharacterCount
+                                            disabled={signUpInputDisabled}
+                                        />
+                                    </FormLayout.Group>
+                                    <ControllerTextField
+                                        label="Email"
+                                        name="email"
+                                        type="email"
+                                        maxLength={256}
+                                        showCharacterCount
+                                        disabled={signUpInputDisabled}
+                                    />
+                                    <ControllerTextField
+                                        label="Password"
+                                        name="password"
+                                        type="password"
+                                        maxLength={256}
+                                        showCharacterCount
+                                        disabled={signUpInputDisabled}
+                                    />
+                                    <ControllerTextField
+                                        label="Confirm password"
+                                        name="password_confirmation"
+                                        type="password"
+                                        maxLength={256}
+                                        showCharacterCount
+                                        disabled={signUpInputDisabled}
+                                    />
+                                    <Button
+                                        primary
+                                        submit
+                                        disabled={signUpButtonDisabled}
+                                    >
+                                        Sign up
+                                    </Button>
+                                </FormLayout>
+                            </Form>
+                        </Card>
+                    </Layout.AnnotatedSection>
+                </Layout>
             </FormProvider>
         </Page>
     );
