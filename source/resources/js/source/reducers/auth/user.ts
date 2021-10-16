@@ -6,6 +6,11 @@ import {
     RESUMES_SIGN_IN_REQUEST_SUCCESS,
     RESUMES_SIGN_IN_REQUEST_FAIL,
 } from "@constants/types/auth/sign-in";
+import {
+    RESUMES_SIGN_UP_REQUEST,
+    RESUMES_SIGN_UP_REQUEST_SUCCESS,
+    RESUMES_SIGN_UP_REQUEST_FAIL,
+} from "@constants/types/auth/sign-up";
 
 const resumesReducerInitialState: IReducerState<User> = {
     loading: false,
@@ -32,12 +37,14 @@ export default function authReducer(
 ): IReducerState<User> {
     switch (action.type) {
         case RESUMES_SIGN_IN_REQUEST:
+        case RESUMES_SIGN_UP_REQUEST:
             return {
                 ...state,
                 loading: true,
             };
 
         case RESUMES_SIGN_IN_REQUEST_SUCCESS:
+        case RESUMES_SIGN_UP_REQUEST_SUCCESS:
             return {
                 ...state,
                 loading: false,
@@ -45,6 +52,7 @@ export default function authReducer(
             };
 
         case RESUMES_SIGN_IN_REQUEST_FAIL:
+        case RESUMES_SIGN_UP_REQUEST_FAIL:
             return {
                 ...state,
                 loading: false,

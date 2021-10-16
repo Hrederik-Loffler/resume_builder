@@ -7,8 +7,11 @@ import { IAction } from "@interfaces/action";
  * ISignUpData - data that's used to sign up.
  */
 export interface ISignUpData {
+    first_name: string;
+    second_name: string;
     email: string;
     password: string;
+    password_confirmation: string;
 }
 
 /**
@@ -19,6 +22,6 @@ export interface ISignUpData {
  *
  * @returns {IAction}
  */
-export default function signUp(body: object): IAction {
-    return post(`/api/register`, RESUMES_SIGN_UP_REQUEST, body);
+export default function signUp(body: ISignUpData): IAction {
+    return post(`/register`, RESUMES_SIGN_UP_REQUEST, body);
 }
