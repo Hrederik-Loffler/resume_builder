@@ -35,10 +35,10 @@ export default function AuthenticatedTopBarUser({
 
     // @NOTE: Log out user.
     const logout = useCallback(async () => {
-        const res = await dispatch(logOut());
         window.user = null;
         history.push(routes.home.url);
-        ToastService.success(res.payload?.data?.message);
+        ToastService.success("Successfully logged out");
+        await dispatch(logOut());
     }, []);
 
     return (
