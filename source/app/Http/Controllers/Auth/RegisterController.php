@@ -3,9 +3,13 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Responses\CreatedResponse;
+use App\Http\Responses\SucceededResponse;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -71,5 +75,20 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+    }
+
+
+    /**
+     * Handle a registration request for the application. It call default Laravel's register method, but
+     * it also returns current user.
+     *
+     * @param Request $request
+     *
+     * @return CreatedResponse
+     */
+    public function registerUser(Request $request)
+    {
+        $this->register($request);
+        return new CreatedResponse(Auth::user(), "Successfully signed up");
     }
 }

@@ -1,6 +1,15 @@
-// @NOTE: Import library functions.
-import { TopBar as PolarisTopBar } from "@shopify/polaris";
-import { LogOutMinor, ProfileMajor } from "@shopify/polaris-icons";
+// @NOTE: Import from libraries.
+import { useCallback } from "react";
+import { useHistory } from "react-router";
+import { useDispatch } from "react-redux";
+
+// @NOTE: Import from own files.
+import useAuth from "@js/hooks/useAuth";
+import UnauthenticatedTopBarUser from "@components/layouts/TopBarUser/Unauthenticated";
+import AuthenticatedTopBarUser from "@components/layouts/TopBarUser/Authenticated";
+import logOut from "@actions/auth/log-out";
+import routes from "@constants/routes";
+import ToastService from "@services/ToastService";
 
 /**
  * ITopBarUserProps - props for `TopBarUser` component.
@@ -14,29 +23,18 @@ export interface ITopBarUserProps {
  * TopBarUser - Defines dropdown user menu in navigational bar. It lists
  * items for user settings, such as 'log out' or 'profile'.
  *
- * @prop {JSX.Element} toggleIsUserMenuOpen
- * @prop {JSX.Element} isUserMenuOpen
+ * @prop {JSX.ITopBarUserProps} props
+ *
  * @returns {JSX.Element}
  */
-export default function TopBarUser({
-    toggleIsUserMenuOpen,
-    isUserMenuOpen,
-}: ITopBarUserProps) {
-    return (
-        <PolarisTopBar.UserMenu
-            actions={[
-                {
-                    items: [{ content: "Profile", icon: ProfileMajor }],
-                },
-                {
-                    items: [{ content: "Log out", icon: LogOutMinor }],
-                },
-            ]}
-            name="Scott"
-            detail="Snow Devil"
-            initials="S"
-            open={isUserMenuOpen}
-            onToggle={toggleIsUserMenuOpen}
-        />
-    );
+export default function TopBarUser(props: ITopBarUserProps) {
+    // @NOTE: Misc hooks.
+    const user = useAuth();
+
+    // @NOTE: If user is not authenticated, show one navbar.
+    if (!user) {
+        return <UnauthenticatedTopBarUser {...props} />;
+    }
+
+    return <AuthenticatedTopBarUser user={user} {...props} />;
 }
