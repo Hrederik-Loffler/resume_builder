@@ -8,10 +8,16 @@ import { StatusCodes } from "http-status-codes";
 
 // @NOTE: Import misc.
 import rootReducer from "@reducers/root";
-import { IResumesReducerState } from "@reducers/resumes";
-import { IResumeReducerState } from "@reducers/resumes/single";
 import history from "@router/history";
 import ToastService from "@services/ToastService";
+import {
+    IPaginatedResponse,
+    IReducerState,
+    IResponse,
+} from "@interfaces/action";
+
+import Resume from "@js/types/Resume";
+import User from "@js/types/User";
 
 const client = axios.create({
     baseURL: "/api",
@@ -27,12 +33,18 @@ const axiosMiddlewareConfig = {
         response: [
             {
                 // @NOTE: Handle errors according to their HTTP codes.
-                error: (_: any, error: AxiosError) => {
+                error: (_: any, error: AxiosError<IResponse>) => {
                     switch (error.response?.status) {
                         // @NOTE: If the error code is the one below, redirect to home page and show error popup.
-                        case StatusCodes.UNAUTHORIZED:
                         case StatusCodes.NOT_FOUND: {
                             history.push("/");
+                            ToastService.error(error.response.statusText);
+                            break;
+                        }
+
+                        // @NOTE: If the error code is the one below, redirect to sign in page and show error popup.
+                        case StatusCodes.UNAUTHORIZED: {
+                            history.push("/auth/sign-in");
                             ToastService.error(error.response.statusText);
                             break;
                         }
@@ -41,7 +53,7 @@ const axiosMiddlewareConfig = {
                         default: {
                             ToastService.error(
                                 error.response
-                                    ? error.response.statusText
+                                    ? error.response.data.message
                                     : "Unknown error has occured"
                             );
                             break;
@@ -68,8 +80,9 @@ const configureStore = (preloadedState: {} | undefined) =>
  * IRootStore - declares all available entries in Redux store.
  */
 export interface IRootStore {
-    resumes: IResumesReducerState;
-    resume: IResumeReducerState;
+    resumes: IReducerState<IPaginatedResponse<Resume[]>>;
+    resume: IReducerState<Resume>;
+    user: IReducerState<User>;
 }
 
 export default configureStore({});

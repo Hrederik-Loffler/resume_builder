@@ -59,8 +59,8 @@ export default function ResumeCreate() {
     const saveChanges: SubmitHandler<IResumeDetailsData> = useCallback(
         async (data: IResumeDetailsData) => {
             const res = await dispatch(createResume(data));
-            ToastService.success(res.payload.data?.message);
-            const id = res.payload.data?.data.id;
+            ToastService.success(res.payload?.data?.message);
+            const id = res.payload?.data?.data.id;
             history.push(`${routes.resumesDetails.base}/${id}`);
         },
         []
