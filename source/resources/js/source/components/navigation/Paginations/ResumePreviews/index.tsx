@@ -11,7 +11,7 @@ import NotFound from "@components/feedback/NotFound";
 import Resume from "@js/types/Resume";
 import routes from "@constants/routes";
 import preview from "@constants/preview";
-import { IPaginatedResponse, IReducerState } from "@interfaces/action";
+import { IPaginatedResponse, IReducerState } from "@actions/action";
 
 /**
  * IResumePreviewsProps - props for `ResumePreviews` component.

@@ -8,8 +8,9 @@ import SiteLayout from "@components/layouts/SiteLayout";
 import NotFound from "@components/feedback/NotFound";
 
 // @NOTE: Import misc.
-import routes, { publicRoutes } from "@constants/routes";
+import routes, { privateRoutes, publicRoutes } from "@constants/routes";
 import history from "@router/history";
+import PrivateRoute from "@components/navigation/PrivateRoute";
 
 /**
  * Router - defines all routes that are available on the website.
@@ -32,6 +33,14 @@ export default function AppRouter() {
                         <Switch>
                             {publicRoutes.map((route, key) => (
                                 <Route
+                                    key={key}
+                                    path={route.url}
+                                    exact
+                                    component={route.component}
+                                />
+                            ))}
+                            {privateRoutes.map((route, key) => (
+                                <PrivateRoute
                                     key={key}
                                     path={route.url}
                                     exact

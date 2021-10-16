@@ -5,16 +5,17 @@ import * as yup from "yup";
 import regex from "@constants/regex";
 
 export default {
-    first_name: yup.string().required("First name is required").max(32),
-    second_name: yup.string().required("Second name is required").max(32),
+    first_name: yup.string().required("First name is required").max(31),
+    second_name: yup.string().required("Second name is required").max(31),
     email: yup
         .string()
         .email("Email must a valid email")
-        .max(256)
+        .max(255)
         .required("Email is required"),
+    phone: yup.string().matches(regex.phone, "Phone number has invalid format"),
     password: yup
         .string()
-        .max(256)
+        .max(255)
         .required("Password is required")
         .matches(
             regex.password,
@@ -22,6 +23,8 @@ export default {
         ),
     confirm_password: yup
         .string()
-        .max(256)
+        .max(255)
         .oneOf([yup.ref("password"), null], "Passwords must match"),
+    country: yup.string().required("Country is required").max(63),
+    city: yup.string().required("Country is required").max(255),
 };

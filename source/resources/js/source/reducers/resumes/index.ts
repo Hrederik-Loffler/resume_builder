@@ -1,5 +1,5 @@
 // @NOTE: Import misc.
-import { IAction, IPaginatedResponse, IReducerState } from "@interfaces/action";
+import { IAction, IPaginatedResponse, IReducerState } from "@actions/action";
 import Resume from "@js/types/Resume";
 import {
     RESUMES_LIST_REQUEST,

@@ -23,6 +23,9 @@ class User extends Authenticatable
         'second_name',
         'email',
         'password',
+        'country',
+        'city',
+        'phone',
     ];
 
     /**
@@ -43,4 +46,27 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * The appended attributes.
+     *
+     * @var array
+     */
+    protected $appends = ['educations'];
+
+    /**
+     * The educations that belong to the user.
+     */
+    public function educations()
+    {
+        return $this->hasMany(Education::class);
+    }
+
+    /**
+     * Education's school.
+     */
+    public function getEducationsAttribute()
+    {
+        return $this->educations()->get();
+    }
 }

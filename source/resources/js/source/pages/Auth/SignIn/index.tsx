@@ -82,7 +82,7 @@ export default function SignIn() {
                                         label="Email"
                                         name="email"
                                         type="email"
-                                        maxLength={256}
+                                        maxLength={255}
                                         showCharacterCount
                                         disabled={signInInputDisabled}
                                     />
@@ -90,7 +90,7 @@ export default function SignIn() {
                                         label="Password"
                                         name="password"
                                         type="password"
-                                        maxLength={256}
+                                        maxLength={255}
                                         showCharacterCount
                                         disabled={signInInputDisabled}
                                     />

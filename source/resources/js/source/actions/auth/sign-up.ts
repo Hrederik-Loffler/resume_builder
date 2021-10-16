@@ -1,7 +1,7 @@
 // @NOTE: Import from own files.
 import { post } from "@actions/requests";
-import { RESUMES_SIGN_UP_REQUEST } from "@constants/types/auth/sign-up";
-import { IAction } from "@interfaces/action";
+import { USER_SIGN_UP_REQUEST } from "@constants/types/auth/sign-up";
+import { IAction } from "@actions/action";
 import User from "@js/types/User";
 
 /**
@@ -24,5 +24,5 @@ export interface ISignUpData {
  * @returns {IAction}
  */
 export default function signUp(body: ISignUpData): IAction<User> {
-    return post(`/register`, RESUMES_SIGN_UP_REQUEST, body);
+    return post(`/register`, USER_SIGN_UP_REQUEST, body);
 }

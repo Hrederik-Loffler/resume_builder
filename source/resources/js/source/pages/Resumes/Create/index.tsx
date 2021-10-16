@@ -117,14 +117,14 @@ export default function ResumeCreate() {
                                 <ControllerTextField
                                     label="Title"
                                     name="title"
-                                    maxLength={64}
+                                    maxLength={63}
                                     showCharacterCount
                                     disabled={updateInputDisabled}
                                 />
                                 <ControllerTextField
                                     label="Description"
                                     name="description"
-                                    maxLength={256}
+                                    maxLength={255}
                                     showCharacterCount
                                     disabled={updateInputDisabled}
                                 />
@@ -140,7 +140,7 @@ export default function ResumeCreate() {
                                     <PolarisTextField
                                         label="Tag"
                                         name="tag"
-                                        maxLength={32}
+                                        maxLength={31}
                                         showCharacterCount
                                         value={tagInput}
                                         disabled={updateInputDisabled}

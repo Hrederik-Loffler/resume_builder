@@ -1,7 +1,7 @@
 // @NOTE: Import from own files.
 import { get } from "@actions/requests";
 import { RESUMES_LIST_REQUEST } from "@constants/types/resumes/list";
-import { IAction } from "@interfaces/action";
+import { IAction } from "@actions/action";
 
 /**
  * loadResumes - returns objects that's used by axios middleware to

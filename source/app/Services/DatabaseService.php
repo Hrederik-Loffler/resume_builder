@@ -37,7 +37,17 @@ abstract class DatabaseService
     }
 
     /**
-     * First or create multiple tnries for the model.
+     * Create new entry for the model.
+     *
+     * @param array $data
+     */
+    public function firstOrCreate(array $data)
+    {
+        return $this->model->firstOrCreate($data);
+    }
+
+    /**
+     * First or create multiple entries for the model.
      *
      * @param array $data
      */
