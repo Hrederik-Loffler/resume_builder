@@ -11,6 +11,7 @@ import ResumesBrowse from "@pages/Resumes/Browse";
 import ResumesCreate from "@pages/Resumes/Create";
 import ResumesDetails from "@pages/Resumes/Details";
 import NotFound from "@components/feedback/NotFound";
+import SignIn from "@pages/Auth/SignIn";
 
 // @NOTE: Import misc.
 import routes from "@constants/routes";
@@ -54,6 +55,11 @@ export default function AppRouter() {
                                 path={routes.resumesDetails.url}
                                 exact
                                 component={ResumesDetails}
+                            />
+                            <Route
+                                path={routes.authSignIn.url}
+                                exact
+                                component={SignIn}
                             />
                             <Route component={NotFound} />
                         </Switch>

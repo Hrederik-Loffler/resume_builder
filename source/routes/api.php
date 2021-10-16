@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\ResumesController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\ScopesController;
@@ -44,3 +46,6 @@ Route::group(['prefix' => 'user'], function () {
 Route::group(['prefix' => 'scope'], function () {
    Route::get('list', [ScopesController::class, 'list']);
 });
+
+Route::post('register', [RegisterController::class, "register"]);
+Route::post('login', [LoginController::class, "login"]);

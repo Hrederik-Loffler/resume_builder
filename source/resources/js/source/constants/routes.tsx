@@ -6,6 +6,7 @@ import {
     PlusMinor,
     TemplateMajor,
     InfoMinor,
+    CustomersMajor,
 } from "@shopify/polaris-icons";
 
 /**
@@ -48,6 +49,18 @@ const routes = {
         base: "/resumes/details",
         label: "Details",
         icon: InfoMinor,
+    },
+    authSignIn: {
+        url: "/auth/sign-in",
+        base: "/auth/sign-in",
+        label: "Sign in",
+        icon: CustomersMajor,
+    },
+    authSignUp: {
+        url: "/auth/sign-up",
+        base: "/auth/sign-up",
+        label: "Sign up",
+        icon: CustomersMajor,
     },
 };
 

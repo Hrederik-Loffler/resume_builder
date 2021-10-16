@@ -146,14 +146,14 @@ export default function ResumesBrowse() {
                 <Layout.Section>
                     <div className="pagination-wrapper">
                         <Pagination
-                            hasPrevious={!!resumes.data.data.prev_page_url}
+                            hasPrevious={!!resumes.data?.data.prev_page_url}
                             onPrevious={() => {
                                 updateFilters({
                                     ...filters,
                                     page: filters.page - 1,
                                 });
                             }}
-                            hasNext={!!resumes.data.data.next_page_url}
+                            hasNext={!!resumes.data?.data.next_page_url}
                             onNext={() => {
                                 updateFilters({
                                     ...filters,
