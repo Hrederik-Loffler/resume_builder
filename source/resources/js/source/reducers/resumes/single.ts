@@ -1,5 +1,5 @@
 // @NOTE: Import misc.
-import { IAction, IReducerState } from "@interfaces/action";
+import { IAction, IReducerState } from "@actions/action";
 import Resume from "@js/types/Resume";
 
 import {

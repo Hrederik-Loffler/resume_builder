@@ -82,14 +82,14 @@ export default function SignUp() {
                                         <ControllerTextField
                                             label="First name"
                                             name="first_name"
-                                            maxLength={32}
+                                            maxLength={31}
                                             showCharacterCount
                                             disabled={signUpInputDisabled}
                                         />
                                         <ControllerTextField
                                             label="Second name"
                                             name="second_name"
-                                            maxLength={32}
+                                            maxLength={31}
                                             showCharacterCount
                                             disabled={signUpInputDisabled}
                                         />
@@ -98,7 +98,7 @@ export default function SignUp() {
                                         label="Email"
                                         name="email"
                                         type="email"
-                                        maxLength={256}
+                                        maxLength={255}
                                         showCharacterCount
                                         disabled={signUpInputDisabled}
                                     />
@@ -106,7 +106,7 @@ export default function SignUp() {
                                         label="Password"
                                         name="password"
                                         type="password"
-                                        maxLength={256}
+                                        maxLength={255}
                                         showCharacterCount
                                         disabled={signUpInputDisabled}
                                     />
@@ -114,7 +114,7 @@ export default function SignUp() {
                                         label="Confirm password"
                                         name="password_confirmation"
                                         type="password"
-                                        maxLength={256}
+                                        maxLength={255}
                                         showCharacterCount
                                         disabled={signUpInputDisabled}
                                     />

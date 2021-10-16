@@ -10,11 +10,7 @@ import { StatusCodes } from "http-status-codes";
 import rootReducer from "@reducers/root";
 import history from "@router/history";
 import ToastService from "@services/ToastService";
-import {
-    IPaginatedResponse,
-    IReducerState,
-    IResponse,
-} from "@interfaces/action";
+import { IPaginatedResponse, IReducerState, IResponse } from "@actions/action";
 
 import Resume from "@js/types/Resume";
 import User from "@js/types/User";
@@ -83,6 +79,7 @@ export interface IRootStore {
     resumes: IReducerState<IPaginatedResponse<Resume[]>>;
     resume: IReducerState<Resume>;
     user: IReducerState<User>;
+    profile: IReducerState<User>;
 }
 
 export default configureStore({});

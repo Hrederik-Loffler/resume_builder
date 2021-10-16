@@ -5,7 +5,7 @@ import {
     RESUME_SINGLE_REQUEST,
     RESUME_UPDATE_REQUEST,
 } from "@constants/types/resumes/single";
-import { IAction } from "@interfaces/action";
+import { IAction } from "@actions/action";
 import Tag from "@js/types/Tag";
 
 /**

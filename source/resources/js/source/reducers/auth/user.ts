@@ -1,15 +1,14 @@
 // @NOTE: Import misc.
-import { IAction, IReducerState } from "@interfaces/action";
-import User from "@js/types/User";
+import { IAction, IReducerState } from "@actions/action";
 import {
-    RESUMES_SIGN_IN_REQUEST,
-    RESUMES_SIGN_IN_REQUEST_SUCCESS,
-    RESUMES_SIGN_IN_REQUEST_FAIL,
+    USER_SIGN_IN_REQUEST,
+    USER_SIGN_IN_REQUEST_SUCCESS,
+    USER_SIGN_IN_REQUEST_FAIL,
 } from "@constants/types/auth/sign-in";
 import {
-    RESUMES_SIGN_UP_REQUEST,
-    RESUMES_SIGN_UP_REQUEST_SUCCESS,
-    RESUMES_SIGN_UP_REQUEST_FAIL,
+    USER_SIGN_UP_REQUEST,
+    USER_SIGN_UP_REQUEST_SUCCESS,
+    USER_SIGN_UP_REQUEST_FAIL,
 } from "@constants/types/auth/sign-up";
 
 export interface IUserState {
@@ -48,23 +47,23 @@ export default function authReducer(
     action: IAction<IUserState>
 ): IReducerState<IUserState> {
     switch (action.type) {
-        case RESUMES_SIGN_IN_REQUEST:
-        case RESUMES_SIGN_UP_REQUEST:
+        case USER_SIGN_IN_REQUEST:
+        case USER_SIGN_UP_REQUEST:
             return {
                 ...state,
                 loading: true,
             };
 
-        case RESUMES_SIGN_IN_REQUEST_SUCCESS:
-        case RESUMES_SIGN_UP_REQUEST_SUCCESS:
+        case USER_SIGN_IN_REQUEST_SUCCESS:
+        case USER_SIGN_UP_REQUEST_SUCCESS:
             return {
                 ...state,
                 loading: false,
                 data: action.payload?.data,
             };
 
-        case RESUMES_SIGN_IN_REQUEST_FAIL:
-        case RESUMES_SIGN_UP_REQUEST_FAIL:
+        case USER_SIGN_IN_REQUEST_FAIL:
+        case USER_SIGN_UP_REQUEST_FAIL:
             return {
                 ...state,
                 loading: false,
