@@ -3,6 +3,10 @@
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\ResumesController;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\ScopesController;
+use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,6 +20,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Auth::routes();
+
 Route::group(["prefix" => "/resumes"], function () {
     Route::get("/", [ResumesController::class, "index"]);
     Route::get("/{id}", [ResumesController::class, "show"]);
@@ -24,3 +30,22 @@ Route::group(["prefix" => "/resumes"], function () {
     Route::get("/{id}/details", [ResumesController::class, "getDetails"]);
     Route::put("/{id}/details", [ResumesController::class, "updateDetails"]);
 });
+
+Route::group(['prefix' => 'role'], function () {
+   Route::get('list', [RoleController::class, 'list']);
+   Route::get('{role}', [RoleController::class, 'role']);
+});
+
+Route::group(['prefix' => 'user'], function () {
+    Route::get('me', UserController::class);
+    Route::get('/all', [UserController::class, 'allUsers']);
+    Route::get('{user}', [UserController::class, 'user']);
+    Route::patch('{user}', [UserController::class, 'updateRole']);
+});
+
+Route::group(['prefix' => 'scope'], function () {
+   Route::get('list', [ScopesController::class, 'list']);
+});
+
+Route::post('register', [RegisterController::class, "register"]);
+Route::post('login', [LoginController::class, "login"]);
