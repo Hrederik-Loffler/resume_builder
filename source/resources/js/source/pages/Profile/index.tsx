@@ -43,7 +43,9 @@ export default function Profile() {
     const {
         handleSubmit,
         control,
-        formState: { isSubmitting, isValid, errors },
+        getValues,
+        reset,
+        formState: { isSubmitting, isValid, errors, dirtyFields },
     } = methods;
 
     const jobs = useFieldArray<
@@ -71,8 +73,12 @@ export default function Profile() {
 
             // @NOTE: Successfully authenticated.
             if (res.payload?.data) {
+                // @NOTE: Disable `Update` button when successfully update profile.
+                const values = getValues();
+                setDefaultValues(values);
+                reset(values);
+
                 // window.user = res.payload.data.data;
-                console.log(res.payload);
 
                 ToastService.success(res.payload?.data?.message);
             }
@@ -82,7 +88,11 @@ export default function Profile() {
 
     // @NOTE: Should update button and input be disabled.
     const updateButtonDisabled =
-        isSubmitting || !isValid || profile.updating || profile.loading;
+        isSubmitting ||
+        !isValid ||
+        profile.updating ||
+        profile.loading ||
+        _.isEmpty(dirtyFields);
     const updateInputDisabled = profile.updating || profile.loading;
     const addEducationsButtonDisabled =
         profile.updating ||
