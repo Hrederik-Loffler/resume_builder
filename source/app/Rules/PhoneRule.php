@@ -26,7 +26,7 @@ class PhoneRule implements Rule
     public function passes($attribute, $value)
     {
         // @NOTE: Regex was taken from https://regexlib.com/REDetails.aspx?regexp_id=75.
-        return preg_match('/(^\+[0-9]{2}|^\+[0-9]{2}\(0\)|^\(\+[0-9]{2}\)\(0\)|^00[0-9]{2}|^0)([0-9]{9}$|[0-9\-\s]{10}$)/', $value);
+        return !$value || preg_match('/(^\+[0-9]{2}|^\+[0-9]{2}\(0\)|^\(\+[0-9]{2}\)\(0\)|^00[0-9]{2}|^0)([0-9]{9}$|[0-9\-\s]{10}$)/', $value);
     }
 
     /**
