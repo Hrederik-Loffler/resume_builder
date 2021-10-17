@@ -25,11 +25,6 @@ interface IEditorServiceInitOptions {
     urlLoad: string;
 }
 
-export type UserInputField = {
-    selector: string;
-    value: ?string;
-};
-
 export type IResumeData = {
     assets: string;
     components: string;
@@ -149,10 +144,68 @@ export class EditorService {
     /**
      * Substitite a fields in the resume template with the given fields.
      *
-     * @param {UserInputField[]} fields
+     * @param {object} fields
      */
-    public substitute(fields: UserInputField[]) {
-        fields.forEach((field) => {});
+    public substitute(fields: object) {
+        // @NOTE: Get DOM iframe element.
+        const element = document.querySelector(
+            ".gjs-frame"
+        ) as HTMLIFrameElement;
+
+        // @NOTE: Get document element from iframe.
+        const doc = element.contentWindow.document as Document;
+
+        for (const selector in fields) {
+            // @NOTE: If educations, work experiences or other array fields.
+            if (Array.isArray(fields[selector])) {
+                // @NOTE: Don't remove block if there're no elements in fields.
+                const block = doc.querySelector(`div.${selector} > div`);
+                if (!fields[selector].length || !block) {
+                    continue;
+                }
+
+                // @NOTE: Retrieve component from GrapesJS storage.
+                const component =
+                    this.editor.Components.componentsById[block.id];
+
+                // @NOTE: Remove all nodes except first.
+                doc.querySelectorAll(
+                    `div.${selector} > div:nth-of-type(n + 2)`
+                )?.forEach((el) =>
+                    this.editor.Components.componentsById[el.id].remove()
+                );
+
+                // @NOTE: Copy base component and insert it _n_ times (e.g 3 times if user has 3 educations).
+                const items = fields[selector];
+                for (const item in items) {
+                    // @NOTE: Clone component and append it. You can't directly use
+                    // DOM to clone components, because it breaks GrapesJS state. If you
+                    // clone DOM, then user won't be able to interact with this component.
+                    const newComponent = component.clone();
+                    component.parent().append(newComponent);
+
+                    // @NOTE: After element was cloned, it would be inserted into DOM.
+                    setTimeout(() => {
+                        // @NOTE: For each field in array item (e.g educations), update field's content.
+                        for (const field in items[item]) {
+                            const fieldEl = doc.querySelector(
+                                `div.${selector} > div:nth-of-type(${
+                                    parseInt(item) + 1 // @NOTE: `item` is string.
+                                }) .${field}`
+                            );
+                            if (fieldEl) fieldEl.innerText = items[item][field];
+                        }
+                    }, 0);
+                }
+
+                // @NOTE: Finally, remove node that was used as template.
+                component.remove();
+            } else {
+                doc.querySelectorAll(`div.${selector}`)?.forEach((field) => {
+                    field.innerText = fields[selector];
+                });
+            }
+        }
     }
 }
 

@@ -12,6 +12,7 @@ import routes from "@constants/routes";
 import ToastService from "@services/ToastService";
 import { updateResume } from "@actions/resumes/single";
 import EditorCommandsService from "@services/EditorCommandsService";
+import useAuth from "@js/hooks/useAuth";
 
 /**
  * IPageParams - path parameters used in editor page.
@@ -34,15 +35,14 @@ export default function ResumesEditor() {
     const dispatch = useDispatch();
     let history = useHistory();
 
+    // @NOTE: Misc hooks
+    const user = useAuth();
+
     // @NOTE: Editor store callback.
     const storeResume = async (data: IResumeData) => {
         const { image } = await EditorCommandsService.generateImage();
 
-        var img = new Image();
-        img.src = image;
-        document.body.appendChild(img);
-
-        await dispatch(
+        const res = await dispatch(
             updateResume(id, {
                 editorassets: data.assets,
                 editorcomponents: data.components,
@@ -52,6 +52,10 @@ export default function ResumesEditor() {
                 editorpreview: image,
             })
         );
+
+        if (res.payload?.data) {
+            ToastService.success(res.payload.data.message);
+        }
     };
 
     // @NOTE: On component mounted.
@@ -63,7 +67,12 @@ export default function ResumesEditor() {
         });
 
         // @NOTE: Attach event listeners.
-        EditorService.attachEvent("load", () => setLoading(false));
+        EditorService.attachEvent("load", () => {
+            setLoading(false);
+
+            // @NOTE: Substitute user fields in template.
+            EditorService.substitute(user || {});
+        });
 
         // @NOTE: If template wasn't found, throw an error.
         EditorService.attachEvent("storage:error:load", () => {

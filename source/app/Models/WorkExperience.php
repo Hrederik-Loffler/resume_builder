@@ -21,7 +21,7 @@ class WorkExperience extends Model
      *
      * @var array
      */
-    protected $hidden = ['job_id', 'id'];
+    protected $hidden = ['job_id', 'id', 'user_id'];
 
     /**
      * The appended attributes.
