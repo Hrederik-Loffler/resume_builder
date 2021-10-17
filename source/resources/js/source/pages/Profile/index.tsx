@@ -1,14 +1,7 @@
 // @NOTE: Import library functions.
 import { yupResolver } from "@hookform/resolvers/yup";
-import {
-    Card,
-    FormLayout,
-    Layout,
-    Page,
-    TextField,
-    Button,
-} from "@shopify/polaris";
-import { useCallback, useEffect, useState } from "react";
+import { Card, FormLayout, Layout, Page, Button } from "@shopify/polaris";
+import { useCallback, useState } from "react";
 import {
     FormProvider,
     SubmitHandler,
@@ -19,7 +12,7 @@ import _ from "lodash";
 import { useDispatch, useSelector } from "react-redux";
 
 // @NOTE: Import from own files.
-import { getProfile, IProfileData, updateProfile } from "@actions/auth/profile";
+import { IProfileData, updateProfile } from "@actions/auth/profile";
 import profileResolver from "@pages/Profile/rules";
 import ControllerTextField from "@components/forms/TextField";
 import { IRootStore } from "@store/index";
@@ -50,9 +43,7 @@ export default function Profile() {
     const {
         handleSubmit,
         control,
-        reset,
-        getValues,
-        formState: { errors, isSubmitting, isValid, dirtyFields },
+        formState: { isSubmitting, isValid, errors },
     } = methods;
 
     const jobs = useFieldArray<
@@ -93,6 +84,16 @@ export default function Profile() {
     const updateButtonDisabled =
         isSubmitting || !isValid || profile.updating || profile.loading;
     const updateInputDisabled = profile.updating || profile.loading;
+    const addEducationsButtonDisabled =
+        profile.updating ||
+        profile.loading ||
+        educations.fields.length > 8 ||
+        !!errors.educations;
+    const addWorkExperiencesButtonDisabled =
+        profile.updating ||
+        profile.loading ||
+        jobs.fields.length > 8 ||
+        !!errors.workExperiences;
 
     return (
         <Page
@@ -140,6 +141,7 @@ export default function Profile() {
                                 <ControllerTextField
                                     label="Phone"
                                     name="phone"
+                                    disabled={updateInputDisabled}
                                 />
 
                                 <FormLayout.Group>
@@ -221,7 +223,11 @@ export default function Profile() {
                                     </Card>
                                 );
                             })}
-                            <Button fullWidth onClick={() => jobs.append({})}>
+                            <Button
+                                fullWidth
+                                onClick={() => jobs.append({})}
+                                disabled={addWorkExperiencesButtonDisabled}
+                            >
                                 Add work experience
                             </Button>
                         </FormLayout>
@@ -284,6 +290,7 @@ export default function Profile() {
                             <Button
                                 fullWidth
                                 onClick={() => educations.append({})}
+                                disabled={addEducationsButtonDisabled}
                             >
                                 Add education
                             </Button>

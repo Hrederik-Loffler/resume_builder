@@ -5,6 +5,9 @@ import {
     RESUMES_PROFILE_REQUEST,
     RESUMES_PROFILE_REQUEST_SUCCESS,
     RESUMES_PROFILE_REQUEST_FAIL,
+    RESUMES_UPDATE_PROFILE_REQUEST,
+    RESUMES_UPDATE_PROFILE_REQUEST_SUCCESS,
+    RESUMES_UPDATE_PROFILE_REQUEST_FAIL,
 } from "@constants/types/auth/profile";
 
 const resumesReducerInitialState: IReducerState<IProfileData> = {
@@ -42,20 +45,39 @@ export default function profileReducer(
         case RESUMES_PROFILE_REQUEST:
             return {
                 ...state,
+                loading: true,
+            };
+
+        case RESUMES_UPDATE_PROFILE_REQUEST:
+            return {
+                ...state,
                 updating: true,
             };
 
-        case RESUMES_PROFILE_REQUEST_SUCCESS:
+        case RESUMES_UPDATE_PROFILE_REQUEST_SUCCESS:
             return {
                 ...state,
                 updating: false,
                 data: action.payload?.data,
             };
 
-        case RESUMES_PROFILE_REQUEST_FAIL:
+        case RESUMES_PROFILE_REQUEST_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                data: action.payload?.data,
+            };
+
+        case RESUMES_UPDATE_PROFILE_REQUEST_FAIL:
             return {
                 ...state,
                 updating: false,
+            };
+
+        case RESUMES_PROFILE_REQUEST_FAIL:
+            return {
+                ...state,
+                loading: false,
             };
 
         default:

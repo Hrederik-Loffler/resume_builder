@@ -11,4 +11,6 @@ export default yup.object().shape({
     phone: rules.phone,
     country: rules.country,
     city: rules.city,
+    educations: rules.educations,
+    workExperiences: rules.jobs,
 });
