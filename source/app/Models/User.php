@@ -22,6 +22,10 @@ class User extends Authenticatable
         'second_name',
         'email',
         'password',
+        'country',
+        'city',
+        'phone',
+        'accomplishments'
     ];
 
     /**
@@ -42,4 +46,43 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * The appended attributes.
+     *
+     * @var array
+     */
+    protected $appends = ['educations', 'workExperiences'];
+
+    /**
+     * The educations that belong to the user.
+     */
+    public function educations()
+    {
+        return $this->hasMany(Education::class);
+    }
+
+    /**
+     * The work experiences that belong to the user.
+     */
+    public function workExperiences()
+    {
+        return $this->hasMany(WorkExperience::class);
+    }
+
+    /**
+     * User's educations.
+     */
+    public function getEducationsAttribute()
+    {
+        return $this->educations()->get();
+    }
+
+    /**
+     * User's work experiences.
+     */
+    public function getWorkExperiencesAttribute()
+    {
+        return $this->workExperiences()->get();
+    }
 }

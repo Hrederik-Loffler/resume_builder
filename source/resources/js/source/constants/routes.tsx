@@ -18,6 +18,7 @@ import ResumesEditor from "@pages/Resumes/Editor";
 import ResumesDetails from "@pages/Resumes/Details";
 import SignIn from "@pages/Auth/SignIn";
 import SignUp from "@pages/Auth/SignUp";
+import Profile from "@pages/Profile";
 
 /**
  * IRouteItem - Define a route in the application. It's being used
@@ -41,7 +42,7 @@ const routes = {
         url: "/profile",
         label: "Profile",
         icon: ProfileMajor,
-        component: Home,
+        component: Profile,
     },
     resumesBrowse: {
         url: "/resumes/browse",
@@ -104,6 +105,11 @@ export const publicRoutes = [
     routes.authSignIn,
     routes.authSignUp,
 ];
+
+/**
+ * privateRoutes - Variable that holds all routes that are available to authenticated users.
+ */
+export const privateRoutes = [routes.profile];
 
 /**
  * adminRoutes - Variable that holds all routes that are supposed to be used

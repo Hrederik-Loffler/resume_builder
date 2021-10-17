@@ -24,10 +24,10 @@ class ResumesCreateRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'string|max:64|required',
-            'description' => 'string|max:256|required',
+            'title' => 'string|max:63|required',
+            'description' => 'string|max:255|required',
             'tags' => 'array|max:8|min:1',
-            'tags.*.name' => 'string|max:32|required',
+            'tags.*.name' => 'string|max:31|required',
         ];
     }
 }

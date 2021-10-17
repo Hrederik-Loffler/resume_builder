@@ -4,6 +4,7 @@ import {
     TextField as PolarisTextField,
     TextFieldProps,
 } from "@shopify/polaris";
+import _ from "lodash";
 
 /**
  * ITextFieldProps - props for `TextField` component.
@@ -36,7 +37,7 @@ export default function TextField({ name, ...rest }: ITextFieldProps) {
                     <PolarisTextField
                         {...field}
                         {...rest}
-                        error={errors[name]?.message}
+                        error={_.get(errors, name)?.message} // @NOTE: When used with `useFieldArray` indices have period separated names, e.g `name.0.name`.
                         onChange={onChange as (val: string, id: string) => void}
                     />
                 );
