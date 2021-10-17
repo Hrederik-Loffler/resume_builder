@@ -34,7 +34,7 @@ class UserController extends Controller
         return response()->json($user);
     }
 
-    public function update(User $user, UserUpdateRequest $request): JsonResponse
+    public function updateRole(User $user, UserUpdateRequest $request): JsonResponse
     {
         $user->syncRoles(...collect($request->get('roles'))->map(fn($scope) => $scope['name']));
         $user->syncPermissions(...collect($request->get('scopes'))->map(fn($scope) => $scope['name']));

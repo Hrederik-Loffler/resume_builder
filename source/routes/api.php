@@ -37,7 +37,7 @@ Route::group(['prefix' => 'user'], function () {
     Route::get('me', UserController::class);
     Route::get('/all', [UserController::class, 'allUsers']);
     Route::get('{user}', [UserController::class, 'user']);
-    Route::patch('{user}', [UserController::class, 'update']);
+    Route::patch('{user}', [UserController::class, 'updateRole']);
 });
 
 Route::group(['prefix' => 'scope'], function () {
