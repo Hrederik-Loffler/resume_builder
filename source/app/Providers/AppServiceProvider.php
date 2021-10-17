@@ -2,8 +2,6 @@
 
 namespace App\Providers;
 
-use App\Models\Resume;
-use App\Observers\ResumeObserver;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider

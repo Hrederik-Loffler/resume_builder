@@ -14,7 +14,7 @@ import EditorCommandsService from "@services/EditorCommandsService";
 export interface IEditorServiceOptions {
     selector: string;
     urlLoad: string;
-    urlStore: string;
+    onStore: (data: IResumeUpdate) => void;
 }
 
 /**
@@ -23,7 +23,6 @@ export interface IEditorServiceOptions {
 interface IEditorServiceInitOptions {
     selector: string;
     urlLoad: string;
-    urlStore: string;
 }
 
 export type UserInputField = {
@@ -31,18 +30,33 @@ export type UserInputField = {
     value: ?string;
 };
 
+export type IResumeData = {
+    assets: string;
+    components: string;
+    css: string;
+    html: string;
+    styles: string;
+};
+
+/**
+ * IEditorExtendButtonsOptions - options for `EditorService` `extendButtonPanel` method.
+ */
+interface IEditorExtendButtonsOptions {
+    onStore: (data: IResumeData) => void;
+}
+
 /**
  * EditorService - service that abstracts GrapesJS editor.
  */
-export default class EditorService {
+export class EditorService {
     /**
      * Initialize EditorService state.
      *
      * @param {IEditorServiceOptions} params
      */
-    public static init(options: IEditorServiceOptions) {
+    public init(options: IEditorServiceOptions) {
         this.initEditor(options);
-        this.extendButtonPanel();
+        this.extendButtonPanel(options);
     }
 
     /**
@@ -50,11 +64,7 @@ export default class EditorService {
      *
      * @param {IEditorServiceOptions} params
      */
-    private static initEditor({
-        selector,
-        urlLoad,
-        urlStore,
-    }: IEditorServiceInitOptions) {
+    private initEditor({ selector, urlLoad }: IEditorServiceInitOptions) {
         this.editor = grapesjs.init({
             container: selector,
             deviceManager: {
@@ -78,7 +88,6 @@ export default class EditorService {
                 id: "editor",
 
                 urlLoad: urlLoad,
-                urlStore: urlStore,
                 autosave: false,
                 headers: {
                     "Content-Type": "application/json",
@@ -92,13 +101,13 @@ export default class EditorService {
     /**
      * Add more buttons to button panel.
      */
-    private static extendButtonPanel() {
+    private extendButtonPanel(options: IEditorExtendButtonsOptions) {
         // @NOTE: Add save as PDF button.
         this.editor.Panels.addButton("options", [
             {
                 id: "save",
                 className: "fa fa-floppy-o icon-blank",
-                command: EditorCommandsService.savePDF,
+                command: () => EditorCommandsService.savePDF(),
                 attributes: { title: "Save Template" },
             },
         ]);
@@ -108,9 +117,7 @@ export default class EditorService {
             {
                 id: "upload",
                 className: "fa fa-upload",
-                command: async () => {
-                    await this.editor.store();
-                },
+                command: () => options.onStore(this.editor.storeData()),
                 attributes: { title: "Upload Template" },
             },
         ]);
@@ -121,7 +128,7 @@ export default class EditorService {
      *
      * @param {string} id
      */
-    public static setCurrentDevice(id: string) {
+    public setCurrentDevice(id: string) {
         this.editor.Devices.select(id);
     }
 
@@ -135,7 +142,7 @@ export default class EditorService {
      * @param {string} name
      * @param {editorEventHandler} handler
      */
-    public static attachEvent(name: string, handler: () => void) {
+    public attachEvent(name: string, handler: (data: object) => void) {
         this.editor.on(name, handler);
     }
 
@@ -144,7 +151,9 @@ export default class EditorService {
      *
      * @param {UserInputField[]} fields
      */
-    public static substitute(fields: UserInputField[]) {
+    public substitute(fields: UserInputField[]) {
         fields.forEach((field) => {});
     }
 }
+
+export default new EditorService();

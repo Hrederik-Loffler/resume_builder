@@ -23,7 +23,7 @@ const resumeReducerInitialState: IReducerState<Resume> = {
             id: 1,
             title: "",
             description: "",
-            image: "",
+            editorpreview: "",
             tags: [],
         },
     },

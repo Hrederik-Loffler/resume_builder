@@ -3,12 +3,13 @@
 namespace App\Jobs\Resumes;
 
 use App\Models\Resume;
+use App\Services\ResumeService;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Storage;
 
 class SaveResumeJob implements ShouldQueue
 {
@@ -30,8 +31,12 @@ class SaveResumeJob implements ShouldQueue
      *
      * @return void
      */
-    public function handle()
+    public function handle(ResumeService $resumeService)
     {
+        // @TODO: Move this in Resume observer.
+        Storage::disk("resume-previews")->delete(Resume::find($this->id)->editorpreview);
+
+        $this->data['editorpreview'] = $resumeService->storePreview($this->data['editorpreview']);
         Resume::where('id', $this->id)->update($this->data);
     }
 }

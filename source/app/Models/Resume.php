@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Casts\PublicStorageCast;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -14,7 +15,7 @@ class Resume extends Model
      *
      * @var array
      */
-    protected $fillable = ['title', 'description', 'image', 'template_path'];
+    protected $fillable = ['title', 'description', 'template_path'];
 
     /**
      * The appended attributes.
@@ -24,6 +25,15 @@ class Resume extends Model
     protected $appends = ['tags'];
 
     protected $table = "resumes";
+
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'editorpreview' => PublicStorageCast::class,
+    ];
 
     /**
      * The tags that belong to the resume.

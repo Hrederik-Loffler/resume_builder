@@ -2,15 +2,15 @@
 
 namespace App\Services;
 
-use App\Models\Education;
+use App\Models\Tag;
 
 class TagService extends DatabaseService
 {
     /**
      * TagService contructor
      */
-    public function __construct(Education $education)
+    public function __construct(Tag $tag)
     {
-        $this->model = $education;
+        $this->model = $tag;
     }
 }

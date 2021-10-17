@@ -24,7 +24,7 @@ import _ from "lodash";
 import routes from "@constants/routes";
 import {
     loadResume,
-    updateResume,
+    updateResumeDetails,
     IResumeDetailsData,
 } from "@actions/resumes/single";
 import { IRootStore } from "@store/index";
@@ -86,7 +86,7 @@ export default function ResumeDetails() {
     // @NOTE: Save changes function.
     const saveChanges: SubmitHandler<IResumeDetailsData> = useCallback(
         async (data: IResumeDetailsData) => {
-            const res = await dispatch(updateResume(id, data));
+            const res = await dispatch(updateResumeDetails(id, data));
             const values = getValues();
             setDefaultValues(values);
             reset(values);
