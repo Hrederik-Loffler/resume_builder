@@ -109,12 +109,12 @@ export const publicRoutes = [
 /**
  * privateRoutes - Variable that holds all routes that are available to authenticated users.
  */
-export const privateRoutes = [routes.profile];
+export const privateRoutes = [routes.profile, routes.resumesCreate];
 
 /**
  * adminRoutes - Variable that holds all routes that are supposed to be used
  * by admin in main section of navigational bar.
  */
-export const adminRoutes = [routes.resumesCreate];
+export const adminRoutes = [];
 
 export default routes;
