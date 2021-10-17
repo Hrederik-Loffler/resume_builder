@@ -55,10 +55,14 @@ export default function Profile() {
         formState: { errors, isSubmitting, isValid, dirtyFields },
     } = methods;
 
-    const jobs = useFieldArray<IProfileData, "jobs", "jobId">({
+    const jobs = useFieldArray<
+        IProfileData,
+        "workExperiences",
+        "workExperienceId"
+    >({
         control,
-        name: "jobs",
-        keyName: "jobId",
+        name: "workExperiences",
+        keyName: "workExperienceId",
     });
 
     const educations = useFieldArray<IProfileData, "educations", "educationId">(
@@ -77,6 +81,8 @@ export default function Profile() {
             // @NOTE: Successfully authenticated.
             if (res.payload?.data) {
                 // window.user = res.payload.data.data;
+                console.log(res.payload);
+
                 ToastService.success(res.payload?.data?.message);
             }
         },
@@ -178,7 +184,7 @@ export default function Profile() {
                                         <FormLayout>
                                             <ControllerTextField
                                                 label="Job title"
-                                                name={`jobs.${key}.title`}
+                                                name={`workExperiences.${key}.title`}
                                                 maxLength={255}
                                                 showCharacterCount
                                                 disabled={updateInputDisabled}
@@ -188,7 +194,7 @@ export default function Profile() {
                                                 <ControllerTextField
                                                     type="date"
                                                     label="Start date"
-                                                    name={`jobs.${key}.since`}
+                                                    name={`workExperiences.${key}.since`}
                                                     disabled={
                                                         updateInputDisabled
                                                     }
@@ -196,7 +202,7 @@ export default function Profile() {
                                                 <ControllerTextField
                                                     type="date"
                                                     label="End date"
-                                                    name={`jobs.${key}.until`}
+                                                    name={`workExperiences.${key}.until`}
                                                     disabled={
                                                         updateInputDisabled
                                                     }
@@ -205,9 +211,9 @@ export default function Profile() {
 
                                             <ControllerTextField
                                                 label="Responsibilites"
-                                                name={`jobs.${key}.responsibilities`}
+                                                name={`workExperiences.${key}.responsibilities`}
                                                 disabled={updateInputDisabled}
-                                                maxLength={1024}
+                                                maxLength={1023}
                                                 showCharacterCount
                                                 multiline={8}
                                             />
@@ -289,7 +295,7 @@ export default function Profile() {
                             <ControllerTextField
                                 label="Accomplishments"
                                 name={`accomplishments`}
-                                maxLength={1024}
+                                maxLength={1023}
                                 showCharacterCount
                                 multiline={8}
                                 disabled={updateInputDisabled}

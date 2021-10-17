@@ -33,16 +33,6 @@ class Education extends Model
     protected $hidden = ['school_id', 'degree_id', 'id', 'user_id'];
 
     /**
-     * The fields that should be casted to the given format.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'since'  => 'date:Y-m-d',
-        'until'  => 'date:Y-m-d',
-    ];
-
-    /**
      * The school that belong to the education.
      */
     public function school()

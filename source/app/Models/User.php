@@ -26,6 +26,7 @@ class User extends Authenticatable
         'country',
         'city',
         'phone',
+        'accomplishments'
     ];
 
     /**
@@ -52,7 +53,7 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $appends = ['educations'];
+    protected $appends = ['educations', 'workExperiences'];
 
     /**
      * The educations that belong to the user.
@@ -63,10 +64,26 @@ class User extends Authenticatable
     }
 
     /**
-     * Education's school.
+     * The work experiences that belong to the user.
+     */
+    public function workExperiences()
+    {
+        return $this->hasMany(WorkExperience::class);
+    }
+
+    /**
+     * User's educations.
      */
     public function getEducationsAttribute()
     {
         return $this->educations()->get();
+    }
+
+    /**
+     * User's work experiences.
+     */
+    public function getWorkExperiencesAttribute()
+    {
+        return $this->workExperiences()->get();
     }
 }

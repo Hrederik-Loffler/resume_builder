@@ -19,7 +19,7 @@ const resumesReducerInitialState: IReducerState<IProfileData> = {
             phone: "",
             country: "",
             city: "",
-            jobs: [],
+            workExperiences: [],
             educations: [],
             accomplishments: "",
         },

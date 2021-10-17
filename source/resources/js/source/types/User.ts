@@ -12,7 +12,7 @@ type User = {
     phone: string;
     country: string;
     city: string;
-    jobs: Job[];
+    workExperiences: Job[];
     educations: Education[];
     accomplishments: string;
 };

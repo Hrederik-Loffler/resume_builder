@@ -37,6 +37,14 @@ class UpdateProfileRequest extends FormRequest
             'educations.*.degree' => 'string|max:255|required',
             'educations.*.since' => 'date|required',
             'educations.*.until' => 'date|required',
+
+            'workExperiences' => 'array|max:4',
+            'workExperiences.*.title' => 'string|max:255|required',
+            'workExperiences.*.responsibilities' => 'string|max:1023|required',
+            'workExperiences.*.since' => 'date|required',
+            'workExperiences.*.until' => 'date|required',
+
+            'accomplishments' => 'string|max:1023',
         ];
     }
 }
