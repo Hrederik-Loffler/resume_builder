@@ -12,7 +12,14 @@ export default {
         .email("Email must a valid email")
         .max(255)
         .required("Email is required"),
-    phone: yup.string().matches(regex.phone, "Phone number has invalid format"),
+    phone: yup
+        .string()
+        .test(
+            "phone-number",
+            "Phone number has invalid format",
+            (v) => !v || regex.phone.test(v as string) // @NOTE: Either empty or valid phone number.
+        )
+        .nullable(true),
     password: yup
         .string()
         .max(255)
@@ -25,6 +32,6 @@ export default {
         .string()
         .max(255)
         .oneOf([yup.ref("password"), null], "Passwords must match"),
-    country: yup.string().required("Country is required").max(63),
-    city: yup.string().required("Country is required").max(255),
+    country: yup.string().max(63).nullable(true),
+    city: yup.string().max(255).nullable(true),
 };

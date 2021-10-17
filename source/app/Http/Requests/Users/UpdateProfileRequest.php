@@ -29,8 +29,8 @@ class UpdateProfileRequest extends FormRequest
             'second_name' => 'string|max:31|required',
             'email' => 'string|max:255|email|required',
             'phone' => new PhoneRule,
-            'country' => 'string|max:63|required',
-            'city' => 'string|max:255|required',
+            'country' => 'string|max:63|nullable',
+            'city' => 'string|max:255|nullable',
 
             'educations' => 'array|max:4',
             'educations.*.school' => 'string|max:255|required',
@@ -44,7 +44,7 @@ class UpdateProfileRequest extends FormRequest
             'workExperiences.*.since' => 'date|required',
             'workExperiences.*.until' => 'date|required',
 
-            'accomplishments' => 'string|max:1023',
+            'accomplishments' => 'string|max:1023|nullable',
         ];
     }
 }
