@@ -6,7 +6,7 @@ import Tag from "@js/types/Tag";
  */
 type Resume = {
     id: number;
-    image: string;
+    editorpreview: string;
     title: string;
     description: string;
     tags?: Tag[];

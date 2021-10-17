@@ -29,6 +29,7 @@ class ResumesUpdateRequest extends FormRequest
             'editorcss' => 'string|max:4096|required',
             'editorhtml' => 'string|nullable|max:1048576', // @NOTE: Editor may send an empty template.
             'editorstyles' => 'string|max:4096|required',
+            'editorpreview' => 'string|max:524288|required',
         ];
     }
 }

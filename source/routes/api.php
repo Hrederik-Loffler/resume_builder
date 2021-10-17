@@ -26,7 +26,7 @@ Route::group(["prefix" => "/resumes"], function () {
     Route::get("/", [ResumesController::class, "index"]);
     Route::get("/{id}", [ResumesController::class, "show"]);
     Route::post("/", [ResumesController::class, "store"]);
-    Route::post("/{id}", [ResumesController::class, "update"]);
+    Route::put("/{id}", [ResumesController::class, "update"]);
     Route::get("/{id}/details", [ResumesController::class, "getDetails"]);
     Route::put("/{id}/details", [ResumesController::class, "updateDetails"]);
 });

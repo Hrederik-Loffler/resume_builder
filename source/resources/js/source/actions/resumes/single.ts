@@ -21,7 +21,7 @@ export function loadResume(id: string | number): IAction {
 }
 
 /**
- * IResumeDetailsData - data that's used to update resume.
+ * IResumeDetailsData - data that's used to update resume details.
  */
 export interface IResumeDetailsData {
     title: string;
@@ -30,14 +30,14 @@ export interface IResumeDetailsData {
 }
 
 /**
- * updateResume - returns objects that's used by axios middleware to
- * update resume.
+ * updateResumeDetails - returns objects that's used by axios middleware to
+ * update resume details.
  *
  * @param {string} - query string that was received from useLocation().search
  *
  * @returns {IAction}
  */
-export function updateResume(
+export function updateResumeDetails(
     id: string | number,
     data: IResumeDetailsData
 ): IAction {
@@ -60,4 +60,31 @@ export function createResume(
     data: IResumeDetailsData
 ): IAction<ICreateResumeActionData> {
     return post(`/resumes`, RESUME_CREATE_REQUEST, data);
+}
+
+/**
+ * IResumeUpdate - data that's used to update resume template.
+ */
+export interface IResumeUpdate {
+    editorassets: string;
+    editorcomponents: string;
+    editorcss: string;
+    editorhtml: string;
+    editorstyles: string;
+    editorpreview: string;
+}
+
+/**
+ * updateResume - returns objects that's used by axios middleware to
+ * update resume template.
+ *
+ * @param {string} - query string that was received from useLocation().search
+ *
+ * @returns {IAction}
+ */
+export function updateResume(
+    id: string | number,
+    data: IResumeUpdate
+): IAction {
+    return put(`/resumes/${id}`, RESUME_UPDATE_REQUEST, data);
 }

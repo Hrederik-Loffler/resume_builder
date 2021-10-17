@@ -29,12 +29,14 @@ export default function ResumePreviews({ resumes }: IResumePreviewsProps) {
     // @NOTE: Closures.
     const renderResumes = useCallback(() => {
         return resumes.data?.data.data.map((resume: Resume, key: number) => {
+            console.log(resume);
+
             return (
                 <Layout.Section oneThird key={key}>
                     <PreviewItem
                         title={resume.title}
                         description={resume.description}
-                        img={resume.image || preview.resume}
+                        img={resume.editorpreview || preview.resume}
                         url={`${routes.resumesDetails.base}/${resume.id}`}
                     />
                 </Layout.Section>
