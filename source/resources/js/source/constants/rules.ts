@@ -34,4 +34,29 @@ export default {
         .oneOf([yup.ref("password"), null], "Passwords must match"),
     country: yup.string().max(63).nullable(true),
     city: yup.string().max(255).nullable(true),
+    educations: yup
+        .array()
+        .of(
+            yup.object().shape({
+                school: yup.string().max(255).required("School is required"),
+                degree: yup.string().max(255).required("Degree is required"),
+                since: yup.string().required("Since is required"), // @NOTE: Dates are string because `yup` gives "cryptic" message when they are empty
+                until: yup.string().required("Until is required"),
+            })
+        )
+        .max(8),
+    jobs: yup
+        .array()
+        .of(
+            yup.object().shape({
+                responsibilities: yup
+                    .string()
+                    .max(1023)
+                    .required("Responsibilities is required"),
+                title: yup.string().max(255).required("Job title is required"),
+                since: yup.string().required("Since is required"), // @NOTE: Dates are string because `yup` gives "cryptic" message when they are empty
+                until: yup.string().required("Until is required"),
+            })
+        )
+        .max(8),
 };
