@@ -4,6 +4,7 @@ use App\Http\Controllers\ResumesController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\ScopesController;
 use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,6 +17,8 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
+Auth::routes();
 
 Route::group(["prefix" => "/resumes"], function () {
     Route::get("/", [ResumesController::class, "index"]);
@@ -32,6 +35,9 @@ Route::group(['prefix' => 'role'], function () {
 
 Route::group(['prefix' => 'user'], function () {
     Route::get('me', UserController::class);
+    Route::get('/all', [UserController::class, 'allUsers']);
+    Route::get('{user}', [UserController::class, 'user']);
+    Route::patch('{user}', [UserController::class, 'update']);
 });
 
 Route::group(['prefix' => 'scope'], function () {

@@ -43,9 +43,9 @@ class PermissionSeeder extends Seeder
 
         $role = Role::firstOrCreate(['name' => 'Customer']);
         $role->givePermissionTo(
-            'create.view',
-            'create.store',
-            'create.edit',
+//            'create.view',
+//            'create.store',
+//            'create.edit',
             'resumes.details.view',
             'resumes.editor.view',
             'resumes.editor.create',
@@ -53,9 +53,9 @@ class PermissionSeeder extends Seeder
 
         $role = Role::firstOrCreate(['name' => 'Template Designer']);
         $role->givePermissionTo(
-            'create.view',
-            'create.store',
-            'create.edit',
+//            'create.view',
+//            'create.store',
+//            'create.edit',
 
             'resumes.details.view',
             'resumes.details.update',
