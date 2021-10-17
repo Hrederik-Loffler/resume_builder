@@ -45,8 +45,8 @@ class UserController extends Controller
     {
 //        $this->authorize('viewAny', $user);
         return response()->json($user);
-    }
 
+    }
     /**
      * Update the specified resource in storage.
      *
@@ -58,7 +58,6 @@ class UserController extends Controller
         $this->userService->updateProfile(Auth::user()->id, $request->validated());
         return new SucceededResponse([], "Successfully updated profile");
     }
-
 
     public function updateRole(User $user, UserUpdateRequest $request): JsonResponse
     {
